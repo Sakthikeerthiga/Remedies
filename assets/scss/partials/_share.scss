@@ -1,0 +1,40 @@
+.xdr-select {
+  .bootstrap-select {
+    min-width: 300px;
+    @media (min-width:576px) {
+      min-width: 400px;
+    }
+    .dropdown-toggle{
+      border-radius: 10rem;
+      background: #fff;
+      border-color: #DDDDDD;
+      text-transform: capitalize;
+      padding-left: $input-btn-padding-x;
+      padding-right: $input-btn-padding-x;
+      &::after{
+        border-top-color:#DDDDDD;
+      }
+      &:focus {
+        outline: none !important;
+      }
+    }
+
+    // filter-option-inner-inner
+    .filter-option-inner-inner {
+      color: #979797;
+      font-style: italic;
+      font-size: 14px;
+    }
+    > .dropdown-menu {
+      box-shadow: $dropdown-box-shadow;
+      .dropdown-menu.inner {
+        .dropdown-item{
+            padding: 7px 12px;
+            &:focus {
+              outline: none;
+            }
+          }
+      }
+    }
+  }
+}

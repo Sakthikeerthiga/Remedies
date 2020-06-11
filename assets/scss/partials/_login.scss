@@ -1,0 +1,28 @@
+.btn{
+  &-sign-up-with {
+    display: inline-flex;
+    padding: 12px 30px;
+    color: #fff !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    transition: 0.3s;
+    height: 50px;
+    > span {
+      margin-left: 15px;
+      border-left: 1px solid #fff;
+      padding-left: 10px;
+    }
+
+    &.btn-fb {
+      background-image: linear-gradient(to right, #0071ba 0%, #0f5aab 11.01%, #1d489f 24.33%, #263a96 40.02%, #2c3391 60.13%, #2e3190 100%);
+    }
+    &.btn-google {
+    background-image: linear-gradient(to right, #f9ae3b 0%, #f79f38 2.82%, #f47c33 10.73%, #f15e2e 19.43%, #ef462a 28.96%, #ed3327 39.66%, #eb2525 52.18%, #eb1e24 68.22%, #eb1c24 100%);
+    }
+    &.btn-mail {
+      background-image: linear-gradient(to right, #cacaca 0%, #c2c2c2 3.04%, #aaa 14.4%, #979797 27.29%, #898989 42.37%, #828282 61.69%, #808080 100%);
+    }
+
+  }
+}

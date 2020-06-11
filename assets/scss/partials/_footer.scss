@@ -1,0 +1,42 @@
+.site-footer {
+    background: #F0F0F0 url(../img/footer-bg.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    @media (max-width:992px) {
+      background-size: 450px;
+    }
+    @media (max-width:767px) {
+      background-size: 200px;
+    }
+}
+.footer{
+  &-top {
+    padding-top: 80px;
+    padding-bottom:80px;
+  }
+  &-bottom {
+    padding-bottom: 15px;
+    padding-top: 30px;
+  }
+  &-nav {
+    > li {
+      > a {
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        display: inline-block;
+        &:hover{
+          color: theme-color(secondary);
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+}
+
+.copy-right-text {
+  color: #000;
+}

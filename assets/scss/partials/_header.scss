@@ -1,0 +1,24 @@
+.navbar-brand {
+ > img {
+   width: 200px;
+    @media (min-width:992px) {
+      width: 300px;
+    }
+ }
+}
+.main-menu {
+  .nav-item {
+    @media (min-width:768px) {
+      margin-left: 30px;
+    }
+    .nav-link {
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 15px;
+      color: theme-color(primary);
+      &:hover{
+        color: theme-color(secondary);;
+      }
+    }
+  }
+}

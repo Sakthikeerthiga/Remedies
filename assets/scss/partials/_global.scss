@@ -1,0 +1,150 @@
+// BS extend class
+
+.font-secondary {
+  font-family: $font-family-secondary;
+}
+
+.input-group{
+  &__search{
+    .form-control {
+      border-right: 0;
+      border-color: $border-color !important;
+
+      &:-ms-input-placeholder{color:#999999;opacity:1; font-size: 13px; font-style: italic;}
+      &::-ms-input-placeholder{color:#999999;opacity:1; font-size: 13px; font-style: italic;}
+      &::placeholder{color:#999999;opacity:1; font-size: 13px; font-style: italic;}
+    }
+    .btn {
+      border-radius: 10rem;
+      border: 1px solid $border-color;
+      padding-left: 10px;
+      padding-right: 18px;
+      border-left-color: transparent;
+      > svg{
+        margin-top: -4px;
+      }
+    }
+  }
+}
+
+
+.font-weight-black {
+  font-weight: 900;
+}
+.font-weight-semibold {
+  font-weight: 600;
+}
+// btn 
+.btn {
+  text-transform: uppercase;
+}
+
+
+// section 
+.section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+  &-lg {
+    padding-top: 150px;
+    padding-bottom: 150px;
+  }
+}
+
+// breadcrumb
+.breadcrumb {
+  a {
+    color: #333;
+  }
+}
+
+// divider 
+
+.divider {
+  width: 40px;
+  height: 2px;
+  display: block;
+  background: theme-color(primary);
+}
+
+
+// form-group row
+
+textarea.form-control {
+  border-radius: 15px;
+}
+
+.space{
+  &-mt-4,&-4 {
+   margin-top: 30px;
+  }
+  &-mb-4,&-4 {
+   margin-bottom: 30px;
+  }
+  &-mt-5,&-5 {
+   margin-top: 70px;
+  }
+  &-mb-5,&-5 {
+   margin-bottom: 70px;
+  }
+
+  &-5 {
+    margin-top: 70px;
+    margin-bottom: 70px;
+  }
+}
+
+
+a.link {
+  position: relative;
+  display: inline-block;
+  color: theme-color(primary);
+  &::after{
+    content: "";
+    width: 19px;
+    height: 19px;
+    background: url(../img/chevron-right.svg) no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    position: absolute;
+    top: 3px;
+    left: 100%;
+    transition: 0.3s;
+    fill: red;
+  }
+
+  &:hover{
+    color: theme-color(secondary);
+    &::after{
+      margin-left: 6px;
+    }
+  }
+}
+
+
+// breadcrumb
+.breadcrumb{
+  @media (max-width:992px) {
+    margin-top: 15px;
+  }
+  &-item {
+    > a {
+      &:hover{
+        color: theme-color(secondary);
+      }
+    }
+  }
+}
+
+// link-list-blurb 
+
+.link-list-blurb {
+  a {
+    display: inline-block;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    &:hover{
+      color: theme-color(primary);
+      padding-left: 5px;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+.link-clouds {
+ > li {
+   margin-bottom: 5px;
+   > a {
+    font-size: 20px;
+    font-weight: 600;
+    color: #4D4D4D;
+    > span {
+      font-size: 14px;
+      font-weight: normal;
+      font-style: italic;
+    }
+    &:hover{
+      color: theme-color(secondary);
+      padding-left: 10px;
+    }
+  }
+ }
+}
+
+.pagination-primary {
+  margin-top: 50px;
+  .page-link {
+    background: #F0F0F0;
+    border-color: #F0F0F0;
+    color: #CACACA;
+    &:hover,
+    &.active {
+      background: theme-color(primary);
+      border-color: theme-color(primary);
+      color: #fff;
+    }
+  }
+}
