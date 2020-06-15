@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				</button>
 			</div>
 		</div>
-		<ul id="listsearch"></ul>
+		<div id="listsearch"></div>
 	</form>
 </div>
 </div>
