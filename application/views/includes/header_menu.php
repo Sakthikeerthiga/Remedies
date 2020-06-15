@@ -14,8 +14,8 @@
   rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css">
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css">
+  <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>

@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="row">
 
 			<?php
-
+            if(!empty($trending_result)){
 			foreach($trending_result as $trending){ ?>
 				<div class="col-lg-3 col-md-6">
 					<div class="trending-search-item">
@@ -34,7 +34,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</div>
 					</div>
 				</div>
-			<?php } ?>
+			<?php } 
+		}
+		?>
 
 		</div>
 	</div>
@@ -73,7 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				</h4>
 			</div>
 		</div>
-
+     <?php if(!empty($article_main_result)){ ?>
 		<div class="row">
 			<div class="col-lg-7">
 				<article class="article article-featured">
@@ -109,6 +111,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 				</article>
 			</div><!-- END col-lg-7 -->
+<?php } ?>
+
+     <?php if(!empty($article_result)){ ?>
 
 			<div class="col-lg-5">
 				<?php foreach ($article_result as $key => $article_side) { ?>
@@ -150,7 +155,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</article>
 				<?php } ?>
 			</div><!-- END col-lg-5 -->
-
+<?php } ?>
 		</div><!-- END row -->
 
 
@@ -170,6 +175,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </h2>
         </div>
         <div class="col-12 mt-1">
+        <?php if(!empty($mission_text)){ ?>
           <div class="ec-video-container">
             <iframe src="<?php echo $mission_text[0]['videoUrl'] ?>" frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -180,6 +186,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
              <?php echo $mission_text[0]['qualityPromise']?>
             </p>
           </div>
+      <?php } ?>
         </div>
       </div><!-- END row -->
     </div>

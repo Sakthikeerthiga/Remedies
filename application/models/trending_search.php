@@ -13,7 +13,8 @@ class trending_search extends CI_Model
     public function trending_search(){
 
      $this->db->select('*');
-     $fetched_records = $this->db->get($this->table);
+     $this->db->order_by("positiveTestimonies", "desc");
+     $fetched_records = $this->db->get($this->table,8);
      $results = $fetched_records->result_array();
 
      $data = array();
