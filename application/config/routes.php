@@ -54,4 +54,5 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['sicksearch'] = 'sickness/search';
+$route['updatetrendingsearch'] = 'sickness/updatetrendingsearch';
 
