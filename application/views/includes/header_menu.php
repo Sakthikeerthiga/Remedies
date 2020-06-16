@@ -25,10 +25,10 @@
     <div class="header-top">
       <div class="container">
         <p class="mb-0 text-right text-secondary pt-4">
-          <a href="sign-up.html">Sign up
+          <a href="<?php echo base_url(); ?>">Sign up
           </a>
           /
-          <a href="sign-in.html">
+          <a href="<?php echo base_url(); ?>">
           login</a>
         </p>
       </div>
