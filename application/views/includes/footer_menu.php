@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="row align-items-center">
 				<div class="col-md-6">
-					<img src="assets/img/best-remedies-logo.png" width="350" alt="">
+					<img src="<?php echo base_url();?>assets/img/best-remedies-logo.png" width="350" alt="">
 				</div>
 				<div class="col-lg-6 ml-auto">
 					<div class="row">
