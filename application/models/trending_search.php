@@ -11,7 +11,7 @@ class trending_search extends CI_Model
     }
 
     public function trending_search(){
-
+     
      $this->db->select('*');
      $this->db->order_by("positiveTestimonies", "desc");
      $fetched_records = $this->db->get($this->table,8);

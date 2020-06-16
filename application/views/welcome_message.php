@@ -6,6 +6,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 <!-- Trending search -->
+<div class="container">
+	<div class="col-lg-5 ml-auto">
+		<form action="#" method="POST">
+			<div class="input-group input-group__search">
+				<input type="text" class="form-control" placeholder="Search for specific conditions/sicknesses" id="sample_search">
+				<div class="input-group-append">
+					<button class="btn" type="button">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
+						stroke="#28CE90" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="11" cy="11" r="8"></circle>
+						<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+					</svg>
+				</button>
+			</div>
+		</div>
+		<div id="listsearch"></div>
+	</form>
+</div>
+</div>
 <section class="py-5">
 	<div class="container">
 
@@ -194,5 +213,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <!-- End of mission section -->
 
-<!-- footer menu -->
-<?php  $this->load->view('includes/footer_menu.php');?>
+
+
+	<!-- footer menu -->
+	<?php  $this->load->view('includes/footer_menu.php');?>

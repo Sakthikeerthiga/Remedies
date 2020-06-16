@@ -22,7 +22,7 @@ $(function () {
 					var dataObj = jQuery.parseJSON(msg);
 					if(dataObj.length > 0){
 						$(dataObj).each(function(i,val){
-							html += '<li>'+val.text+'</li>';
+							html += '<li class="sicknesslist" data-id="'+val.id+'">'+val.text+'</li>';
 						});
 					}else{
 						html += '<li>No Related Data Found</li>';
@@ -33,5 +33,19 @@ $(function () {
         }else{
         	$("#listsearch").html('');
         }
+    });
+
+
+    $(document).on("click",".sicknesslist",function() {
+        var sicknessid = $(this).data('id');
+        $.ajax({
+            url: base_url+'updatetrendingsearch',
+            type: "POST",
+            data:{sicknessid:sicknessid},
+            dataType: "json",
+            success:function(data) {
+                window.location = data.status;
+            }
+        });
     });
 });
