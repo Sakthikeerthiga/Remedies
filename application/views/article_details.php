@@ -34,7 +34,7 @@ RESULT BY TESTIMONIES
   <img src="https://dummyimage.com/745x365/3c7800/ffffff.jpg&text=Image+Here" alt="">
   <img src="https://dummyimage.com/745x365/3c7800/ffffff.jpg&text=Image+Here" alt="">
   <p class="font-italic mt-4 mb-5">
-    <a href="<?php echo base_url();?>testimonial/<?php echo $article_details[0]['sickness_idsickness'] ?>">
+    <a href="<?php if($article_details[0]['sickness_idsickness'] !=''){ ?><?php echo base_url();?>testimonial/<?php echo $article_details[0]['sickness_idsickness'] ?><?php } ?>">
       <u>
         See stories/testimonies/reliefs linked to this ailment
       </u>

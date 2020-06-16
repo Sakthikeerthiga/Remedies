@@ -38,7 +38,7 @@
       <div class="container">
         <div class="navbar navbar-expand-lg navbar-light">
           <a class="navbar-brand" href="<?php echo base_url(); ?>">
-            <img src="assets/img/best-remedies-logo.png" alt="">
+            <img src="<?php echo base_url(); ?>assets/img/best-remedies-logo.png" alt="">
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#br_navbar_sm"
           aria-controls="br_navbar_sm" aria-expanded="false" aria-label="Toggle navigation">

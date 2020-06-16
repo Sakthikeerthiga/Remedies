@@ -20,7 +20,7 @@ public function __construct()
 		$this->load->view('welcome_message');
 	}
 
-
+// home page search functionality
 	public function search()
 	{
 		$searchTerm = $this->input->get('search_keyword');
@@ -30,6 +30,7 @@ public function __construct()
 		echo json_encode($response);
 	}
 
+// list trending search section
 	public function updatetrendingsearch()
 	{
 		$sickness_id = $this->input->post('sicknessid');
@@ -55,6 +56,11 @@ public function __construct()
 
 		echo json_encode(array('status' => base_url().'testimionial/'.$sickness_id));
         exit();
+	}
 
+// condition menu lsiting page
+	public function sicknesslist()
+	{
+		
 	}
 }

@@ -54,6 +54,7 @@ $route['404_override'] = '';
 
 $route['sicksearch'] = 'sickness/search';
 $route['article-detail/(:any)'] ='article/detail_page/$1';
-
 $route['updatetrendingsearch'] = 'sickness/updatetrendingsearch';
+$route['condition-list'] = 'sickness/sicknesslist';
+
 
