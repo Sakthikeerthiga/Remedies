@@ -54,7 +54,14 @@ $route['404_override'] = '';
 
 $route['sicksearch'] = 'sickness/search';
 $route['article-detail/(:any)'] ='article/detail_page/$1';
+$route['sickness-articles/(:any)'] ='article/sickness_article_list/$1';
 $route['updatetrendingsearch'] = 'sickness/updatetrendingsearch';
 $route['condition-list'] = 'sickness/sicknesslist';
+$route['remedies-list'] = 'remedies/remedylist';
+$route['remedy-articles/(:any)'] ='article/remedy_article_list/$1';
+$route['article-list'] = 'article/articlelist';
 
+
+$route['testimony/(:any)'] ='testimonial/testimony_for_sickness/$1';
+$route['remedy-testimony/(:any)'] ='testimonial/testimony_for_remedy/$1';
 

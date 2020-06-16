@@ -46,21 +46,25 @@ public function __construct()
 				'homePage_idhomePage' => $homePage_id,
 				'trendTitle' => $trendTitle,
 				'positiveTestimonies' => $Testimoniescnt,
-				'url' => 'testimionial/'.$sickness_id,
+				'url' => 'testimony/'.$sickness_id,
 				'sickness_idsickness' => $sickness_id,
+				'trendPic' => 'ht-1.jpg',
 			);
 			$insertdata = $this->db->insert("trendingsearches",$data);
 			$insert_id = $this->db->insert_id();
 			
 		}
 
-		echo json_encode(array('status' => base_url().'testimionial/'.$sickness_id));
+		echo json_encode(array('status' => base_url().'testimony/'.$sickness_id));
         exit();
 	}
 
 // condition menu lsiting page
 	public function sicknesslist()
 	{
-		
+		$data['sicknesslist']  = $this->sickness_model->get_sickness_list();
+		$data['ad_after_sicknesslist']  = $this->sickness_model->afterad_sickness_list();
+		$this->load->view('sickness_list', $data);
+
 	}
 }

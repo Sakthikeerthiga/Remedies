@@ -17,11 +17,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!--End of breadcrumb section -->
 
-<?php if(!empty($article_details)){ ?>
   <section class="section pt-0">
+
     <div class="container">
 
       <div class="row">
+<?php if(!empty($article_details)){ ?>
+
         <div class="col-12">
           <h2 class="text-uppercase space-mb-4">
             <?php echo $article_details[0]['seo_title'] ?>
@@ -34,7 +36,7 @@ RESULT BY TESTIMONIES
   <img src="https://dummyimage.com/745x365/3c7800/ffffff.jpg&text=Image+Here" alt="">
   <img src="https://dummyimage.com/745x365/3c7800/ffffff.jpg&text=Image+Here" alt="">
   <p class="font-italic mt-4 mb-5">
-    <a href="<?php if($article_details[0]['sickness_idsickness'] !=''){ ?><?php echo base_url();?>testimony/<?php echo $article_details[0]['sickness_idsickness'] ?><?php } ?>">
+    <a href="<?php if($article_details[0]['sickness_idsickness'] !=''){ ?><?php echo base_url();?>testimonial/<?php echo $article_details[0]['sickness_idsickness'] ?><?php } ?>">
       <u>
         See stories/testimonies/reliefs linked to this ailment
       </u>
@@ -66,9 +68,7 @@ RESULT BY TESTIMONIES
       <?php if(isset($get_related_article) && !empty($get_related_article)){ 
         foreach($get_related_article as $article){ ?>
           <li> <a href="<?php echo base_url().''.$article['articleUrl'] ?>">  <?php echo $article['seo_title']; ?> </a></li>
-        <?php } }else{ ?>
-          <p> No articles found</p>
-        <?php }?>
+        <?php } } ?>
       </ul>
     </div>
     <div class="article-feedback mt-5 text-center">
@@ -79,6 +79,14 @@ RESULT BY TESTIMONIES
       <button class="btn btn-outline-secondary"> No </button>
     </div>
   </div><!-- END col-lg-8 -->
+<?php }else{ ?>
+
+<div class="col-lg-8 article-details">
+
+    <h6> No related articles found  </h6>
+
+  </div>
+<?php } ?>
 
   <!-- Related article section -->
   <div class="col-lg-4 d-flex flex-column mt-5 mt-lg-0">
@@ -144,6 +152,5 @@ RESULT BY TESTIMONIES
 
 </div>
 </section>
-<?php } ?>
 <!-- footer menu -->
 <?php  $this->load->view('includes/footer_menu.php');?>

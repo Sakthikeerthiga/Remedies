@@ -33,13 +33,13 @@ public function __construct()
 	}
 
 public function index()
-{
-	$data['trending_result']= $this->trending_search->trending_search();
-	$data['article_result']= $this->article_model->article_list();
-	$data['article_main_result']= $this->article_model->article_main_list();
-	$data['mission_text']= $this->mission_model->mission_text();
-	$this->load->view('welcome_message', $data);
-}
+	{
+		$data['trending_result']= $this->trending_search->trending_search();
+		$data['article_result']= $this->article_model->article_list();
+		$data['article_main_result']= $this->article_model->article_main_list();
+		$data['mission_text']= $this->mission_model->mission_text();
+		$this->load->view('welcome_message', $data);
+	}
 
 
 }

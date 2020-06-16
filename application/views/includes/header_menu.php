@@ -52,16 +52,16 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about-us.html">About us</a>
+              <a class="nav-link" href="#">About us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="condition.html">Conditions</a>
+              <a class="nav-link" href="<?php echo base_url(); ?>condition-list">Conditions</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Remedies</a>
+              <a class="nav-link" href="<?php echo base_url(); ?>remedies-list">Remedies</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="article-details.html">Articles</a>
+              <a class="nav-link" href="<?php echo base_url(); ?>article-list">Articles</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact us</a>
