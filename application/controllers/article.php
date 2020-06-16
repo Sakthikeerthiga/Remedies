@@ -24,10 +24,18 @@ public function __construct()
 	{
 		if($artile_id!=''){
             $data['article_details']=$this->db->query("select * from article where idarticle='$artile_id'")->result_array();
-
+            $get_related_sickeness = $this->db->query("select sickness_idsickness from featuredsicknesses where article_idarticle='$artile_id'")->result_array();
+            if(count($get_related_sickeness) > 0){
+              $this->db->select('*');
+              $this->db->from('article');
+			  $this->db->join('featuredsicknesses', 'featuredsicknesses.article_idarticle = article.idarticle');
+              $this->db->where('featuredsicknesses.sickness_idsickness',$get_related_sickeness[0]['sickness_idsickness']);
+              $this->db->where('article.idarticle!=',$artile_id);
+              $this->db->limit(3,0);
+              $this->db->order_by("created_at", "desc");
+              $data['get_related_article'] = $this->db->get()->result_array();
+            }
 	        $this->load->view('article_details', $data);
-
-
 		}
 	}
 }
