@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 
+$route['about-us'] ='welcome/about_us';
 $route['sicksearch'] = 'sickness/search';
 $route['article-detail/(:any)'] ='article/detail_page/$1';
 $route['sickness-articles/(:any)'] ='article/sickness_article_list/$1';

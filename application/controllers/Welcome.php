@@ -40,6 +40,9 @@ public function index()
 		$data['mission_text']= $this->mission_model->mission_text();
 		$this->load->view('welcome_message', $data);
 	}
-
+public function about_us()
+	{
+		$this->load->view('about_us');
+	}
 
 }

@@ -8,9 +8,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="container">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Home</a></li>
-      <li class="breadcrumb-item"><a href="#">Library</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Data</li>
+      <li class="breadcrumb-item"><a href="<?php echo base_url();?>">Home</a></li>
+      <li class="breadcrumb-item" ><a href="<?php echo base_url();?>article-list">Article</a></li>
+      <li class="breadcrumb-item" ><a href="#" style="color: #93909c;">Article details</a></li>
     </ol>
   </nav>
 </div>
