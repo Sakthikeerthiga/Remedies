@@ -10,8 +10,8 @@ public function __construct()
         $this->load->helper('url');
         $this->load->library('session');
 		$this->load->library('pagination');
-		$this->load->model('sickness_model');
-		$this->load->model('article_model');
+		$this->load->model('Sickness_model');
+		$this->load->model('Article_model');
 	}
 	public function index()
 	{
@@ -46,7 +46,7 @@ public function __construct()
 	public function sickness_article_list($sickeness_id='')
 	{       
 		if($sickeness_id!=''){
-			$data['article_details']= $this->article_model->sickness_article_list($sickeness_id);
+			$data['article_details']= $this->Article_model->sickness_article_list($sickeness_id);
 			$this->db->select('*');
 			$this->db->from('article');
 			$this->db->join('featuredsicknesses', 'featuredsicknesses.article_idarticle = article.idarticle');
@@ -62,7 +62,7 @@ public function __construct()
 	public function remedy_article_list($remedy_id='')
 	{       
 		if($remedy_id!=''){
-			$data['article_details']= $this->article_model->remedy_article_list($remedy_id);
+			$data['article_details']= $this->Article_model->remedy_article_list($remedy_id);
 			$this->db->select('*');
 			$this->db->from('article');
 			$this->db->join('featuredremedies', 'featuredremedies.article_idarticle = article.idarticle');
@@ -76,8 +76,8 @@ public function __construct()
 
 	public function articlelist()
 	{       
-			$data['article_list']= $this->article_model->article_list_detail();
-			$data['ad_after_articlelist']  = $this->article_model->ad_after_articlelist();
+			$data['article_list']= $this->Article_model->article_list_detail();
+			$data['ad_after_articlelist']  = $this->Article_model->ad_after_articlelist();
             $this->load->view('article_list', $data);
 	}
 }

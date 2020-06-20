@@ -85,8 +85,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- feature article section -->
 <section class="py-5">
 	<div class="container">
-
-		<div class="row">
+     <?php if(!empty($article_main_result)){ ?>
+     	<div class="row">
 			<div class="col-12">
 				<h2 class="font-weight-black text-uppercase mb-4">Featured articles</h2>
 				<h4 class="text-primary font-weight-normal">
@@ -94,7 +94,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				</h4>
 			</div>
 		</div>
-     <?php if(!empty($article_main_result)){ ?>
 		<div class="row">
 			<div class="col-lg-7">
 				<article class="article article-featured">

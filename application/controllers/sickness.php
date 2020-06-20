@@ -10,8 +10,8 @@ public function __construct()
         $this->load->helper('url');
         $this->load->library('session');
 		$this->load->library('pagination');
-		$this->load->model('sickness_model');
-		$this->load->model('trending_search');
+		$this->load->model('Sickness_model');
+		$this->load->model('Trending_search');
 		
 
 	}
@@ -25,7 +25,7 @@ public function __construct()
 	{
 		$searchTerm = $this->input->get('search_keyword');
 
-		$response = $this->sickness_model->ajax_sickness_search($searchTerm);
+		$response = $this->Sickness_model->ajax_sickness_search($searchTerm);
 
 		echo json_encode($response);
 	}
@@ -62,8 +62,8 @@ public function __construct()
 // condition menu lsiting page
 	public function sicknesslist()
 	{
-		$data['sicknesslist']  = $this->sickness_model->get_sickness_list();
-		$data['ad_after_sicknesslist']  = $this->sickness_model->afterad_sickness_list();
+		$data['sicknesslist']  = $this->Sickness_model->get_sickness_list();
+		$data['ad_after_sicknesslist']  = $this->Sickness_model->afterad_sickness_list();
 		$this->load->view('sickness_list', $data);
 
 	}

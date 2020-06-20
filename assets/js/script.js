@@ -2,7 +2,7 @@ var searchRequest = null;
 
 $(function () {
     var minlength = 1;
-    var base_url = window.location;
+    var base_url = 'http://localhost/Remedies/';
     $("#sample_search").keyup(function () {
         var that = this,
         value = $(this).val();

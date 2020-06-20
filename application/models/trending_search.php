@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class trending_search extends CI_Model
+class Trending_search extends CI_Model
 {
     public function __construct()
     {

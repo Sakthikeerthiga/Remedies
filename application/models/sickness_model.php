@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class sickness_model extends CI_Model
+class Sickness_model extends CI_Model
 {
     public function __construct()
     {

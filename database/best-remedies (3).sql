@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2020 at 06:22 PM
+-- Generation Time: Jun 16, 2020 at 04:42 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.26
 
@@ -77,8 +77,21 @@ CREATE TABLE `article` (
   `editor_idEditor` int(11) NOT NULL,
   `category` varchar(45) DEFAULT NULL,
   `articleUrl` varchar(400) DEFAULT NULL,
-  `clicks` int(11) DEFAULT NULL
+  `clicks` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `article`
+--
+
+INSERT INTO `article` (`idarticle`, `seo_title`, `seo_description`, `seo_keywords`, `thumbnailImage`, `imageAltText`, `sources`, `reviewerId`, `authorId`, `editor_idEditor`, `category`, `articleUrl`, `clicks`, `created_at`, `updated_at`) VALUES
+(1, '10 PRO TIPS TO BECOME PRO-ACTIVE', 'A fever is a body temperature that is higher than normal. A normal temperature can vary from person to person, but it is usually around 98.6 F. A fever is not a', 'fever', 'ht-1.jpg', 'fever', 'A fever is a body temperature that is higher than normal. A normal temperature can vary from person to person, but it is usually around 98.6 F. A fever is not a disease. It is usually a sign that your body is trying to fight an illness or infection. Infections cause most fevers', 1, 1, 1, '1', 'article-detail/1', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'Caugh', 'A fever is a body temperature that is higher than normal. A normal temperature can vary from person to person, but it is usually around 98.6 F. A fever is not a', 'caugh', 'ht-2.jpg', 'caugh', 'tesgt', 1, 1, 1, '1', 'article-detail/3', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'Headache', 'A headache can be a sign of stress or emotional distress, or it can result from a medical disorder, such as migraine or high blood pressure, anxiety, or depress', 'head ache', 'ht-3.jpg', 'test', 'test', 1, 1, 1, '1', 'article-detail/4', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'Anemia', 'A deficiency of iron or vitamins can lead to headaches related to low oxygen levels in the brain. IDA has also been shown to play a role in migraine, especially', 'anemia', 'ht-4.jpg', 'headache', 'source', 1, 1, 1, '1', 'article-detail/5', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 'Body pain', 'Body aches are a common symptom of many conditions. The flu is one of the most well-known conditions that can cause body aches. Aches can also be caused by your', 'pain', 'ht-5.jpg', 'pain', 'sorce', 1, 1, 1, 'work', 'article-detail/6', 6, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -241,6 +254,13 @@ CREATE TABLE `editor` (
   `email` varchar(70) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `editor`
+--
+
+INSERT INTO `editor` (`idEditor`, `firstName`, `surname`, `title`, `bio`, `education`, `role`, `profilePic`, `username`, `password`, `email`) VALUES
+(1, 'Editor', 'editor', 'writter', 'to check bio editor tables', 'D.pharm', 'writter', 'ht-2.jpg', 'editor', 'editor', 'editor@gmail.com');
+
 -- --------------------------------------------------------
 
 --
@@ -252,6 +272,14 @@ CREATE TABLE `featuredremedies` (
   `remedy_idremedy` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `featuredremedies`
+--
+
+INSERT INTO `featuredremedies` (`article_idarticle`, `remedy_idremedy`) VALUES
+(5, 1),
+(1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -262,6 +290,16 @@ CREATE TABLE `featuredsicknesses` (
   `article_idarticle` int(11) NOT NULL,
   `sickness_idsickness` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `featuredsicknesses`
+--
+
+INSERT INTO `featuredsicknesses` (`article_idarticle`, `sickness_idsickness`) VALUES
+(1, 1),
+(4, 1),
+(5, 1),
+(3, 2);
 
 -- --------------------------------------------------------
 
@@ -276,6 +314,13 @@ CREATE TABLE `homepage` (
   `videoUrl` varchar(400) DEFAULT NULL,
   `qualityPromise` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `homepage`
+--
+
+INSERT INTO `homepage` (`idhomePage`, `mission`, `bannerText`, `videoUrl`, `qualityPromise`) VALUES
+(1, 'test home page', 'text banner', 'https://www.youtube.com/embed/n_Cn8eFo7u8', 'A cure is a substance or procedure that ends a medical condition, such as a medication, a surgical operation, a change in lifestyle or even a philosophical mindset that helps end a person\'s sufferings; or the state of being healed, or cured. The medical condition could be a disease, mental illness, disability, or simply a condition a person considers socially undesirable, such as baldness or lack of breast tissue.\r\n\r\nA disease is said to be incurable if there is always a chance of the patient relapsing, no matter how long the patient has been in remission. An incurable disease may or may not be a terminal illness; conversely, a curable illness can still result in the patient\'s death.\r\n\r\nThe proportion of people with a disease that are cured by a given treatment, called the cure fraction or cure rate, is determined by comparing disease-free survival of treated people against a matched control group that never had the disease.[1]');
 
 -- --------------------------------------------------------
 
@@ -328,6 +373,13 @@ CREATE TABLE `relieftype` (
   `type` varchar(120) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `relieftype`
+--
+
+INSERT INTO `relieftype` (`idrelief`, `type`) VALUES
+(1, '1');
+
 -- --------------------------------------------------------
 
 --
@@ -346,6 +398,13 @@ CREATE TABLE `remedy` (
   `sellerLink` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `remedy`
+--
+
+INSERT INTO `remedy` (`idremedy`, `type`, `name`, `shortName`, `link`, `picture`, `pictureAltText`, `expertAdvice`, `sellerLink`) VALUES
+(1, '1', 'remedy', 'remedy', 'redey.pjp', 'ht-3.jpg', 'remedy', 'advice', 'teste');
+
 -- --------------------------------------------------------
 
 --
@@ -358,6 +417,18 @@ CREATE TABLE `sickness` (
   `scientificName` varchar(300) DEFAULT NULL,
   `searchCount` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sickness`
+--
+
+INSERT INTO `sickness` (`idsickness`, `commonName`, `scientificName`, `searchCount`) VALUES
+(1, 'fever', 'Fever', 1),
+(2, 'cough', 'Cough', 2),
+(3, 'Abdominal aortic aneurysm', 'Abdominal aortic aneurysm', 0),
+(4, 'Acne', 'Acne', NULL),
+(5, 'Bacterial vaginosis', 'Bacterial vaginosis', NULL),
+(6, 'Genital herpes', 'Genital herpes', NULL);
 
 -- --------------------------------------------------------
 
@@ -384,6 +455,13 @@ CREATE TABLE `testimony` (
   `overallExperience` varchar(100) DEFAULT NULL,
   `testimonyUrl` varchar(400) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `testimony`
+--
+
+INSERT INTO `testimony` (`idtestimony`, `date`, `user_iduser`, `sickness_idsickness`, `remedy_idremedy`, `relief_idrelief`, `story`, `dosage`, `administeredTo`, `administeredBy`, `warnings`, `additionalInfo`, `country`, `state`, `expertComment`, `overallExperience`, `testimonyUrl`) VALUES
+(1, '2020-06-16', 1, 1, 1, 1, 'feverDeWitt Daughtry Family Department of Surgery, University of Miami Miller School of Medicine, Miami, FL, USA\r\n\r\nCorrespondence to: Carl I. Schulman, MD, PhD, MSPH, FACS. Professor of Surgery, Eunice Bernhard Endowed Chair in Burns Director—William Lehman Injury Research Center, Associate Director—Surgical Residency Program, DeWitt Daughtry Family Department of Surgery, University of Miami Miller School of Medicine, Miami, FL, USA. Email: CSchulman@med.miami.edu.', '2.5mg', 'take rest', '1', 'keep rest', 'nothing', 'xxxx', 'yyyyy', 'test comment', 'good', 'testimony/1');
 
 -- --------------------------------------------------------
 
@@ -419,8 +497,23 @@ CREATE TABLE `trendingsearches` (
   `trendTitle` varchar(45) DEFAULT NULL,
   `trendPic` varchar(45) DEFAULT NULL,
   `positiveTestimonies` int(11) DEFAULT NULL,
-  `url` varchar(200) DEFAULT NULL
+  `url` varchar(200) DEFAULT NULL,
+  `sickness_idsickness` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `trendingsearches`
+--
+
+INSERT INTO `trendingsearches` (`idtrendingSearches`, `homePage_idhomePage`, `trendTitle`, `trendPic`, `positiveTestimonies`, `url`, `sickness_idsickness`) VALUES
+(1, 1, 'Fever', 'ht-1.jpg', 2, 'testimony/1', 1),
+(2, 1, 'ASTHMA', 'ht-2.jpg', 3, 'testimony/1', 1),
+(3, 1, 'DIABETES', 'ht-3.jpg', 1, 'testimony/1', 2),
+(4, 1, 'ALLERGIES', 'ht-4.jpg', 2, 'testimony/1', 1),
+(5, 1, 'ACNE', 'ht-5.jpg', 1, 'testimony/1', 1),
+(6, 1, 'HAIR LOSS', 'ht-6.jpg', 2, 'testimony/1', 1),
+(7, 1, 'WEIGHT LOSS', 'ht-7.jpg', 1, 'testimony/1', 1),
+(8, 1, 'HAY FEVER', 'ht-8.jpg', 5, 'testimony/1', 1);
 
 -- --------------------------------------------------------
 
@@ -443,6 +536,13 @@ CREATE TABLE `user` (
   `dob` date DEFAULT NULL,
   `gender` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`iduser`, `firstName`, `lastName`, `screenName`, `Address`, `City`, `Country`, `email`, `mobileNo`, `status`, `dateReg`, `dob`, `gender`) VALUES
+(1, 'user', 's', 'user', 'xyz', 'yyy', 'zzz', 'xyz@gmail.com', '9080706050', '1', NULL, '2000-02-09', 'male');
 
 --
 -- Indexes for dumped tables
@@ -654,7 +754,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `article`
 --
 ALTER TABLE `article`
-  MODIFY `idarticle` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idarticle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `articlepart`
@@ -714,13 +814,13 @@ ALTER TABLE `duration`
 -- AUTO_INCREMENT for table `editor`
 --
 ALTER TABLE `editor`
-  MODIFY `idEditor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEditor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `homepage`
 --
 ALTER TABLE `homepage`
-  MODIFY `idhomePage` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idhomePage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `metatags`
@@ -744,25 +844,25 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT for table `relieftype`
 --
 ALTER TABLE `relieftype`
-  MODIFY `idrelief` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idrelief` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `remedy`
 --
 ALTER TABLE `remedy`
-  MODIFY `idremedy` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idremedy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sickness`
 --
 ALTER TABLE `sickness`
-  MODIFY `idsickness` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idsickness` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `testimony`
 --
 ALTER TABLE `testimony`
-  MODIFY `idtestimony` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtestimony` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `treatmentrecurrence`
@@ -774,13 +874,13 @@ ALTER TABLE `treatmentrecurrence`
 -- AUTO_INCREMENT for table `trendingsearches`
 --
 ALTER TABLE `trendingsearches`
-  MODIFY `idtrendingSearches` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtrendingSearches` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
