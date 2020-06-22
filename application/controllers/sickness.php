@@ -62,6 +62,7 @@ public function __construct()
 // condition menu lsiting page
 	public function sicknesslist()
 	{
+
 		
 		$config = array();
 		$config["base_url"] = base_url() . "condition-list";
@@ -94,6 +95,7 @@ public function __construct()
 		$data['current'] = $this->pagination->current_place();
 
 		$this->load->view('sickness_list', $data);	
+
 
 	}
 }
