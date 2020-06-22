@@ -26,18 +26,18 @@ public function __construct()
         $this->load->helper('url');
         $this->load->library('session');
 		$this->load->library('pagination');
-		$this->load->model('trending_search');
-		$this->load->model('article_model');
-		$this->load->model('mission_model');
+		$this->load->model('Trending_search');
+		$this->load->model('Article_model');
+		$this->load->model('Mission_model');
 
 	}
 
 public function index()
 	{
-		$data['trending_result']= $this->trending_search->trending_search();
-		$data['article_result']= $this->article_model->article_list();
-		$data['article_main_result']= $this->article_model->article_main_list();
-		$data['mission_text']= $this->mission_model->mission_text();
+		$data['trending_result']= $this->Trending_search->trending_search();
+		$data['article_result']= $this->Article_model->article_list();
+		$data['article_main_result']= $this->Article_model->article_main_list();
+		$data['mission_text']= $this->Mission_model->mission_text();
 		$this->load->view('welcome_message', $data);
 	}
 public function about_us()

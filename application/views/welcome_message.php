@@ -8,9 +8,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- Trending search -->
 <div class="container">
 	<div class="col-lg-5 ml-auto">
-		<form action="#" method="POST">
+		<form action="#" method="POST" autocomplete="off">
 			<div class="input-group input-group__search">
-				<input type="text" class="form-control" placeholder="Search for specific conditions/sicknesses" id="sample_search">
+				<input type="text" class="form-control" placeholder="Search for specific conditions/sicknesses" id="sample_search" autocomplete="off">
 				<div class="input-group-append">
 					<button class="btn" type="button">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
@@ -85,8 +85,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- feature article section -->
 <section class="py-5">
 	<div class="container">
-
-		<div class="row">
+     <?php if(!empty($article_main_result)){ ?>
+     	<div class="row">
 			<div class="col-12">
 				<h2 class="font-weight-black text-uppercase mb-4">Featured articles</h2>
 				<h4 class="text-primary font-weight-normal">
@@ -94,7 +94,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				</h4>
 			</div>
 		</div>
-     <?php if(!empty($article_main_result)){ ?>
 		<div class="row">
 			<div class="col-lg-7">
 				<article class="article article-featured">

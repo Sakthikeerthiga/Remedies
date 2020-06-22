@@ -9,9 +9,9 @@ $this->load->database();
 <!-- Trending search -->
 <div class="container">
 	<div class="col-lg-5 ml-auto">
-		<form action="#" method="POST">
+		<form action="#" method="POST" autocomplete="off">
 			<div class="input-group input-group__search">
-				<input type="text" class="form-control" placeholder="Search for specific conditions/sicknesses" id="sample_search">
+				<input type="text" class="form-control" placeholder="Search for specific conditions/sicknesses" id="sample_search" autocomplete="off">
 				<div class="input-group-append">
 					<button class="btn" type="button">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
@@ -85,6 +85,7 @@ $this->load->database();
 						</a>
 						</li>
 						</ul> -->
+						<p><?php echo $links.$current; ?></p>
 					</div>
 					<div class="col-lg-4 d-flex flex-column">
 						<div class="xdr-adds-container my-4">

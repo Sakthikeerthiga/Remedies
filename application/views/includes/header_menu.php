@@ -16,6 +16,7 @@
   <!-- CSS -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css">
   <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
+  <link href="<?php echo base_url(); ?>assets/css/custom.css" rel="stylesheet">
 </head>
 
 <body>

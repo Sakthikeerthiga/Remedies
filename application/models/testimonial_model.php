@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class testimonial_model extends CI_Model
+class Testimonial_model extends CI_Model
 {
     public function __construct()
     {

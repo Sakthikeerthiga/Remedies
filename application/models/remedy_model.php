@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class remedy_model extends CI_Model
+class Remedy_model extends CI_Model
 {
     public function __construct()
     {

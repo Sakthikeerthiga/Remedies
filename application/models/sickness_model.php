@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class sickness_model extends CI_Model
+class Sickness_model extends CI_Model
 {
     public function __construct()
     {
@@ -24,12 +24,15 @@ class sickness_model extends CI_Model
         return $data;
     }
 // condition page list
-
-    public function get_sickness_list()
+    public function get_count() {
+        return $this->db->count_all($this->table);
+    }
+    
+    public function get_sickness_list($limit, $start)
     {
         $this->db->select('*');
         $this->db->order_by("commonName", "asc");
-        $this->db->limit(10,0);
+        $this->db->limit($limit, $start);
         $fetched_records = $this->db->get($this->table);
         $results = $fetched_records->result_array();
         return $results;
