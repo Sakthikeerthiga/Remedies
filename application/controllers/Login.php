@@ -15,7 +15,7 @@ class Login extends CI_Controller {
 	}
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->load->view('login');
 	}
 
 // user registration page
@@ -86,9 +86,28 @@ class Login extends CI_Controller {
 			'gender'=> $this->input->post('gender'),
 
 		);
-		
+		$this->session->set_userdata('logged_user', $data);
 		$updateUser = $this->Login_model->update_user($data,$user_id);
 		redirect('welcome'); 
 	}
+
+	public function check_login(){  
+
+		// $data['username']=htmlspecialchars($_POST['name']);  
+		$data['username']=htmlspecialchars($_POST['name']);  
+		$data['password']=htmlspecialchars($_POST['pwd']);  
+		$res=$this->Login_model->islogin($data);
+
+		if($res){     
+			$session_data = array(
+				'screenName'=> $data['username'],
+			); 
+			$this->session->set_userdata('logged_user',$session_data);  
+			echo base_url();  
+		}  
+		else{  
+			echo 0;  
+		}   
+	}  
 
 }
