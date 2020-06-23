@@ -18,7 +18,7 @@ $this->load->database();
       </div>
       <div class="modal-body">
         <form action="update-user" method="post">
-            <input type="text" class="form-control" name="user_id" placeholder="Enter First Name" value="<?php echo $this->session->userdata('logged_user')['user_id']?>">
+            <input type="hidden" class="form-control" name="user_id" placeholder="Enter First Name" value="<?php echo $this->session->userdata('logged_user')['user_id']?>">
           <div class="form-group">
             <input type="text" class="form-control" name="firstName" placeholder="Enter First Name" required="required">
           </div>
@@ -26,7 +26,8 @@ $this->load->database();
             <input type="text" class="form-control" name="lastName" placeholder="Enter Last Name" required="required">
           </div>
            <div class="form-group">
-            <input type="text" class="form-control" name="screenName" placeholder="Enter User Name" onkeyup="ValidateUsername();" autocomplete="off" required>
+            <input type="text" class="form-control" name="screenName" placeholder="Enter User Name" id="username" onkeyup="ValidateUsername();" autocomplete="off" required>
+            &nbsp;&nbsp;<span id="error_username" style="color: red;"></span>
           </div>
            <div class="form-group">
             <input type="text" class="form-control" placeholder="Enter Email" value="<?php echo $this->session->userdata('logged_user')['user_email']?>" readonly >
@@ -55,7 +56,7 @@ $this->load->database();
             <!-- <input type="text" class="form-control" placeholder="Enter Gender" required="required"> -->
           </div>
          <div class="modal-footer">
-		<input class="btn btn-primary px-5" type="submit" value="SUBMIT"  >  
+		<input class="btn btn-primary px-5" type="submit" id="update_user" value="SUBMIT"  >  
       </div>
         </form>
 
