@@ -68,3 +68,12 @@ $route['article-list'] = 'article/articlelist';
 $route['testimony/(:any)'] ='testimonial/testimony_for_sickness/$1';
 $route['remedy-testimony/(:any)'] ='testimonial/testimony_for_remedy/$1';
 
+$route['sign-up'] ='login/sign_up';
+$route['save-data'] ='login/save_sign_up';
+$route['profile'] ='login/update_profile';
+$route['check_email'] ='login/check_email';
+$route['check_username'] ='login/check_username';
+$route['update-user'] = 'login/update_user';
+
+
+
