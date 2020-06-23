@@ -36,10 +36,10 @@ $this->load->database();
            	<textarea class="form-control" name="Address" placeholder="Enter Address" required="required"><?php echo $userdata[0]->Address;?></textarea>
           </div>
            <div class="form-group">
-            <input type="text" class="form-control" name="City" placeholder="Enter City" required="required" value="<?php echo $userdata[0]->City;?>">
+            <input type="text" class="form-control" name="Country" placeholder="Enter Country" required="required" value="<?php echo $userdata[0]->Country;?>">
           </div>
            <div class="form-group">
-            <input type="text" class="form-control" name="Country" placeholder="Enter Country" required="required" value="<?php echo $userdata[0]->Country;?>">
+            <input type="text" class="form-control" name="City" placeholder="Enter City" required="required" value="<?php echo $userdata[0]->City;?>">
           </div>
            <div class="form-group">
             <input type="text" class="form-control" name="mobileNo" placeholder="Enter Mobile Number" required="required" value="<?php echo $userdata[0]->mobileNo;?>">

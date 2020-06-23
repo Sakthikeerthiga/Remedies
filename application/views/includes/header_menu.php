@@ -25,13 +25,19 @@
 
     <div class="header-top">
       <div class="container">
+        <?php if(!empty($this->session->userdata('logged_user')['screenName'])){ ?>
+          <p class="mb-0 text-right text-secondary pt-4">
+
+          </p>
+        <?php }else{ ?>
         <p class="mb-0 text-right text-secondary pt-4">
-          <a href="<?php echo base_url(); ?>">Sign up
+          <a href="<?php echo base_url(); ?>sign-up">Sign up
           </a>
           /
           <a href="<?php echo base_url(); ?>">
           login</a>
         </p>
+      <?php } ?>
       </div>
     </div><!-- END header-top -->
 
