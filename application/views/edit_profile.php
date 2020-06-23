@@ -42,7 +42,7 @@ $this->load->database();
             <input type="text" class="form-control" name="City" placeholder="Enter City" required="required" value="<?php echo $userdata[0]->City;?>">
           </div>
            <div class="form-group">
-            <input type="text" class="form-control" name="mobileNo" placeholder="Enter Mobile Number" required="required" value="<?php echo $userdata[0]->mobileNo;?>">
+            <input type="text" class="form-control" name="mobileNo" placeholder="Enter Mobile Number" id="user_mobile" required="required"  autocomplete="off" value="<?php echo $userdata[0]->mobileNo;?>">&nbsp;&nbsp;<span id="error_mobileno" style="color: red;"></span>
           </div>
            <div class="form-group">
             <input type="text" class="form-control datepicker" name="dob" placeholder="Enter Date of Birth" id="user_dob" required="required" autocomplete="off"  value="<?php echo $userdata[0]->dob;?>">

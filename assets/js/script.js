@@ -68,6 +68,36 @@ function ValidateUsername() {
     }
 };
 
+$("#user_mobile").keypress(function (e) {
+    var mobilenumber = $("#user_mobile").val();
+    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        $("#error_mobileno").html("Numbers Only");
+        $('#update_user').prop('disabled', true);
+        return false;
+    }else if(mobilenumber.length > 9){
+        $("#error_mobileno").html("Incorrect Number");
+        $('#update_user').prop('disabled', true);
+        return false;
+    }else{
+        $("#error_mobileno").html("");
+        $(':input[type="submit"]').prop('disabled', false);
+        return true;
+    }
+});
+
+$("#user_mobile").focusout(function (e) {
+   var mobilenumber = $("#user_mobile").val();
+    if(mobilenumber.length != 10){
+        $("#error_mobileno").html("Incorrect Number");
+        $('#update_user').prop('disabled', true);
+        return false;
+    }else{
+        $("#error_mobileno").html("");
+        $(':input[type="submit"]').prop('disabled', false);
+        return true;
+    }
+});
+
 $(function () {
     var minlength = 1;
     $("#sample_search").keyup(function () {
