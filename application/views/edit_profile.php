@@ -5,7 +5,7 @@ $this->load->database();
 <!-- header menu -->
 <?php  $this->load->view('includes/header_menu.php');?>
 
-<a class="btn" data-toggle="modal" href="#userModal" >Launch Modal</a>
+<a class="btn" data-toggle="modal" href="#userModal" ></a>
 
 <div class="modal fade" id="userModal" tabindex="-1" data-toggle="modal" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">
@@ -20,38 +20,38 @@ $this->load->database();
         <form action="update-user" method="post">
             <input type="hidden" class="form-control" name="user_id" placeholder="Enter First Name" value="<?php echo $this->session->userdata('logged_user')['user_id']?>">
           <div class="form-group">
-            <input type="text" class="form-control" name="firstName" placeholder="Enter First Name" required="required">
+            <input type="text" class="form-control" name="firstName" placeholder="Enter First Name" required="required" value="<?php echo $userdata[0]->firstName;?>">
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="lastName" placeholder="Enter Last Name" required="required">
+            <input type="text" class="form-control" name="lastName" placeholder="Enter Last Name" required="required" value="<?php echo $userdata[0]->lastName;?>">
           </div>
            <div class="form-group">
-            <input type="text" class="form-control" name="screenName" placeholder="Enter User Name" id="username" onkeyup="ValidateUsername();" autocomplete="off" required>
+            <input type="text" class="form-control" name="screenName" placeholder="Enter User Name" id="username" onkeyup="ValidateUsername();" autocomplete="off" required value="<?php echo $userdata[0]->screenName;?>">
             &nbsp;&nbsp;<span id="error_username" style="color: red;"></span>
           </div>
            <div class="form-group">
             <input type="text" class="form-control" placeholder="Enter Email" value="<?php echo $this->session->userdata('logged_user')['user_email']?>" readonly >
           </div>
            <div class="form-group">
-           	<textarea class="form-control" name="Address" placeholder="Enter Address" required="required"></textarea>
+           	<textarea class="form-control" name="Address" placeholder="Enter Address" required="required"><?php echo $userdata[0]->Address;?></textarea>
           </div>
            <div class="form-group">
-            <input type="text" class="form-control" name="City" placeholder="Enter City" required="required">
+            <input type="text" class="form-control" name="City" placeholder="Enter City" required="required" value="<?php echo $userdata[0]->City;?>">
           </div>
            <div class="form-group">
-            <input type="text" class="form-control" name="Country" placeholder="Enter Country" required="required">
+            <input type="text" class="form-control" name="Country" placeholder="Enter Country" required="required" value="<?php echo $userdata[0]->Country;?>">
           </div>
            <div class="form-group">
-            <input type="text" class="form-control" name="mobileNo" placeholder="Enter Mobile Number" required="required">
+            <input type="text" class="form-control" name="mobileNo" placeholder="Enter Mobile Number" required="required" value="<?php echo $userdata[0]->mobileNo;?>">
           </div>
            <div class="form-group">
-            <input type="text" class="form-control" name="status" placeholder="Enter Date of Birth" id="user_dob" required="required" autocomplete="off">
+            <input type="text" class="form-control datepicker" name="dob" placeholder="Enter Date of Birth" id="user_dob" required="required" autocomplete="off"  value="<?php echo $userdata[0]->dob;?>">
           </div>
           <div class="form-group">
           	<select class="form-control" name="gender" required>
           		<option value=""> -- Select gender-- </option>
-          		<option value="male">Male</option>
-          		<option value="female">Female</option>
+          		<option value="male" <?php echo ($userdata[0]->gender == 'male')?"selected":"";?>>Male</option>
+          		<option value="female" <?php echo ($userdata[0]->gender == 'female')?"selected":"";?>>Female</option>
           	</select>
             <!-- <input type="text" class="form-control" placeholder="Enter Gender" required="required"> -->
           </div>

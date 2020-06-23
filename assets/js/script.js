@@ -47,6 +47,7 @@ function ValidateEmail() {
 
 function ValidateUsername() {
     var username = $("#username").val(); 
+    if(username.length > 0){
         $.ajax({
             url : base_url + 'check_username',
             data: {username:username},
@@ -55,14 +56,16 @@ function ValidateUsername() {
             success : function(response){
                 if(response == 0){
                     $('#update_user').prop('disabled', true);
-                    jQuery("#error_username").html("username already exist"); 
+                    jQuery("#error_username").html("Username already exist"); 
                 }else{
+                    jQuery("#error_username").html(""); 
                     $(':input[type="submit"]').prop('disabled', false);
                 }
 
             }
         })
         jQuery("#error_email").html("");  
+    }
 };
 
 $(function () {

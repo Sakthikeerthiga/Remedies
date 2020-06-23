@@ -46,7 +46,9 @@ class Login extends CI_Controller {
 	public function update_profile()
 	{
 		if(!empty($this->session->userdata('logged_user'))){
-			$this->load->view('edit_profile');
+			$user_id = $this->session->userdata('logged_user')['user_id'];
+			$result['userdata'] = $this->Login_model->getuserdetails($user_id);
+			$this->load->view('edit_profile',$result);
 		}else{
 			$this->load->view('sign_up');
 		}
@@ -61,7 +63,7 @@ class Login extends CI_Controller {
 //check username
 	public function check_username()
 	{
-		$email = $this->input->post('screenName');
+		$username = $this->input->post('username');
 		$query = $this->Login_model->checkusername($username);
 		return $query;
 	}
@@ -70,6 +72,7 @@ class Login extends CI_Controller {
 	public function update_user()
 	{
 		$user_id = $this->input->post('user_id');
+
 		$data = array(
 			'firstName'=>$this->input->post('firstName'),
 			'lastName'=>$this->input->post('lastName'),
@@ -79,10 +82,11 @@ class Login extends CI_Controller {
 			'Country'=> $this->input->post('Country'),
 			'mobileNo'=> $this->input->post('mobileNo'),
 			'status'=> $this->input->post('status'),
-			'dob'=> $this->input->post('dob'),
+			'dob'=> date('Y-m-d',strtotime($this->input->post('dob'))),
 			'gender'=> $this->input->post('gender'),
 
 		);
+		
 		$updateUser = $this->Login_model->update_user($data,$user_id);
 		redirect('welcome'); 
 	}

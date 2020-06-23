@@ -39,4 +39,12 @@ class Login_model extends CI_Model
          $this->db->where('iduser', $uid);
          $this->db->update('user', $data);
     }
+
+    //Get user details by id
+    public function getuserdetails($uid){
+        $this->db->select('*');
+        $this->db->from('user');
+        $this->db->where('iduser',$uid);
+        return $this->db->get()->result();
+    }
 }
