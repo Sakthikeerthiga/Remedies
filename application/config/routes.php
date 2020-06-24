@@ -76,6 +76,7 @@ $route['check_username'] ='login/check_username';
 $route['update-user'] = 'login/update_user';
 
 $route['login'] ='login/index';
+$route['logout'] ='login/logout';
 $route['check_login'] ='login/check_login';
 
 

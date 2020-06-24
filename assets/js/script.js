@@ -38,16 +38,16 @@ $(document).ready(function(){
 
 
     $("#submit").click(function(){  
-        var email = $("#email").val();  
+        var uname = $("#username").val();  
         var password = $("#password").val();  
     // Returns error message when submitted without req fields.  
-    if(email==''||password=='')  
+    if(uname==''||password=='')  
     {  
         jQuery("div#err_msg").show();  
-        jQuery("div#msg").html("Please Enter All the fields"); 
     }  
     });  
 });
+
 
 $( function() {
     $( "#user_dob" ).datepicker();
@@ -77,7 +77,8 @@ function ValidateEmail() {
             type: 'POST',
             success : function(response){
                 if(response == 0){
-                    $('#submit').prop('disabled', true);
+                    // $('#update_user').prop('disabled', true);
+                    $(':input[type="submit"]').prop('disabled', true);
                     jQuery("#error_email").html("E-mail already exist"); 
                 }else{
                     $(':input[type="submit"]').prop('disabled', false);
@@ -99,7 +100,7 @@ function ValidateUsername() {
             type: 'POST',
             success : function(response){
                 if(response == 0){
-                    $('#update_user').prop('disabled', true);
+                   $(':input[type="submit"]').prop('disabled', true);
                     jQuery("#error_username").html("Username already exist"); 
                 }else{
                     jQuery("#error_username").html(""); 

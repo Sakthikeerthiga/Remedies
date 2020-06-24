@@ -40,13 +40,14 @@ $this->load->database();
 				</div>
 			</div> <!-- END col-12 -->
 			<div class="col-lg-6 mx-auto mt-4">
+				<div class="alert alert-danger" id="err_msg" style="display: none;"><a href="javascript:void(0)" class="close close-alert" aria-label="close">&times;</a><span id="msg">All fields are required</span>
+				</div>
 				<form action="<?php echo base_url();?>save-data" method="POST">
-
 					<div class="form-group row align-items-center">
-						<label class="col-lg-2 col-md-3"> E-mail </label>
+						<label class="col-lg-2 col-md-3"> Username </label>
 						<div class="col-md-8 xdr-select">
-							<input type="text" id="email" name="email" class="form-control" placeholder="E-mail here" onkeyup="ValidateEmail();" autocomplete="off" required>
-							&nbsp;&nbsp;<span id="error_email" style="color: red;"></span>
+							 <input type="text" class="form-control" name="screenName" placeholder="Enter User Name" id="username" onkeyup="ValidateUsername();" autocomplete="off" required >
+                              &nbsp;&nbsp;<span id="error_username" style="color: red;"></span>
 						</div>
 					</div>
 
@@ -54,18 +55,13 @@ $this->load->database();
 						<label class="col-lg-2 col-md-3"> Pasword </label>
 						<div class="col-md-8 xdr-select">
 							<input type="password" id="password" name="password" class="form-control" placeholder="Pasword here" required>
-							<div id='err_msg' style='display: none'>  
-								<div id='content_result' style="position: absolute;">  
-									<div id='err_show' class="w3-text-red">  
-										&nbsp;&nbsp;<div id='msg' style="color: red;"> </div> 
-									</div></div></div> 
 								</div>
 							</div>
 
 
 							<div class="row space-5">
 								<div class="col-12 text-center">
-									<input class="btn btn-primary px-5" type="submit" value="SUBMIT" id="submit" >  
+									<input class="btn btn-primary px-5" type="submit" value="SUBMIT" id="submit">  
 								</div>
 							</div>
 
@@ -102,7 +98,8 @@ $this->load->database();
 
 		<!-- footer menu -->
 		<?php  $this->load->view('includes/footer_menu.php');?>
-		<script type="text/javascript">  
-
-			
+<script type="text/javascript">  
+	$('.close-alert').click(function(){
+		$('#err_msg').hide();
+	})
 </script> 

@@ -11,11 +11,17 @@ class Login extends CI_Controller {
 		$this->load->library('session');
 		$this->load->library('pagination');
 		$this->load->model('Login_model');
+        $this->table = 'user';
+
 
 	}
 	public function index()
 	{
-		$this->load->view('login');
+		if(!empty($this->session->userdata('logged_user'))){
+			redirect($_SERVER['HTTP_REFERER']);
+		}else{
+		   $this->load->view('login');
+		}
 	}
 
 // user registration page
@@ -26,14 +32,14 @@ class Login extends CI_Controller {
 //save new user data
 	public function save_sign_up(){
 		$data = array(
-			'email'=>$this->input->post('email'),
+			'screenName'=>$this->input->post('screenName'),
 			'password'=>sha1($this->input->post('password')),
 			'dateReg'=> date("Y-m-d h:i"),
 		);
 		$insertUser = $this->Login_model->insert_user($data);
 		$sess_array = array(
 			'user_id' => $insertUser,
-			'user_email' => $this->input->post('email'),
+			'screenName' => $this->input->post('screenName'),
 			'user_password' => $this->input->post('password'),
 			'logged_in' => 1
 		);
@@ -45,6 +51,7 @@ class Login extends CI_Controller {
 
 	public function update_profile()
 	{
+
 		if(!empty($this->session->userdata('logged_user'))){
 			$user_id = $this->session->userdata('logged_user')['user_id'];
 			$result['userdata'] = $this->Login_model->getuserdetails($user_id);
@@ -77,6 +84,7 @@ class Login extends CI_Controller {
 			'firstName'=>$this->input->post('firstName'),
 			'lastName'=>$this->input->post('lastName'),
 			'screenName'=> $this->input->post('screenName'),
+			'email'=> $this->input->post('email'),
 			'Address'=> $this->input->post('Address'),
 			'City'=> $this->input->post('City'),
 			'Country'=> $this->input->post('Country'),
@@ -86,9 +94,10 @@ class Login extends CI_Controller {
 			'gender'=> $this->input->post('gender'),
 
 		);
-		$this->session->set_userdata('logged_user', $data);
+
+		// $this->session->set_userdata('logged_user', $data);
 		$updateUser = $this->Login_model->update_user($data,$user_id);
-		redirect('welcome'); 
+		redirect('/', 'refresh'); 
 	}
 
 	public function check_login(){  
@@ -97,9 +106,14 @@ class Login extends CI_Controller {
 		$data['username']=htmlspecialchars($_POST['name']);  
 		$data['password']=htmlspecialchars($_POST['pwd']);  
 		$res=$this->Login_model->islogin($data);
+		if($res){  
+			$this->db->select('iduser');
+			$this->db->from('user');
+			$this->db->where('screenName',$data['username']);
+			$query= $this->db->get()->result();   
 
-		if($res){     
 			$session_data = array(
+				'user_id' =>$query[0]->iduser,
 				'screenName'=> $data['username'],
 			); 
 			$this->session->set_userdata('logged_user',$session_data);  
@@ -109,5 +123,10 @@ class Login extends CI_Controller {
 			echo 0;  
 		}   
 	}  
+
+	public function logout(){
+		$this->session->unset_userdata('logged_user');
+        redirect('login', 'refresh');
+	}
 
 }

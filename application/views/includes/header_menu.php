@@ -27,7 +27,9 @@
       <div class="container">
         <?php if(!empty($this->session->userdata('logged_user')['screenName'])){ ?>
           <p class="mb-0 text-right text-secondary pt-4">
+              Welcome <?php echo $this->session->userdata('logged_user')['screenName'] ?>
 
+              <a href="<?php echo base_url();?>logout">Logout</a>
           </p>
         <?php }else{ ?>
         <p class="mb-0 text-right text-secondary pt-4">
