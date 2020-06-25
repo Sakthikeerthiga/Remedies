@@ -27,7 +27,6 @@
       <div class="container">
         <?php if(!empty($this->session->userdata('logged_user')['screenName'])){ ?>
           <p class="mb-0 text-right text-secondary pt-4">
-
           </p>
         <?php }else{ ?>
         <p class="mb-0 text-right text-secondary pt-4">
