@@ -3,21 +3,65 @@ var base_url = 'http://localhost/Remedies/';
 
 // Ajax post  
 $(document).ready(function(){  
+
+    $("#login").click(function(){  
+        var user_name = $("#name").val();  
+        var password = $("#pwd").val();  
+    // Returns error message when submitted without req fields.  
+    if(user_name==''||password=='')  
+    {  
+        jQuery("div#err_msg").show();  
+        jQuery("span#msg").html("All fields are required");  
+    }  
+    else  
+    {  
+        jQuery("span#msg").html("");  
+    // AJAX Code To Submit Form.  
+    $.ajax({  
+        type: "POST",  
+        url:  base_url + "check_login",  
+        data: {name: user_name, pwd: password},  
+        cache: false,  
+        success: function(result){  
+            if(result!=0){  
+    // On success redirect.  
+    window.location.replace(result);  
+    }  
+    else  
+        jQuery("div#err_msg").show();  
+        jQuery("span#msg").html("Invalid Credentials");  
+    }  
+    });  
+    }  
+    return false;  
+    }); 
+
+
     $("#submit").click(function(){  
-        var email = $("#email").val();  
+        var uname = $("#username").val();  
         var password = $("#password").val();  
-// Returns error message when submitted without req fields.  
-if(email==''||password=='')  
-{  
-    jQuery("div#err_msg").show();  
-    jQuery("div#msg").html("Please Enter All the fields"); 
-}  
-});  
+    // Returns error message when submitted without req fields.  
+    if(uname==''||password=='')  
+    {  
+        jQuery("div#err_msg").show();  
+    }  
+    });  
 });
+
 
 $( function() {
     $( "#user_dob" ).datepicker();
 } );
+
+// function ValidateEmailFormat() {
+//     var regex =  /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+//     var email = $("#email").val(); 
+//     if(!regex.test(email)) {
+//         jQuery("#error_email").html("Please Enter the vaild email");  
+//     }else{
+//         jQuery("#error_email").html(""); 
+//     }
+// }
 
 function ValidateEmail() {
     var regex =  /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -33,7 +77,8 @@ function ValidateEmail() {
             type: 'POST',
             success : function(response){
                 if(response == 0){
-                    $('#submit').prop('disabled', true);
+                    // $('#update_user').prop('disabled', true);
+                    $(':input[type="submit"]').prop('disabled', true);
                     jQuery("#error_email").html("E-mail already exist"); 
                 }else{
                     $(':input[type="submit"]').prop('disabled', false);
@@ -55,7 +100,7 @@ function ValidateUsername() {
             type: 'POST',
             success : function(response){
                 if(response == 0){
-                    $('#update_user').prop('disabled', true);
+                   $(':input[type="submit"]').prop('disabled', true);
                     jQuery("#error_username").html("Username already exist"); 
                 }else{
                     jQuery("#error_username").html(""); 
@@ -86,7 +131,7 @@ $("#user_mobile").keypress(function (e) {
 });
 
 $("#user_mobile").focusout(function (e) {
-   var mobilenumber = $("#user_mobile").val();
+    var mobilenumber = $("#user_mobile").val();
     if(mobilenumber.length != 10){
         $("#error_mobileno").html("Incorrect Number");
         $('#update_user').prop('disabled', true);

@@ -33,7 +33,7 @@
           <a href="<?php echo base_url(); ?>sign-up">Sign up
           </a>
           /
-          <a href="<?php echo base_url(); ?>">
+          <a href="<?php echo base_url(); ?>login">
           login</a>
         </p>
       <?php } ?>

@@ -47,4 +47,9 @@ class Login_model extends CI_Model
         $this->db->where('iduser',$uid);
         return $this->db->get()->result();
     }
+
+    public function islogin($data){  
+    $query=$this->db->get_where('user',array('screenName'=>$data['username'],'password'=>sha1($data['password'])));  
+    return $query->num_rows();  
+}  
 }
