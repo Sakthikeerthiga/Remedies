@@ -3,12 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Article extends CI_Controller {
 
-public function __construct()
-    {
-        parent::__construct();
-        $this->load->database();
-        $this->load->helper('url');
-        $this->load->library('session');
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->database();
+		$this->load->helper('url');
+		$this->load->library('session');
 		$this->load->library('pagination');
 		$this->load->model('Sickness_model');
 		$this->load->model('Article_model');
@@ -22,24 +22,18 @@ public function __construct()
 	public function detail_page($article_id='')
 	{
 		if($article_id!=''){
-			$this->db->select('*');
-			$this->db->from('article');
-			$this->db->join('featuredsicknesses', 'featuredsicknesses.article_idarticle = article.idarticle','LEFT');
-			$this->db->where('article.idarticle',$article_id);
-			$data['article_details']= $this->db->get()->result_array();
-  			$get_related_sickeness = $this->db->query("select sickness_idsickness from featuredsicknesses where article_idarticle='$article_id'")->result_array();
+			$data['article_details']= $this->Article_model->article_details_list($article_id);
+			$get_related_sickeness = $this->db->query("select sickness_idsickness from featuredsicknesses where article_idarticle='$article_id'")->result_array();
 			if(count($get_related_sickeness) > 0){
-				$this->db->select('*');
-				$this->db->from('article');
-				$this->db->join('featuredsicknesses', 'featuredsicknesses.article_idarticle = article.idarticle');
-				$this->db->where('featuredsicknesses.sickness_idsickness',$get_related_sickeness[0]['sickness_idsickness']);
-				$this->db->where('article.idarticle!=',$article_id);
-				$this->db->limit(3,0);
-				$this->db->order_by("created_at", "desc");
-				$data['get_related_article'] = $this->db->get()->result_array();
+				$data['get_related_article'] = $this->Article_model->get_article_related_list($get_related_sickeness[0]['sickness_idsickness'],$article_id);
 			}
-			$this->load->view('article_details', $data);
+			if(!empty($this->session->userdata('logged_user'))){
+				$data['get_article_vote'] = $this->Article_model->get_article_success($article_id,$this->session->userdata('logged_user')['user_id']);
+			}else{
+				$data['get_article_vote'] = '';
+			}
 		}
+		$this->load->view('article_details', $data);
 	}
 
 // sickness id based articles list
@@ -47,37 +41,55 @@ public function __construct()
 	{       
 		if($sickeness_id!=''){
 			$data['article_details']= $this->Article_model->sickness_article_list($sickeness_id);
-			$this->db->select('*');
-			$this->db->from('article');
-			$this->db->join('featuredsicknesses', 'featuredsicknesses.article_idarticle = article.idarticle');
-			$this->db->where('featuredsicknesses.sickness_idsickness',$sickeness_id);
-			$this->db->limit(3,0);
-			$this->db->order_by("created_at", "desc");
-			$data['get_related_article'] = $this->db->get()->result_array();
+			if(!empty($data['article_details'])){
+				$data['get_related_article'] = $this->Article_model->get_sickness_related_article($sickeness_id,$data['article_details'][0]['idarticle']);
 			}
-            $this->load->view('sickeness_article_list', $data);
+		}
+		if(!empty($this->session->userdata('logged_user')) && !empty($data['article_details'])){
+			$data['get_article_vote'] = $this->Article_model->get_article_success($data['article_details'][0]['idarticle'],$this->session->userdata('logged_user')['user_id']);
+		}else{
+			$data['get_article_vote'] = '';
+		}
+
+		$this->load->view('sickeness_article_list', $data);
 	}
 
-	// Remedy id based articles list
+// Remedy id based articles list
 	public function remedy_article_list($remedy_id='')
 	{       
 		if($remedy_id!=''){
 			$data['article_details']= $this->Article_model->remedy_article_list($remedy_id);
-			$this->db->select('*');
-			$this->db->from('article');
-			$this->db->join('featuredremedies', 'featuredremedies.article_idarticle = article.idarticle');
-			$this->db->where('featuredremedies.remedy_idremedy',$remedy_id);
-			$this->db->limit(3,0);
-			$this->db->order_by("created_at", "desc");
-			$data['get_related_article'] = $this->db->get()->result_array();
+			if(!empty($data['article_details'])){
+				$data['get_related_article'] = $this->Article_model->get_remedy_related_article($remedy_id,$data['article_details'][0]['idarticle']);
 			}
-            $this->load->view('remedy_article_list', $data);
+		}
+		if(!empty($this->session->userdata('logged_user')) && !empty($data['article_details'])){
+			$data['get_article_vote'] = $this->Article_model->get_article_success($data['article_details'][0]['idarticle'],$this->session->userdata('logged_user')['user_id']);
+		}else{
+			$data['get_article_vote'] = '';
+		}
+		$this->load->view('remedy_article_list', $data);
 	}
 
 	public function articlelist()
 	{       
-			$data['article_list']= $this->Article_model->article_list_detail();
-			$data['ad_after_articlelist']  = $this->Article_model->ad_after_articlelist();
-            $this->load->view('article_list', $data);
+		$data['article_list']= $this->Article_model->article_list_detail();
+		$data['ad_after_articlelist']  = $this->Article_model->ad_after_articlelist();
+		$this->load->view('article_list', $data);
+	}
+
+	public function rateArticle()
+	{
+		$user_iduser = $_POST['user_id'];
+		$article_idarticle = $_POST['article_id'];
+		$sucessRating = $_POST['success_val'];
+
+		$data = array(
+			'user_iduser'=>$_POST['user_id'],
+			'article_idarticle'=>$_POST['article_id'],
+			'sucessRating'=>$_POST['success_val'],
+		);
+		$insertArticle = $this->Article_model->article_rating($data);
+		echo $insertArticle;
 	}
 }

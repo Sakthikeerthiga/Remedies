@@ -71,12 +71,17 @@ RESULT BY TESTIMONIES
         <?php }?>
       </ul>
     </div>
-    <div class="article-feedback mt-5 text-center">
-      <h4>
-        was this article helpful?
-      </h4>
-      <button class="btn btn-outline-primary"> Yes </button>
-      <button class="btn btn-outline-secondary"> No </button>
+    <?php if($get_article_vote == 0 || $get_article_vote == ''){ ?>
+      <div class="article-feedback mt-5 text-center vote-article">
+        <h4>
+          was this article helpful?
+        </h4>
+        <button class="btn btn-outline-primary" onclick="rateArticle(<?php echo $article_details[0]['idarticle']; ?> ,'1');"> Yes </button>
+        <button class="btn btn-outline-secondary" onclick="rateArticle(<?php echo $article_details[0]['idarticle']; ?> ,'0');"> No </button>
+      </div>
+    <?php } ?>
+    <div class="article-feedback mt-5 text-center article-success-message">
+
     </div>
   </div><!-- END col-lg-8 -->
 
@@ -108,11 +113,11 @@ RESULT BY TESTIMONIES
                 <?php $string = strip_tags($article['seo_description']);
                 if (strlen($string) > 100) {
 
-               // truncate string
+// truncate string
                   $stringCut = substr($string, 0, 100);
                   $endPoint = strrpos($stringCut, ' ');
 
-              //if the string doesn't contain any space then it will cut without word basis.
+//if the string doesn't contain any space then it will cut without word basis.
                   $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
                 }
                 echo $string;
@@ -127,11 +132,11 @@ RESULT BY TESTIMONIES
           </article>
         <?php } }
         else{
-        ?>
+          ?>
 
-        <p> No related articles found </p>
+          <p> No related articles found </p>
 
-      <?php } ?>
+        <?php } ?>
 
       </div><!-- END container-related-article -->
       <div class="xdr-adds-container mt-auto">
@@ -147,3 +152,8 @@ RESULT BY TESTIMONIES
 <?php } ?>
 <!-- footer menu -->
 <?php  $this->load->view('includes/footer_menu.php');?>
+
+
+<script type="text/javascript">
+
+</script>

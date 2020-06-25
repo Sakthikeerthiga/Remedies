@@ -49,6 +49,36 @@ $(document).ready(function(){
 });
 
 
+function rateArticle(article_id,val){
+    var userId = $('.userId').val();
+    if(userId != ''){
+      $.ajax({  
+        type: "POST",  
+        url:  base_url + "rate-article",  
+        data: {article_id: article_id,user_id: userId, success_val: val},  
+        cache: false,  
+        success: function(result){  
+          if(result!=''){  
+               $('.vote-article').hide();
+               $('.article-success-message').html('<div class="alert alert-success alert-dismissible fade show" role="alert">Thank you for rating this article! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+              }  
+              else{
+                alert('Please contact admin');
+              }  
+
+              }  
+            }); 
+    }else{
+      var article_login = confirm("Please Login/Sign up");
+      if (article_login == true) {
+        window.location.replace(base_url+'login'); 
+      } else {
+        return false;
+      }
+    }
+  }
+
+
 $( function() {
     $( "#user_dob" ).datepicker();
 } );

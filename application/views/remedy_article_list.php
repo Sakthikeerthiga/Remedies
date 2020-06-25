@@ -17,12 +17,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!--End of breadcrumb section -->
 
-  <section class="section pt-0">
+<section class="section pt-0">
 
-    <div class="container">
+  <div class="container">
 
-      <div class="row">
-<?php if(!empty($article_details)){ ?>
+    <div class="row">
+      <?php if(!empty($article_details)){ ?>
 
         <div class="col-12">
           <h2 class="text-uppercase space-mb-4">
@@ -71,84 +71,89 @@ RESULT BY TESTIMONIES
         <?php } } ?>
       </ul>
     </div>
-    <div class="article-feedback mt-5 text-center">
-      <h4>
-        was this article helpful?
-      </h4>
-      <button class="btn btn-outline-primary"> Yes </button>
-      <button class="btn btn-outline-secondary"> No </button>
+    <?php if($get_article_vote == 0 || $get_article_vote == ''){ ?>
+      <div class="article-feedback mt-5 text-center vote-article">
+        <h4>
+          was this article helpful?
+        </h4>
+        <button class="btn btn-outline-primary" onclick="rateArticle(<?php echo $article_details[0]['idarticle']; ?> ,'1');"> Yes </button>
+        <button class="btn btn-outline-secondary" onclick="rateArticle(<?php echo $article_details[0]['idarticle']; ?> ,'0');"> No </button>
+      </div>
+    <?php } ?>
+    <div class="article-feedback mt-5 text-center article-success-message">
+
     </div>
   </div><!-- END col-lg-8 -->
 <?php }else{ ?>
 
-<div class="col-lg-8 article-details">
+  <div class="col-lg-8 article-details">
 
     <h6> No related articles found  </h6>
 
   </div>
 <?php } ?>
 
-  <!-- Related article section -->
-  <div class="col-lg-4 d-flex flex-column mt-5 mt-lg-0">
-    <div class="xdr-adds-container space-5 mt-0 text-center">
-      <img class="rounded ml-auto" src="https://dummyimage.com/300x300/914E05/ffffff.jpg&amp;text=adds+here"
-      alt="">
-    </div>
-    <div class="container-related-article">
-      <h4>
-        RELATED ARTICLES
-      </h4>
-      <?php if(isset($get_related_article) && !empty($get_related_article)){ 
+<!-- Related article section -->
+<div class="col-lg-4 d-flex flex-column mt-5 mt-lg-0">
+  <div class="xdr-adds-container space-5 mt-0 text-center">
+    <img class="rounded ml-auto" src="https://dummyimage.com/300x300/914E05/ffffff.jpg&amp;text=adds+here"
+    alt="">
+  </div>
+  <div class="container-related-article">
+    <h4>
+      RELATED ARTICLES
+    </h4>
+    <?php if(isset($get_related_article) && !empty($get_related_article)){ 
 
-        foreach($get_related_article as $article){ ?>
-          <article class="article-related mb-5">
-            <h4 class="text-secondary">
-              <?php echo $article['seo_title']; ?>
-            </h4>
-            <img class="rounded my-3" src="<?php echo base_url();?>assets/img/home-thumb/<?php echo $article['thumbnailImage'] ?>"
-            alt="<?php echo $article['imageAltText'] ?>">
-            <h4>
-              <?php echo $article['seo_keywords']; ?>
-            </h4>
+      foreach($get_related_article as $article){ ?>
+        <article class="article-related mb-5">
+          <h4 class="text-secondary">
+            <?php echo $article['seo_title']; ?>
+          </h4>
+          <img class="rounded my-3" src="<?php echo base_url();?>assets/img/home-thumb/<?php echo $article['thumbnailImage'] ?>"
+          alt="<?php echo $article['imageAltText'] ?>">
+          <h4>
+            <?php echo $article['seo_keywords']; ?>
+          </h4>
+          <p>
             <p>
-              <p>
 
-                <?php $string = strip_tags($article['seo_description']);
-                if (strlen($string) > 100) {
+              <?php $string = strip_tags($article['seo_description']);
+              if (strlen($string) > 100) {
 
-               // truncate string
-                  $stringCut = substr($string, 0, 100);
-                  $endPoint = strrpos($stringCut, ' ');
+// truncate string
+                $stringCut = substr($string, 0, 100);
+                $endPoint = strrpos($stringCut, ' ');
 
-              //if the string doesn't contain any space then it will cut without word basis.
-                  $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
-                }
-                echo $string;
+//if the string doesn't contain any space then it will cut without word basis.
+                $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+              }
+              echo $string;
 
-                ?>
+              ?>
 
-              </p>
             </p>
-            <a href="<?php echo base_url().''.$article['articleUrl'] ?>" class="link">
-              Read more
-            </a>
-          </article>
-        <?php } }
-        else{
+          </p>
+          <a href="<?php echo base_url().''.$article['articleUrl'] ?>" class="link">
+            Read more
+          </a>
+        </article>
+      <?php } }
+      else{
         ?>
 
         <p> No related articles found </p>
 
       <?php } ?>
 
-      </div><!-- END container-related-article -->
-      <div class="xdr-adds-container mt-auto">
-        <img class="rounded" src="https://dummyimage.com/300x600/914E05/ffffff.jpg&amp;text=adds+here" alt="">
-      </div>
+    </div><!-- END container-related-article -->
+    <div class="xdr-adds-container mt-auto">
+      <img class="rounded" src="https://dummyimage.com/300x600/914E05/ffffff.jpg&amp;text=adds+here" alt="">
+    </div>
 
-    </div><!-- END col-lg-4 -->
-    <!-- End of related article -->
-  </div> <!-- END row -->
+  </div><!-- END col-lg-4 -->
+  <!-- End of related article -->
+</div> <!-- END row -->
 
 </div>
 </section>

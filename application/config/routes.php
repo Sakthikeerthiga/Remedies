@@ -79,4 +79,4 @@ $route['login'] ='login/index';
 $route['logout'] ='login/logout';
 $route['check_login'] ='login/check_login';
 
-
+$route['rate-article'] = 'article/rateArticle';
