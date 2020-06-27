@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
               <label class="col-lg-2 col-md-3">Sickness idsickness</label>
               <div class="col-md-8 xdr-select">
-                <select class="selectpicker">
+                <select class="selectpicker" name="sickness_idsickness">
                   <option selected="selected">Select Sickness idsickness</option>
                   <?php foreach ($sickness as $key => $sick) { echo"<pre>";print_r($sick);?>
                   <option value="<?php echo $sick['idsickness']?>"><?php echo $sick['commonName']?></option>
@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
               <label class="col-lg-2 col-md-3"> Remedy idremedy: </label>
               <div class="col-md-8 xdr-select">
-                <select class="selectpicker">
+                <select class="selectpicker" name="remedy_idremedy">
                   <option selected="selected"> Select Remedy idremedy </option>
                   <?php foreach ($remedies as $key => $remedy) { ?>
                   <option value="<?php echo $remedy['idremedy'] ?>"><?php echo $remedy['name']?></option>
@@ -64,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
               <label class="col-lg-2 col-md-3"> Administered By </label>
               <div class="col-md-8 xdr-select">
-                <select class="selectpicker">
+                <select class="selectpicker" name="administeredBy">
                   <option selected="selected"> Select Administered By </option>
                   <option value="1">Self</option>
                   <option value="2">Medical Doctor</option>
@@ -76,21 +76,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
               <label class="col-lg-2 col-md-3"> Compose </label>
               <div class="col-md-8 xdr-select">
-                <textarea class="form-control" rows="7" placeholder="Text formating here"></textarea>
+                <textarea id="compose" class="form-control" name="story" rows="7" placeholder="Text formating here"></textarea>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-2 col-md-3"> Dosage </label>
               <div class="col-md-8 xdr-select">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="dosage">
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-2 col-md-3"> Relief Id Relief </label>
               <div class="col-md-8 xdr-select">
-                  <select class="selectpicker">
+                  <select class="selectpicker" name="relief_idrelief">
                   <option selected="selected"> Select Relief Id Relief</option>
                   <?php foreach ($relief_type as $key => $relief) { ?>
                   <option value="<?php echo $relief['idrelief'] ?>"><?php echo $relief['type']?></option>
@@ -102,7 +102,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
               <label class="col-lg-2 col-md-3"> Administered To </label>
               <div class="col-md-8 xdr-select">
-                <select class="selectpicker">
+                <select class="selectpicker" name="administeredTo">
                   <option selected="selected"> Select Administered To </option>
                   <option value="1">Self</option>
                   <option value="2">Patient</option>
@@ -114,7 +114,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
               <label class="col-lg-2 col-md-3"> Text formating here </label>
               <div class="col-md-8 xdr-select">
-                <textarea class="form-control" rows="3" placeholder="Text formating here"></textarea>
+                <textarea id="textformat" class="form-control" name="warnings" rows="3" placeholder="Text formating here"></textarea>
               </div>
             </div>
 
@@ -139,5 +139,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- section End -->
 
 <!-- footer menu -->
-
 <?php  $this->load->view('includes/footer_menu.php');?>

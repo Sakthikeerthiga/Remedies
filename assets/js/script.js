@@ -254,3 +254,6 @@ $(function () {
         });
     });
 });
+
+/*ckeditor*/
+$( 'textarea' ).ckeditor();
