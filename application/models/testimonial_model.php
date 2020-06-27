@@ -30,6 +30,30 @@ class Testimonial_model extends CI_Model
          return $results;     
     }
 
+    public function sickness_data_list()
+    {
+         $this->db->select('*');
+         $this->db->order_by("commonName", "asc");
+         $fetched_records = $this->db->get('sickness');
+         $results = $fetched_records->result_array();
+         return $results;     
+    }
 
-
+    public function remedy_data_list()
+    {
+         $this->db->select('*');
+         $this->db->order_by("name", "asc");
+         $fetched_records = $this->db->get('remedy');
+         $results = $fetched_records->result_array();
+         return $results;     
+    }
+    
+    public function relief_data_list()
+    {
+         $this->db->select('*');
+         $this->db->order_by("type", "asc");
+         $fetched_records = $this->db->get('relieftype');
+         $results = $fetched_records->result_array();
+         return $results;  
+    }
 }
