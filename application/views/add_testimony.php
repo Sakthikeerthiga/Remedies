@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
               <label class="col-lg-2 col-md-3">Sickness idsickness</label>
               <div class="col-md-8 xdr-select">
-                <select class="selectpicker" name="sickness_idsickness">
+                <select class="selectpicker" name="sickness_idsickness" data-live-search="true">
                   <option selected="selected">Select Sickness idsickness</option>
                   <?php foreach ($sickness as $key => $sick) { echo"<pre>";print_r($sick);?>
                   <option value="<?php echo $sick['idsickness']?>"><?php echo $sick['commonName']?></option>
@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
               <label class="col-lg-2 col-md-3"> Remedy idremedy: </label>
               <div class="col-md-8 xdr-select">
-                <select class="selectpicker" name="remedy_idremedy">
+                <select class="selectpicker" name="remedy_idremedy" data-live-search="true">
                   <option selected="selected"> Select Remedy idremedy </option>
                   <?php foreach ($remedies as $key => $remedy) { ?>
                   <option value="<?php echo $remedy['idremedy'] ?>"><?php echo $remedy['name']?></option>
@@ -64,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
               <label class="col-lg-2 col-md-3"> Administered By </label>
               <div class="col-md-8 xdr-select">
-                <select class="selectpicker" name="administeredBy">
+                <select class="selectpicker" name="administeredBy" data-live-search="true">
                   <option selected="selected"> Select Administered By </option>
                   <option value="1">Self</option>
                   <option value="2">Medical Doctor</option>
@@ -90,7 +90,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
               <label class="col-lg-2 col-md-3"> Relief Id Relief </label>
               <div class="col-md-8 xdr-select">
-                  <select class="selectpicker" name="relief_idrelief">
+                  <select class="selectpicker" name="relief_idrelief" data-live-search="true">
                   <option selected="selected"> Select Relief Id Relief</option>
                   <?php foreach ($relief_type as $key => $relief) { ?>
                   <option value="<?php echo $relief['idrelief'] ?>"><?php echo $relief['type']?></option>
@@ -102,7 +102,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
               <label class="col-lg-2 col-md-3"> Administered To </label>
               <div class="col-md-8 xdr-select">
-                <select class="selectpicker" name="administeredTo">
+                <select class="selectpicker" name="administeredTo" data-live-search="true">
                   <option selected="selected"> Select Administered To </option>
                   <option value="1">Self</option>
                   <option value="2">Patient</option>
