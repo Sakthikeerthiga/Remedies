@@ -32,7 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="row">
         <div class="col-12">
           <h2 class="text-uppercase space-mb-4">
-            RESULT BY TESTIMONIES
+            RESULT BY TESTIMONIES FOR <?php echo $testimonial_heading;?>
           </h2>
 <!--  <h4>
 RESULT BY TESTIMONIES
@@ -52,17 +52,19 @@ RESULT BY TESTIMONIES
           <img src="https://dummyimage.com/730x100/914E05/ffffff.jpg&text=adds+here" alt="">
 
           <ul class="list-unstyled testimonial-discussion-group">
+            <?php foreach ($testimonial_details as $key => $testimonial_detail) {
+            ?>
             <li>
               <div class="testimonial-discussion">
                 <div class="testimonial-discussion__header">
                   <h4 class="text-primary mb-2">
                     <span class="text-secondary">REMEDY:</span>
-                    APPLY CIDER VINEGAR
+                    <?php echo $testimonial_detail['name'];?>
                   </h4>
                   <div class="row no-gutters">
                     <div class="col-6 small">
                       <strong>Username:</strong>
-                      John Doe
+                      <?php echo $testimonial_detail['screenName'];?>
                       <br>
                       <strong>Status:</strong>
                       User
@@ -71,7 +73,7 @@ RESULT BY TESTIMONIES
                     <div class="col-6 small">
                       <strong>
                         <span class="text-primary">Overall Experience:</span>
-                        Positive
+                        <?php echo $testimonial_detail['overallExperience'];?>
                       </strong>
                       <br>
                       <strong>
@@ -80,38 +82,48 @@ RESULT BY TESTIMONIES
                       </strong>
                       <br>
                       <span class="text-primary">Date Posted:</span>
-                      18-05-2020
+                      <?php echo $testimonial_detail['date'];?>
                     </div>
                   </div>
                 </div>
                 <div class="testimonial-discussion__body">
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                  labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-                  et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
-                  ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                  dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-                  rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                  dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                  dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-                  rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                  <?php echo $testimonial_detail['story'];?>
                 </div>
                 <div class="testimonial-discussion__footer">
                   <div class="row no-gutters">
                     <div class="col-6">
                       <ul class="list-unstyled text-primary font-weight-semibold">
                         <li>
-                          Remedy Administered by: SELF
+                          <?php 
+                          if($testimonial_detail['administeredBy'] == 1){
+                            $Administered_by = 'Self';
+                          }elseif($testimonial_detail['administeredBy'] == 2){
+                            $Administered_by = 'Medical Doctor';
+                          }elseif($testimonial_detail['administeredBy'] == 3){
+                            $Administered_by = 'Other';
+                          }
+                          ?>
+                          Remedy Administered by: <?php echo $Administered_by; ?>
                         </li>
                         <li>
-                          Remedy Administered to: SELF
+                          <?php 
+                          if($testimonial_detail['administeredTo'] == 1){
+                            $Administered_to = 'Self';
+                          }elseif($testimonial_detail['administeredTo'] == 2){
+                            $Administered_to = 'Patient';
+                          }elseif($testimonial_detail['administeredTo'] == 3){
+                            $Administered_to = 'Other';
+                          }
+                          ?>
+                          Remedy Administered to: <?php echo $Administered_to; ?>
                         </li>
                       </ul>
                     </div>
                     <div class="col-6">
                       <ul class="list-unstyled">
                         <li class="text-danger font-weight-semibold">
-                          <a href="#" class="d-flex">
-                            <img src="assets/img/supplement_icon.svg" height="25" class="mr-1 mb-0" alt="">
+                          <a href="<?php echo $testimonial_detail['sellerLink'];?>" class="d-flex">
+                            <img src="<?php echo base_url();?>assets/img/supplement_icon.svg" height="25" class="mr-1 mb-0" alt="">
                             <u>
                               Check this supplement near you!
                             </u>
@@ -119,8 +131,8 @@ RESULT BY TESTIMONIES
                         </li>
                         <li>
                           Read more about:
-                          <a href="#">
-                            <u>Apple Cider Vinegar</u>
+                          <a href="<?php echo $testimonial_detail['link'];?>">
+                            <u><?php echo $testimonial_detail['name'];?></u>
                           </a>
                         </li>
                       </ul>
@@ -138,8 +150,7 @@ RESULT BY TESTIMONIES
                   </a>
                 </li>
                 <li>
-                  <a href="#">
-                    <u>
+                  <a href="<?php echo base_url();?>testimonial">
                       But if you had a similar experience please post a separate testimony here
                     </u>
                   </a>
@@ -180,7 +191,7 @@ RESULT BY TESTIMONIES
               </div>
               <!-- END testimonial-discussion-reply -->
             </li>
-
+           <?php } ?>
              
 
              

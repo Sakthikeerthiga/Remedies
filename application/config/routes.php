@@ -83,5 +83,5 @@ $route['check_login'] ='login/check_login';
 
 $route['rate-article'] = 'article/rateArticle';
 
-$route['testimony/add'] = 'testimonial/add_testimony';
+$route['testimonial'] = 'testimonial/add_testimony';
 $route['save-testimony'] = 'testimonial/save_testimony';
