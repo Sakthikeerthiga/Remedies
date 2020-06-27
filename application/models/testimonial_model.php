@@ -56,4 +56,28 @@ class Testimonial_model extends CI_Model
          $results = $fetched_records->result_array();
          return $results;  
     }
+
+    public function get_county($user_id){
+         $this->db->select('Country');
+         $this->db->where("iduser", $user_id);
+         $fetched_records = $this->db->get('user');
+         $results = $fetched_records->result();
+         return $results;  
+    }
+
+        public function get_state($user_id){
+         $this->db->select('City');
+         $this->db->where("iduser", $user_id);
+         $fetched_records = $this->db->get('user');
+         $results = $fetched_records->result();
+         return $results;  
+    }
+
+    public function insert_testimonial_new_post($data)
+    {
+         $insert_data = $this->db->insert('testimony',$data);
+        $testimony_id = $this->db->insert_id();
+
+        return $testimony_id;
+    }
 }

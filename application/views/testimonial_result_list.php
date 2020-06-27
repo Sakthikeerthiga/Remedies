@@ -19,6 +19,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <section class="section pt-0">
     <div class="container">
+
+          <?php if($this->session->flashdata('testimonial_add_msg')){ ?>
+      <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong><?php echo $this->session->flashdata('testimonial_add_msg'); ?></strong>
+      </div>
+    <?php } ?>
+    
 <?php if(!empty($testimonial_details)){ ?>
 
       <div class="row">
