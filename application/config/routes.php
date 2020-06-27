@@ -65,7 +65,7 @@ $route['remedy-articles/(:any)'] ='article/remedy_article_list/$1';
 $route['article-list'] = 'article/articlelist';
 
 
-$route['testimony/(:any)'] ='testimonial/testimony_for_sickness/$1';
+$route['sickness-testimony/(:any)'] ='testimonial/testimony_for_sickness/$1';
 $route['remedy-testimony/(:any)'] ='testimonial/testimony_for_remedy/$1';
 
 $route['sign-up'] ='login/sign_up';
@@ -80,3 +80,5 @@ $route['logout'] ='login/logout';
 $route['check_login'] ='login/check_login';
 
 $route['rate-article'] = 'article/rateArticle';
+
+$route['testimony/add'] = 'testimonial/add_testimony';

@@ -57,7 +57,7 @@ $this->load->database();
 						foreach ($sicknesslist as $key => $list) { ?>
 							<li><a href="<?php echo base_url();?>sickness-articles/<?php echo $list['idsickness'] ?>"> <?php echo $list['commonName'] ?></a><span><?php $Testimoniescnt = $this->db->get_where('testimony', array('sickness_idsickness' => $list['idsickness']))->num_rows();
 
-							if($Testimoniescnt > 0){ ?><a href="<?php echo base_url();?>testimony/<?php echo $list['idsickness'] ?>">(<?php echo $Testimoniescnt ?> user stories)</a><?php } ?></span></li>
+							if($Testimoniescnt > 0){ ?><a href="<?php echo base_url();?>sickness-testimony/<?php echo $list['idsickness'] ?>">(<?php echo $Testimoniescnt ?> user stories)</a><?php } ?></span></li>
 						<?php } } ?>
 						<div class="xdr-adds-container my-4">
 							<img class="rounded" src="https://dummyimage.com/730x100/914E05/ffffff.jpg&text=adds+here" alt="">
@@ -67,7 +67,7 @@ $this->load->database();
 							foreach ($ad_after_sicknesslist as $key => $list) { ?>
 							<li><a href="<?php echo base_url();?>sickness-articles/<?php echo $list['idsickness'] ?>"> <?php echo $list['commonName'] ?></a><span><?php $Testimoniescnt = $this->db->get_where('testimony', array('sickness_idsickness' => $list['idsickness']))->num_rows();
 
-							if($Testimoniescnt > 0){ ?><a href="<?php echo base_url();?>testimony/<?php echo $list['idsickness'] ?>">(<?php echo $Testimoniescnt ?> user stories)</a><?php } ?></span></li>
+							if($Testimoniescnt > 0){ ?><a href="<?php echo base_url();?>sickness-testimony/<?php echo $list['idsickness'] ?>">(<?php echo $Testimoniescnt ?> user stories)</a><?php } ?></span></li>
 						<?php } } ?>
 
 						</ul>

@@ -29,6 +29,9 @@ public function __construct()
 		$this->load->model('Trending_search');
 		$this->load->model('Article_model');
 		$this->load->model('Mission_model');
+		$this->load->library('grocery_CRUD');
+
+		
 
 	}
 
@@ -44,5 +47,4 @@ public function about_us()
 	{
 		$this->load->view('about_us');
 	}
-
 }

@@ -43,5 +43,12 @@ public function __construct()
         $this->load->view('testimonial_result_list', $data);
 	}
 
-	
+	public function add_testimony(){
+		$data['sickness'] = $this->Testimonial_model->sickness_data_list();
+		$data['remedies'] = $this->Testimonial_model->remedy_data_list();
+		$data['relief_type'] = $this->Testimonial_model->relief_data_list();
+        $this->load->view('add_testimony',$data);
+	}
+
+
 }
