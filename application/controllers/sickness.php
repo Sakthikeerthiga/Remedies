@@ -41,12 +41,15 @@ public function __construct()
 		$trendPic = $this->db->get_where('sickness', array('idsickness' => $sickness_id))->row()->ThumnailImage;
 		$Testimoniescnt = $this->db->get_where('testimony', array('sickness_idsickness' => $sickness_id))->num_rows();
 		$homePage_id = $this->db->get('homepage')->row()->idhomePage;
+		$slugname = str_replace("-", "_", $trendTitle);
+		$slug = url_title($slugname, 'dash', true);
 		if($checkexists == 0){ //Insert new sickness to trendingsearches table
+			
 			$data = array(
 				'homePage_idhomePage' => $homePage_id,
 				'trendTitle' => $trendTitle,
 				'positiveTestimonies' => $Testimoniescnt,
-				'url' => 'testimony/'.$sickness_id,
+				'url' => 'sickness-testimony/'.$slug,
 				'sickness_idsickness' => $sickness_id,
 				'trendPic' => $trendPic,
 			);
@@ -55,7 +58,7 @@ public function __construct()
 			
 		}
 
-		echo json_encode(array('status' => base_url().'testimony/'.$sickness_id));
+		echo json_encode(array('status' => base_url().'sickness-testimony/'.$slug));
         exit();
 	}
 

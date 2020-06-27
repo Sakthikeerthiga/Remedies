@@ -7,6 +7,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!-- Trending search -->
 <div class="container">
+	<?php if($this->session->flashdata('profile_update')){ ?>
+		<div class="alert alert-success">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<?php echo $this->session->flashdata('profile_update'); ?>
+		</div>
+	<?php } ?>
 	<div class="col-lg-5 ml-auto">
 		<form action="#" method="POST" autocomplete="off">
 			<div class="input-group input-group__search">
