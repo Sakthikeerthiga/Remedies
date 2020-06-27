@@ -51,6 +51,7 @@ class Testimonial extends CI_Controller {
 	}
 
 	public function save_testimony(){
+		// register login users
 		if(!empty($this->session->userdata('logged_user'))){
 			$user_id = $this->session->userdata('logged_user')['user_id'];
 			$country = $this->Testimonial_model->get_county($user_id);
@@ -70,11 +71,30 @@ class Testimonial extends CI_Controller {
 				'testimonyUrl'=>'testimonial/testimony_for_sickness/'.$this->input->post('sickness_idsickness'),
 				'warnings'=>$this->input->post('warnings'),
 			);
-			$insertNewPost = $this->Testimonial_model->insert_testimonial_new_post($data);
-			if($insertNewPost){
-				$this->session->set_flashdata('testimonial_add_msg', 'Your story has been added successfully');
-				redirect('testimonial/testimony_for_sickness/'.$this->input->post('sickness_idsickness'));
-			}
+
+		}
+       // new user adding story
+		else{
+           
+   //         	$data = array(
+			// 	'date'=>date("Y-m-d h:i"),
+			// 	'user_iduser'=>$user_id,
+			// 	'sickness_idsickness'=>$this->input->post('sickness_idsickness'),
+			// 	'remedy_idremedy'=> $this->input->post('remedy_idremedy'),
+			// 	'relief_idrelief'=>$this->input->post('relief_idrelief'),
+			// 	'story'=>$this->input->post('story'),
+			// 	'dosage'=>$this->input->post('dosage'),
+			// 	'administeredTo'=>$this->input->post('administeredTo'),
+			// 	'administeredBy'=>$this->input->post('administeredBy'),
+			// 	'testimonyUrl'=>'testimonial/testimony_for_sickness/'.$this->input->post('sickness_idsickness'),
+			// 	'warnings'=>$this->input->post('warnings'),
+			// );
+
+		}
+		$insertNewPost = $this->Testimonial_model->insert_testimonial_new_post($data);
+		if($insertNewPost){
+			$this->session->set_flashdata('testimonial_add_msg', 'Your story has been added successfully');
+			redirect('testimonial/testimony_for_sickness/'.$this->input->post('sickness_idsickness'));
 		}
 	}
 
