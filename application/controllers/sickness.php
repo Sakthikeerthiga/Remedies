@@ -62,16 +62,13 @@ public function __construct()
 // condition menu lsiting page
 	public function sicknesslist()
 	{
-
-		
 		$config = array();
 		$config["base_url"] = base_url() . "condition-list";
 		$config["total_rows"] = $this->Sickness_model->get_count();
-		$config["per_page"] = 2;
+		$config["per_page"] = 20;
 		$config["uri_segment"] = 2;
 		$config['display_pages'] = FALSE;
 		$config['use_page_numbers'] = TRUE;
-		$config['num_links'] = 2;
 		$start = $config["per_page"] * (0-1);
 		$config['full_tag_open'] = "<ul class='pagination pagination-primary align-items-center justify-content-between'>";
 		$config['full_tag_close'] = '</ul>';

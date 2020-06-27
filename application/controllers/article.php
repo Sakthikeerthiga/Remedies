@@ -78,9 +78,36 @@ class Article extends CI_Controller {
 	}
 
 	public function articlelist()
-	{       
-		$data['article_list']= $this->Article_model->article_list_detail();
-		$data['ad_after_articlelist']  = $this->Article_model->ad_after_articlelist();
+	{   
+		$config = array();
+		$config["base_url"] = base_url() . "article-list";
+		$config["total_rows"] = $this->Article_model->get_count();
+		$config["per_page"] = 20;
+		$config["uri_segment"] = 2;
+		$config['display_pages'] = FALSE;
+		$config['use_page_numbers'] = TRUE;
+		$start = $config["per_page"] * (0-1);
+		$config['full_tag_open'] = "<ul class='pagination pagination-primary align-items-center justify-content-between'>";
+		$config['full_tag_close'] = '</ul>';
+
+
+		$config['prev_link'] = '<li class="page-item mx-1"><span class="page-link btn btn-sm rounded-pill">PREVIOUS PAGE	</span></li>';
+
+
+		$config['next_link'] = '<li class="page-item mx-1"><span class="page-link btn btn-sm rounded-pill active">NEXT PAGE</span></li>';
+
+
+
+		$this->pagination->initialize($config);
+
+		$page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+
+		$data["links"] = $this->pagination->create_links();
+
+		$data['pagination'] = $this->pagination->create_links();
+		$data['current'] = $this->pagination->current_place();
+
+		$data['article_list']= $this->Article_model->article_list_detail($config["per_page"], $page);
 		$this->load->view('article_list', $data);
 	}
 

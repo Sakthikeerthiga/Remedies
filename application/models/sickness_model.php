@@ -38,12 +38,4 @@ class Sickness_model extends CI_Model
         return $results;
     }
 
-    public function afterad_sickness_list()
-    {
-        $this->db->select('*');
-        $this->db->order_by("commonName", "asc");
-        $fetched_records = $this->db->get($this->table,10,10);
-        $results = $fetched_records->result_array();
-        return $results;
-    }
 }

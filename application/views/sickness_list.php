@@ -62,30 +62,10 @@ $this->load->database();
 						<div class="xdr-adds-container my-4">
 							<img class="rounded" src="https://dummyimage.com/730x100/914E05/ffffff.jpg&text=adds+here" alt="">
 						</div>
-
-						<?php if(isset($ad_after_sicknesslist) && $ad_after_sicknesslist!=''){ 
-							foreach ($ad_after_sicknesslist as $key => $list) { ?>
-							<li><a href="<?php echo base_url();?>sickness-articles/<?php echo $list['idsickness'] ?>"> <?php echo $list['commonName'] ?></a><span><?php $Testimoniescnt = $this->db->get_where('testimony', array('sickness_idsickness' => $list['idsickness']))->num_rows();
-
-							if($Testimoniescnt > 0){ ?><a href="<?php echo base_url();?>sickness-testimony/<?php echo $list['idsickness'] ?>">(<?php echo $Testimoniescnt ?> user stories)</a><?php } ?></span></li>
-						<?php } } ?>
-
 						</ul>
 
-						<!-- <ul class="pagination pagination-primary align-items-center justify-content-between">
-						<li class="page-item mx-1">
-						<a class="page-link btn btn-sm rounded-pill" href="#">
-						PREVIOUS PAGE
-						</a>
-						</li>
-						<li class="page-item mx-1">Page 2 of 45</li>
-						<li class="page-item mx-1">
-						<a class="page-link btn btn-sm rounded-pill active" href="#">
-						NEXT PAGE
-						</a>
-						</li>
-						</ul> -->
-						<p><?php echo $links.$current; ?></p>
+						<?php echo $links; ?>
+						<p style="text-align: center;"><?php echo $current; ?></p>
 					</div>
 					<div class="col-lg-4 d-flex flex-column">
 						<div class="xdr-adds-container my-4">
