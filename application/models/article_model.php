@@ -57,22 +57,20 @@ class Article_model extends CI_Model
         return $remedy_article_list;
     }
 
-    public function article_list_detail()
+    public function article_list_detail($limit, $start)
     {
          $this->db->select('*');
          $this->db->order_by("created_at", "desc");
-         $fetched_records = $this->db->get($this->table,10,0);
+         $fetched_records = $this->db->get($this->table,$limit, $start);
          $results = $fetched_records->result_array();
          return $results;     
     }
-   public function ad_after_articlelist()
-     {
-         $this->db->select('*');
-         $this->db->order_by("created_at", "desc");
-         $fetched_records = $this->db->get($this->table,10,10);
-         $results = $fetched_records->result_array();
-         return $results;     
+
+    public function get_count()
+    {
+         return $this->db->count_all($this->table);  
     }
+   
     public function article_rating($data){
         $articlesuccess = $this->db->insert('articlesuccess',$data);
         $idarticleSuccess = $this->db->insert_id();

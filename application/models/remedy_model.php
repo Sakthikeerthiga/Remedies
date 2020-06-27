@@ -23,24 +23,19 @@ class Remedy_model extends CI_Model
         }
         return $data;
     }
-// condition page list
+// Remedy page list
 
-    public function get_remedy_list()
+    public function get_remedy_list($limit, $start)
     {
         $this->db->select('*');
         $this->db->order_by("name", "asc");
-        $this->db->limit(10,0);
+        $this->db->limit($limit, $start);
         $fetched_records = $this->db->get($this->table);
         $results = $fetched_records->result_array();
         return $results;
     }
 
-    public function afterad_remedy_list()
-    {
-        $this->db->select('*');
-        $this->db->order_by("name", "asc");
-        $fetched_records = $this->db->get($this->table,10,10);
-        $results = $fetched_records->result_array();
-        return $results;
+    public function get_count() {
+        return $this->db->count_all($this->table);
     }
 }

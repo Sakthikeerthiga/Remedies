@@ -32,6 +32,7 @@
               Welcome<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <?php echo $this->session->userdata('logged_user')['screenName'] ?></a>
               <div class="dropdown-menu logout">
                 <a class="dropdown-item" href="<?php echo base_url();?>profile">Edit Profile</a>
+                <a class="divider"></a>
                 <a class="dropdown-item" href="<?php echo base_url();?>logout">Logout</a>
               </div>
             </div>

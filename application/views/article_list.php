@@ -62,27 +62,10 @@ $this->load->database();
 							<img class="rounded" src="https://dummyimage.com/730x100/914E05/ffffff.jpg&text=adds+here" alt="">
 						</div>
 
-						<?php if(isset($ad_after_articlelist) && $ad_after_articlelist!=''){ 
-							foreach ($ad_after_articlelist as $key => $list) { ?>
-							<li><a href="<?php echo base_url();?>article-detail/<?php echo $list['idarticle'] ?>"> <?php echo $list['seo_title'] ?></a>
-							</li>
-						<?php } } ?>
 
 						</ul>
-
-						<!-- <ul class="pagination pagination-primary align-items-center justify-content-between">
-						<li class="page-item mx-1">
-						<a class="page-link btn btn-sm rounded-pill" href="#">
-						PREVIOUS PAGE
-						</a>
-						</li>
-						<li class="page-item mx-1">Page 2 of 45</li>
-						<li class="page-item mx-1">
-						<a class="page-link btn btn-sm rounded-pill active" href="#">
-						NEXT PAGE
-						</a>
-						</li>
-						</ul> -->
+						<?php echo $links; ?>
+						<p style="text-align: center;"><?php echo $current; ?></p>
 					</div>
 					<div class="col-lg-4 d-flex flex-column">
 						<div class="xdr-adds-container my-4">

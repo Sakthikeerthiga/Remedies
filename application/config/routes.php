@@ -61,8 +61,10 @@ $route['updatetrendingsearch'] = 'sickness/updatetrendingsearch';
 $route['condition-list'] = 'sickness/sicknesslist';
 $route['condition-list/(:num)'] = 'sickness/sicknesslist';
 $route['remedies-list'] = 'remedies/remedylist';
+$route['remedies-list/(:num)'] = 'remedies/remedylist';
 $route['remedy-articles/(:any)'] ='article/remedy_article_list/$1';
 $route['article-list'] = 'article/articlelist';
+$route['article-list/(:num)'] = 'article/articlelist';
 
 
 $route['sickness-testimony/(:any)'] ='testimonial/testimony_for_sickness/$1';

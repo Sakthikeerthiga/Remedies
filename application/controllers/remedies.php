@@ -34,8 +34,35 @@ public function __construct()
 // condition menu lsiting page
 	public function remedylist()
 	{
-		$data['remedylist']  = $this->Remedy_model->get_remedy_list();
-		$data['ad_after_remedylist']  = $this->Remedy_model->afterad_remedy_list();
+		$config = array();
+		$config["base_url"] = base_url() . "remedies-list";
+		$config["total_rows"] = $this->Remedy_model->get_count();
+		$config["per_page"] = 20;
+		$config["uri_segment"] = 2;
+		$config['display_pages'] = FALSE;
+		$config['use_page_numbers'] = TRUE;
+		$start = $config["per_page"] * (0-1);
+		$config['full_tag_open'] = "<ul class='pagination pagination-primary align-items-center justify-content-between'>";
+		$config['full_tag_close'] = '</ul>';
+
+
+		$config['prev_link'] = '<li class="page-item mx-1"><span class="page-link btn btn-sm rounded-pill">PREVIOUS PAGE	</span></li>';
+
+
+		$config['next_link'] = '<li class="page-item mx-1"><span class="page-link btn btn-sm rounded-pill active">NEXT PAGE</span></li>';
+
+
+
+		$this->pagination->initialize($config);
+
+		$page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+
+		$data["links"] = $this->pagination->create_links();
+
+		$data['remedylist']  = $this->Remedy_model->get_remedy_list($config["per_page"], $page);
+		$data['pagination'] = $this->pagination->create_links();
+		$data['current'] = $this->pagination->current_place();
+
 		$this->load->view('remedy_list', $data);
 
 	}
