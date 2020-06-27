@@ -20,7 +20,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- section start -->
 <section class="section pt-0">
   <div class="container">
-
     <div class="row">
       <div class="col-12">
         <div class="mb-5">
