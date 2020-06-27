@@ -12,6 +12,8 @@ class Testimonial extends CI_Controller {
 		$this->load->library('pagination');
 		$this->load->model('Testimonial_model');
 		$this->load->model('Article_model');
+		$this->load->model('Login_model');
+		
 
 	}
 	public function index()
@@ -20,8 +22,12 @@ class Testimonial extends CI_Controller {
 	}
 
 // sickness testimonial list
-	public function testimony_for_sickness($sickness_id='')
+	public function testimony_for_sickness($sicknessname='')
 	{
+		$slugname = str_replace("-", " ", $sicknessname);
+		$slug = str_replace("_", "-", $slugname);
+		$sickness_id = $this->db->get_where('sickness', array('commonName' => $slug))->row()->idsickness; 
+
 		if($sickness_id!=''){
 			$data['testimonial_details']= $this->Testimonial_model->sickness_testimony_list($sickness_id);
 			$data['get_related_article'] = $this->Article_model->sickness_article_list($sickness_id);
@@ -32,8 +38,12 @@ class Testimonial extends CI_Controller {
 	}
 
 // remedy testimonial list
-	public function testimony_for_remedy($remedy_id='')
-	{       
+	public function testimony_for_remedy($remedy_name='')
+	{    
+		$slugname = str_replace("-", " ", $remedy_name);
+		$slug = str_replace("_", "-", $slugname);
+		$remedy_id = $this->db->get_where('remedy', array('name' => $slug))->row()->idremedy;
+
 		if($remedy_id!=''){
 			$data['testimonial_details']= $this->Testimonial_model->remedy_testimony_list($remedy_id);
 			$data['get_related_article'] = $this->Article_model->remedy_article_list($remedy_id);
@@ -75,20 +85,32 @@ class Testimonial extends CI_Controller {
 		}
        // new user adding story
 		else{
-           
-   //         	$data = array(
-			// 	'date'=>date("Y-m-d h:i"),
-			// 	'user_iduser'=>$user_id,
-			// 	'sickness_idsickness'=>$this->input->post('sickness_idsickness'),
-			// 	'remedy_idremedy'=> $this->input->post('remedy_idremedy'),
-			// 	'relief_idrelief'=>$this->input->post('relief_idrelief'),
-			// 	'story'=>$this->input->post('story'),
-			// 	'dosage'=>$this->input->post('dosage'),
-			// 	'administeredTo'=>$this->input->post('administeredTo'),
-			// 	'administeredBy'=>$this->input->post('administeredBy'),
-			// 	'testimonyUrl'=>'testimonial/testimony_for_sickness/'.$this->input->post('sickness_idsickness'),
-			// 	'warnings'=>$this->input->post('warnings'),
-			// );
+
+			$userdata = array(
+				'firstName'=>$this->input->post('firstName'),
+				'lastName'=>$this->input->post('lastName'),
+				'screenName'=> $this->input->post('screenName'),
+				'email'=> $this->input->post('email'),
+				'password'=>sha1($this->input->post('password')),
+			);
+			$insertUser = $this->Login_model->insert_user($userdata);
+			if($insertUser){
+				$data = array(
+					'date'=>date("Y-m-d h:i"),
+					'user_iduser'=>$insertUser,
+					'sickness_idsickness'=>$this->input->post('sickness_idsickness'),
+					'remedy_idremedy'=> $this->input->post('remedy_idremedy'),
+					'relief_idrelief'=>$this->input->post('relief_idrelief'),
+					'story'=>$this->input->post('story'),
+					'dosage'=>$this->input->post('dosage'),
+					'administeredTo'=>$this->input->post('administeredTo'),
+					'administeredBy'=>$this->input->post('administeredBy'),
+					'testimonyUrl'=>'testimonial/testimony_for_sickness/'.$this->input->post('sickness_idsickness'),
+					'warnings'=>$this->input->post('warnings'),
+				);
+			}
+
+  
 
 		}
 		$insertNewPost = $this->Testimonial_model->insert_testimonial_new_post($data);

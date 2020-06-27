@@ -97,6 +97,12 @@ class Login extends CI_Controller {
 
 		// $this->session->set_userdata('logged_user', $data);
 		$updateUser = $this->Login_model->update_user($data,$user_id);
+		$testimonyupdate = array(
+			'state'=> $this->input->post('City'),
+			'country'=> $this->input->post('Country')
+		);
+		$updateTestimonyFields = $this->Login_model->update_testimony_fields($testimonyupdate,$user_id);
+		$this->session->set_flashdata('profile_update', 'Your profile has been updated successfully');
 		redirect('/', 'refresh'); 
 	}
 

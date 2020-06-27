@@ -19,8 +19,12 @@ class Article extends CI_Controller {
 	}
 
 // particular article detail page
-	public function detail_page($article_id='')
+	public function detail_page($article_name='')
 	{
+		$slugname = str_replace("-", " ", $article_name);
+		$slug = str_replace("_", "-", $slugname);
+		$article_id = $this->db->get_where('article', array('seo_title' => $slug))->row()->idarticle;
+
 		if($article_id!=''){
 			$articleVisitCount = $this->Article_model->articleVisitCount($article_id);
 			$data['article_details']= $this->Article_model->article_details_list($article_id);

@@ -40,6 +40,15 @@ class Login_model extends CI_Model
          $this->db->update('user', $data);
     }
 
+    //Update testimony Fields
+    public function update_testimony_fields($data,$uid){
+        $query = $this->db->get_where('testimony', array('user_iduser' => $uid)); 
+        if($query->num_rows() != 0){
+            $this->db->where('user_iduser', $uid);
+            $this->db->update('testimony', $data);
+        }
+    }
+
     //Get user details by id
     public function getuserdetails($uid){
         $this->db->select('*');

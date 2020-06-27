@@ -35,7 +35,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         </div>
         <form action="<?php echo base_url();?>save-testimony" method="POST">
+          <?php if(empty($this->session->userdata('logged_user'))){ ?>
+            <div class="form-group row align-items-center">
+              <label class="col-lg-2 col-md-3"> Name </label>
+              <div class="col-md-4 xdr-select">
+                <input type="text" class="form-control" name="firstName" placeholder="Enter First Name" required="required" value="">
+              </div>
+              <div class="col-md-4 xdr-select">
+                <input type="text" class="form-control" name="lastName" placeholder="Enter Last Name" required="required" value="">
+              </div>
+            </div>
 
+            <div class="form-group row align-items-center">
+              <label class="col-lg-2 col-md-3"> User Name </label>
+              <div class="col-md-8 xdr-select">
+                <input type="text" class="form-control" name="screenName" placeholder="Enter User Name" id="username" onkeyup="ValidateUsername();" autocomplete="off" required value="">
+                <span id="error_username" style="color: red;"></span>
+              </div>
+            </div>
+
+            <div class="form-group row align-items-center">
+              <label class="col-lg-2 col-md-3"> Email </label>
+              <div class="col-md-8 xdr-select">
+                <input type="text" id="email" name="email" class="form-control" placeholder="E-mail here" onkeyup="ValidateEmail();" autocomplete="off" value="" required>
+                <span id="error_email" style="color: red;"></span>
+              </div>
+            </div>
+
+            <div class="form-group row align-items-center">
+              <label class="col-lg-2 col-md-3"> Pasword </label>
+              <div class="col-md-8 xdr-select">
+                <input type="password" id="password" name="password" class="form-control" placeholder="Pasword here" required>
+              </div>
+            </div>
+        <?php  } ?>
           <div class="form-group row">
             <label class="col-lg-2 col-md-3">Sickness idsickness</label>
             <div class="col-md-8 xdr-select">
@@ -75,7 +108,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="form-group row">
           <label class="col-lg-2 col-md-3"> Compose </label>
           <div class="col-md-8 xdr-select">
-            <textarea id="compose" class="form-control" name="story" rows="7" placeholder="Text formating here"></textarea>
+            <textarea class="form-control texteditor" name="story" rows="7" placeholder="Text formating here"></textarea>
           </div>
         </div>
 
@@ -113,7 +146,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="form-group row">
           <label class="col-lg-2 col-md-3"> Text formating here </label>
           <div class="col-md-8 xdr-select">
-            <textarea id="textformat" class="form-control" name="warnings" rows="3" placeholder="Text formating here"></textarea>
+            <textarea class="form-control texteditor" name="warnings" rows="3" placeholder="Text formating here"></textarea>
           </div>
         </div>
 
