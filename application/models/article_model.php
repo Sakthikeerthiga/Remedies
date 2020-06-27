@@ -122,5 +122,10 @@ class Article_model extends CI_Model
             return $results; 
     }
 
-
+    public function articleVisitCount($article_id)
+    {
+        $this->db->set('clicks', 'clicks+1', FALSE);
+        $this->db->where('idarticle',$article_id);
+        $this->db->update('article');
+    }
 }

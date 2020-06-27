@@ -27,11 +27,11 @@ $this->load->database();
     </div>
     <div class="form-group">
       <input type="text" class="form-control" name="screenName" placeholder="Enter User Name" id="username" onkeyup="ValidateUsername();" autocomplete="off" required value="<?php echo (!empty($userdata)) ? $userdata[0]->screenName : '' ?>">
-      &nbsp;&nbsp;<span id="error_username" style="color: red;"></span>
+      <span id="error_username" style="color: red;"></span>
     </div>
     <div class="form-group">
       <input type="text" id="email" name="email" class="form-control" placeholder="E-mail here" onkeyup="ValidateEmail();" autocomplete="off" value="<?php echo (!empty($userdata)) ? $userdata[0]->email : '' ?>" required>
-      &nbsp;&nbsp;<span id="error_email" style="color: red;"></span>
+      <span id="error_email" style="color: red;"></span>
     </div>
     <div class="form-group">
       <textarea class="form-control" name="Address" placeholder="Enter Address" required="required"><?php echo (!empty($userdata)) ? $userdata[0]->Address : ''?></textarea>
@@ -43,13 +43,13 @@ $this->load->database();
       <input type="text" class="form-control" name="City" placeholder="Enter City" required="required" value="<?php echo (!empty($userdata)) ? $userdata[0]->City : ''?>">
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" name="mobileNo" placeholder="Enter Mobile Number" id="user_mobile" required="required"  autocomplete="off" value="<?php echo (!empty($userdata)) ? $userdata[0]->mobileNo : ''?>">&nbsp;&nbsp;<span id="error_mobileno" style="color: red;"></span>
+      <input type="text" class="form-control" name="mobileNo" placeholder="Enter Mobile Number" id="user_mobile" required="required"  autocomplete="off" value="<?php echo (!empty($userdata)) ? $userdata[0]->mobileNo : ''?>"><span id="error_mobileno" style="color: red;"></span>
     </div>
     <div class="form-group">
       <input type="text" class="form-control datepicker" name="dob" placeholder="Enter Date of Birth" id="user_dob" required="required" autocomplete="off"  value="<?php echo (!empty($userdata)) ? $userdata[0]->dob : ''?>">
     </div>
     <div class="form-group">
-      <select class="form-control" name="gender" required>
+      <select class="form-control gender-dropdown" name="gender" required>
         <option value=""> -- Select gender-- </option>
         <option value="male" <?php if(!empty($userdata[0])){ echo ($userdata[0]->gender == 'male')?"selected":""; }?> >Male</option>
         <option value="female" <?php if(!empty($userdata[0])){  echo ($userdata[0]->gender == 'female')?"selected":""; }?> >Female</option>

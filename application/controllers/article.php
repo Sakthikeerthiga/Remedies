@@ -22,6 +22,7 @@ class Article extends CI_Controller {
 	public function detail_page($article_id='')
 	{
 		if($article_id!=''){
+			$articleVisitCount = $this->Article_model->articleVisitCount($article_id);
 			$data['article_details']= $this->Article_model->article_details_list($article_id);
 			$get_related_sickeness = $this->db->query("select sickness_idsickness from featuredsicknesses where article_idarticle='$article_id'")->result_array();
 			if(count($get_related_sickeness) > 0){
@@ -32,6 +33,7 @@ class Article extends CI_Controller {
 			}else{
 				$data['get_article_vote'] = '';
 			}
+
 		}
 		$this->load->view('article_details', $data);
 	}
@@ -40,10 +42,13 @@ class Article extends CI_Controller {
 	public function sickness_article_list($sickeness_id='')
 	{       
 		if($sickeness_id!=''){
+
 			$data['article_details']= $this->Article_model->sickness_article_list($sickeness_id);
 			if(!empty($data['article_details'])){
 				$data['get_related_article'] = $this->Article_model->get_sickness_related_article($sickeness_id,$data['article_details'][0]['idarticle']);
+				$articleVisitCount = $this->Article_model->articleVisitCount($data['article_details'][0]['idarticle']);
 			}
+
 		}
 		if(!empty($this->session->userdata('logged_user')) && !empty($data['article_details'])){
 			$data['get_article_vote'] = $this->Article_model->get_article_success($data['article_details'][0]['idarticle'],$this->session->userdata('logged_user')['user_id']);
@@ -61,6 +66,7 @@ class Article extends CI_Controller {
 			$data['article_details']= $this->Article_model->remedy_article_list($remedy_id);
 			if(!empty($data['article_details'])){
 				$data['get_related_article'] = $this->Article_model->get_remedy_related_article($remedy_id,$data['article_details'][0]['idarticle']);
+				$articleVisitCount = $this->Article_model->articleVisitCount($data['article_details'][0]['idarticle']);
 			}
 		}
 		if(!empty($this->session->userdata('logged_user')) && !empty($data['article_details'])){

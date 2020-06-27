@@ -28,8 +28,13 @@
         <input type="hidden" name="user_id" class="userId" value="<?php echo (!empty($this->session->userdata('logged_user')['user_id'])) ? $this->session->userdata('logged_user')['user_id'] : '' ?>">
         <?php if(!empty($this->session->userdata('logged_user')['screenName'])){ ?>
           <p class="mb-0 text-right text-secondary pt-4">
-              Welcome <?php echo $this->session->userdata('logged_user')['screenName'] ?>
-              <a href="<?php echo base_url();?>logout">Logout</a>
+            <div class="dropdown" style="text-align: right;">
+              Welcome<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <?php echo $this->session->userdata('logged_user')['screenName'] ?></a>
+              <div class="dropdown-menu logout">
+                <a class="dropdown-item" href="<?php echo base_url();?>profile">Edit Profile</a>
+                <a class="dropdown-item" href="<?php echo base_url();?>logout">Logout</a>
+              </div>
+            </div>
           </p>
         <?php }else{ ?>
         <p class="mb-0 text-right text-secondary pt-4">
