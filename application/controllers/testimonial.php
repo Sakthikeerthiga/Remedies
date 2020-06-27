@@ -31,6 +31,7 @@ class Testimonial extends CI_Controller {
 		if($sickness_id!=''){
 			$data['testimonial_details']= $this->Testimonial_model->sickness_testimony_list($sickness_id);
 			$data['get_related_article'] = $this->Article_model->sickness_article_list($sickness_id);
+			$data['testimonial_heading'] = $slug;
 			$data['breadcrumb'] = 'Conditions';
 			$data['breadcrumb_url'] = 'condition-list';
 		}
@@ -47,6 +48,7 @@ class Testimonial extends CI_Controller {
 		if($remedy_id!=''){
 			$data['testimonial_details']= $this->Testimonial_model->remedy_testimony_list($remedy_id);
 			$data['get_related_article'] = $this->Article_model->remedy_article_list($remedy_id);
+			$data['testimonial_heading'] = $slug;
 			$data['breadcrumb'] = 'Remedies';
 			$data['breadcrumb_url'] = 'remedies-list';
 		}

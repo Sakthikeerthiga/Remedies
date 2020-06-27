@@ -12,22 +12,33 @@ class Testimonial_model extends CI_Model
 
     public function sickness_testimony_list($sickeness_id)
     {
-         $this->db->select('*');
-         $this->db->where('sickness_idsickness',$sickeness_id);
-         $this->db->order_by("idtestimony", "desc");
-         $fetched_records = $this->db->get($this->table);
-         $results = $fetched_records->result_array();
-         return $results;     
+        $this->db->select('*');
+        $this->db->join('user', 'user.iduser = testimony.user_iduser','LEFT');
+        $this->db->join('sickness', 'sickness.idsickness = testimony.sickness_idsickness','LEFT');
+        $this->db->join('remedy', 'remedy.idremedy = testimony.remedy_idremedy','LEFT');
+        $this->db->join('relieftype', 'relieftype.idrelief = testimony.relief_idrelief','LEFT');
+        $this->db->where('sickness_idsickness',$sickeness_id);
+        $this->db->order_by("idtestimony", "desc");
+        $fetched_records = $this->db->get($this->table);
+        $results = $fetched_records->result_array();
+        //echo "<pre>";print_r($results);exit;
+        return $results;
     }
 
    public function remedy_testimony_list($remedy_id)
     {
+
          $this->db->select('*');
-         $this->db->where('remedy_idremedy',$remedy_id);
-         $this->db->order_by("idtestimony", "desc");
-         $fetched_records = $this->db->get($this->table);
-         $results = $fetched_records->result_array();
-         return $results;     
+        $this->db->join('user', 'user.iduser = testimony.user_iduser','LEFT');
+        $this->db->join('sickness', 'sickness.idsickness = testimony.sickness_idsickness','LEFT');
+        $this->db->join('remedy', 'remedy.idremedy = testimony.remedy_idremedy','LEFT');
+        $this->db->join('relieftype', 'relieftype.idrelief = testimony.relief_idrelief','LEFT');
+        $this->db->where('remedy_idremedy',$remedy_id);
+        $this->db->order_by("idtestimony", "desc");
+        $fetched_records = $this->db->get($this->table);
+        $results = $fetched_records->result_array();
+        //echo "<pre>";print_r($results);exit;
+        return $results;  
     }
 
     public function sickness_data_list()
