@@ -222,111 +222,111 @@ See stories/testimonies/reliefs linked to this ailment
               <!-- end to reply to comment -->
             </div>
           </div>
-       
-       <!-- reply commands listing section -->
-    <div class="testimonial_reply_comment_<?php echo $main_comment['idcomment'] ;?>">
-        <?php if(!empty($additional_reply_comment)){ 
-        foreach($additional_reply_comment as $add_comment){  
-           if($main_comment['idcomment'] ==  $add_comment['comment_idcomment']){ ?>
-          <div class="testimonial-comment-reply">
-              <div class="testimonial-discussion"><div class="row no-gutters">
-                <div class="col-6 small">
-                  <strong>Username:</strong>
-                  <?php echo $add_comment['screenName']; ?>
-                  <br>
-                  <strong>Status:</strong>
-                  User
-                  <small>(3 post)</small>
+
+          <!-- reply commands listing section -->
+          <div class="testimonial_reply_comment_<?php echo $main_comment['idcomment'] ;?>">
+            <?php if(!empty($additional_reply_comment)){ 
+              foreach($additional_reply_comment as $add_comment){  
+                if($main_comment['idcomment'] ==  $add_comment['comment_idcomment']){ ?>
+                  <div class="testimonial-comment-reply">
+                    <div class="testimonial-discussion"><div class="row no-gutters">
+                      <div class="col-6 small">
+                        <strong>Username:</strong>
+                        <?php echo $add_comment['screenName']; ?>
+                        <br>
+                        <strong>Status:</strong>
+                        User
+                        <small>(3 post)</small>
+                      </div>
+                      <div class="col-6 small">
+                        <span class="text-primary">Date Posted:</span>
+                        <?php echo $add_comment['datePosted']; ?>
+                      </div>
+                    </div>
+                    <div class="testimonial-discussion__body">
+                      <?php echo $add_comment['comment']; ?>
+                    </div> 
+                    <!-- end to reply to comment -->
+                  </div>
                 </div>
-                <div class="col-6 small">
-                  <span class="text-primary">Date Posted:</span>
-                  <?php echo $add_comment['datePosted']; ?>
-                </div>
-              </div>
-              <div class="testimonial-discussion__body">
-                <?php echo $add_comment['comment']; ?>
-              </div> 
-              <!-- end to reply to comment -->
+              <?php  } } } ?>
             </div>
-          </div>
-       <?php  } } } ?>
-     </div>
-    <!-- end for listing reply command section -->
-        <?php } } }?>
-        <!-- END testimonial-discussion -->
-      </div>
+            <!-- end for listing reply command section -->
+          <?php } } }?>
+          <!-- END testimonial-discussion -->
+        </div>
 
 
 
-      <!-- END testimonial-discussion-reply -->
-    </li>
-  <?php } ?>
+        <!-- END testimonial-discussion-reply -->
+      </li>
+    <?php } ?>
 
 
 
 
-</div>
-<!-- Related article section -->
-<div class="col-lg-4 d-flex flex-column mt-5 mt-lg-0">
-  <div class="xdr-adds-container space-5 mt-0 text-center">
-    <img class="rounded ml-auto" src="https://dummyimage.com/300x300/914E05/ffffff.jpg&amp;text=adds+here"
-    alt="">
   </div>
-  <div class="container-related-article">
-    <h4>
-      RELATED ARTICLES
-    </h4>
-    <?php if(isset($get_related_article) && !empty($get_related_article)){ 
+  <!-- Related article section -->
+  <div class="col-lg-4 d-flex flex-column mt-5 mt-lg-0">
+    <div class="xdr-adds-container space-5 mt-0 text-center">
+      <img class="rounded ml-auto" src="https://dummyimage.com/300x300/914E05/ffffff.jpg&amp;text=adds+here"
+      alt="">
+    </div>
+    <div class="container-related-article">
+      <h4>
+        RELATED ARTICLES
+      </h4>
+      <?php if(isset($get_related_article) && !empty($get_related_article)){ 
 
-      foreach($get_related_article as $article){ ?>
-        <article class="article-related mb-5">
-          <h4 class="text-secondary">
-            <?php echo $article['seo_title']; ?>
-          </h4>
-          <img class="rounded my-3" src="<?php echo base_url();?>assets/img/home-thumb/<?php echo $article['thumbnailImage'] ?>"
-          alt="<?php echo $article['imageAltText'] ?>">
-          <h4>
-            <?php echo $article['seo_keywords']; ?>
-          </h4>
-          <p>
+        foreach($get_related_article as $article){ ?>
+          <article class="article-related mb-5">
+            <h4 class="text-secondary">
+              <?php echo $article['seo_title']; ?>
+            </h4>
+            <img class="rounded my-3" src="<?php echo base_url();?>assets/img/home-thumb/<?php echo $article['thumbnailImage'] ?>"
+            alt="<?php echo $article['imageAltText'] ?>">
+            <h4>
+              <?php echo $article['seo_keywords']; ?>
+            </h4>
             <p>
+              <p>
 
-              <?php $string = strip_tags($article['seo_description']);
-              if (strlen($string) > 100) {
+                <?php $string = strip_tags($article['seo_description']);
+                if (strlen($string) > 100) {
 
 // truncate string
-                $stringCut = substr($string, 0, 100);
-                $endPoint = strrpos($stringCut, ' ');
+                  $stringCut = substr($string, 0, 100);
+                  $endPoint = strrpos($stringCut, ' ');
 
 //if the string doesn't contain any space then it will cut without word basis.
-                $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
-              }
-              echo $string;
+                  $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+                }
+                echo $string;
 
-              ?>
+                ?>
 
+              </p>
             </p>
-          </p>
-          <a href="<?php echo base_url().''.$article['articleUrl'] ?>" class="link">
-            Read more
-          </a>
-        </article>
-      <?php } }
-      else{
-        ?>
+            <a href="<?php echo base_url().''.$article['articleUrl'] ?>" class="link">
+              Read more
+            </a>
+          </article>
+        <?php } }
+        else{
+          ?>
 
-        <p> No related articles found </p>
+          <p> No related articles found </p>
 
-      <?php } ?>
+        <?php } ?>
 
-    </div><!-- END container-related-article -->
-    <div class="xdr-adds-container mt-auto">
-      <img class="rounded" src="https://dummyimage.com/300x600/914E05/ffffff.jpg&amp;text=adds+here" alt="">
-    </div>
+      </div><!-- END container-related-article -->
+      <div class="xdr-adds-container mt-auto">
+        <img class="rounded" src="https://dummyimage.com/300x600/914E05/ffffff.jpg&amp;text=adds+here" alt="">
+      </div>
 
-  </div><!-- END col-lg-4 -->
-  <!-- End of related article -->
-</div> <!-- END row -->
+    </div><!-- END col-lg-4 -->
+    <!-- End of related article -->
+  </div> <!-- END row -->
 <?php } ?>
 
 </div>
@@ -334,97 +334,3 @@ See stories/testimonies/reliefs linked to this ailment
 <!-- footer menu -->
 <?php  $this->load->view('includes/footer_menu.php');?>
 
-<script type="text/javascript">
-  function add_comment(testimony_id){
-    var user_id = $('#current_user_id').val();
-    var comment = $("#addComment_"+testimony_id).text();
-    if(user_id != ''){
-      $('#display_comment_section_'+testimony_id).show( "slow" );
-    }else{
-      var testimonial_login = confirm("Please Login/Sign up");
-      if (testimonial_login == true) {
-        window.location.replace(base_url+'login'); 
-      } else {
-        return false;
-      } 
-    }
-
-  }
-  function close_comment(testimony_id){
-    $('#display_comment_section_'+testimony_id).hide( "slow" );
-  }
-
-  function close_reply(comment_id){
-    $('#reply_to_comment_section_'+comment_id).hide( "slow" );
-  }
-
-
-  function submitComment(testimony_id){
-    var user_id = $('#current_user_id').val();
-    var comment = $.trim($("#addComment_"+testimony_id).val());
-    $.ajax({
-      url: '<?php echo base_url();?>add_new_comment',
-      type: 'post',
-      data: {user_iduser:user_id,testimony_idtestimony:testimony_id,comment:comment},
-      beforeSend: function(){
-        $("#loader").show();
-      },
-      success: function(response){
-        var main_comment = '';
-        var dataObj = jQuery.parseJSON(response);
-        $(dataObj).each(function(i,val){
-          main_comment +='<div class="testimonial-discussion-reply"><div class="testimonial-discussion"><div class="row no-gutters"><div class="col-6 small"><strong>Username:</strong>'+val.screenName+'<br><strong>Status:</strong>User<small>(3 post)</small></div><div class="col-6 small"><span class="text-primary">Date Posted:</span>'+val.datePosted+'</div></div><div class="testimonial-discussion__body">'+val.comment+'</div><a class="btn btn-success btn-circle text-uppercase" href="javascript:void(0);" id="reply"><span class="glyphicon glyphicon-share-alt"></span> Reply</a></div></div>';
-        });
-        $('.testimonial_main_comment_'+testimony_id).html(main_comment);
-        $('#display_comment_section_'+testimony_id).hide( "slow" );
-        $("#addComment_"+testimony_id).val('');
-      },
-      complete:function(data){
-        $("#loader").hide();
-      }
-    });
-  }
-
-  function reply_to_comment(comment_id){
-    var user_id = $('#current_user_id').val();
-    var comment = $("#replyComment_"+comment_id).text();
-    if(user_id != ''){
-      $('#reply_to_comment_section_'+comment_id).show( "slow" );
-    }else{
-      var testimonial_login = confirm("Please Login/Sign up");
-      if (testimonial_login == true) {
-        window.location.replace(base_url+'login'); 
-      } else {
-        return false;
-      } 
-    }
-
-
-  }
-
-  function submitReplyComment(testimony_id,comment_id){
-    var user_id = $('#current_user_id').val();
-    var comment = $.trim($("#replyComment_"+comment_id).val());
-    $.ajax({
-      url: '<?php echo base_url();?>add_reply_comment',
-      type: 'post',
-      data: {user_iduser:user_id,testimony_idtestimony:testimony_id,comment:comment,idcomment:comment_id},
-      beforeSend: function(){
-        $("#loader").show();
-      },
-      success: function(response){
-        var additional_comment = '';
-        var dataObj = jQuery.parseJSON(response);
-        $(dataObj).each(function(i,val){
-          additional_comment +='<div class="testimonial-comment-reply"><div class="testimonial-discussion"><div class="row no-gutters"><div class="col-6 small"><strong>Username:</strong>'+val.screenName+'<br><strong>Status:</strong>User<small>(3 post)</small></div><div class="col-6 small"><span class="text-primary">Date Posted:</span>'+val.datePosted+'</div></div><div class="testimonial-discussion__body">'+val.comment+'</div></div></div>';
-        });
-        $('.testimonial_reply_comment_'+comment_id).html(additional_comment);
-        $('#reply_to_comment_section_'+comment_id).hide( "slow" );
-        $("#replyComment_"+comment_id).val('');
-      },
-      complete:function(data){
-        $("#loader").hide();
-      }
-    });
-  }
-</script>

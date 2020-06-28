@@ -20,7 +20,8 @@ class Login extends CI_Controller {
 		if(!empty($this->session->userdata('logged_user'))){
 			redirect($_SERVER['HTTP_REFERER']);
 		}else{
-		   $this->load->view('login');
+		$this->session->set_userdata('page_url',$_SERVER['HTTP_REFERER']);  
+		  $this->load->view('login');
 		}
 	}
 
@@ -123,7 +124,8 @@ class Login extends CI_Controller {
 				'screenName'=> $data['username'],
 			); 
 			$this->session->set_userdata('logged_user',$session_data);  
-			echo base_url();  
+			// echo base_url();
+			print_r($this->session->userdata('page_url'));exit; 
 		}  
 		else{  
 			echo 0;  

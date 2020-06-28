@@ -71,6 +71,7 @@ function rateArticle(article_id,val){
     }else{
       var article_login = confirm("Please Login/Sign up");
       if (article_login == true) {
+        var session_page = "<?php $this->session->set_userdata('page_url',current_url()); ?>";
         window.location.replace(base_url+'login'); 
       } else {
         return false;
@@ -241,3 +242,100 @@ $(function () {
 
 /*ckeditor*/
 $( 'textarea.texteditor' ).ckeditor();
+
+
+
+function add_comment(testimony_id){
+    var user_id = $('#current_user_id').val();
+    var comment = $("#addComment_"+testimony_id).text();
+    if(user_id != ''){
+      $('#display_comment_section_'+testimony_id).show( "slow" );
+    }else{
+      var testimonial_login = confirm("Please Login/Sign up");
+      if (testimonial_login == true) {
+        var session_page = "<?php $this->session->set_userdata('page_url',current_url()); ?>";
+        window.location.replace(base_url+'login'); 
+      } else {
+        return false;
+      } 
+    }
+
+  }
+  function close_comment(testimony_id){
+    $('#display_comment_section_'+testimony_id).hide( "slow" );
+  }
+
+  function close_reply(comment_id){
+    $('#reply_to_comment_section_'+comment_id).hide( "slow" );
+  }
+
+
+  function submitComment(testimony_id){
+    var user_id = $('#current_user_id').val();
+    var comment = $.trim($("#addComment_"+testimony_id).val());
+    $.ajax({
+      url: base_url+'add_new_comment',
+      type: 'post',
+      data: {user_iduser:user_id,testimony_idtestimony:testimony_id,comment:comment},
+      beforeSend: function(){
+        $("#loader").show();
+      },
+      success: function(response){
+        var main_comment = '';
+        var dataObj = jQuery.parseJSON(response);
+        $(dataObj).each(function(i,val){
+          main_comment +='<div class="testimonial-discussion-reply"><div class="testimonial-discussion"><div class="row no-gutters"><div class="col-6 small"><strong>Username:</strong>'+val.screenName+'<br><strong>Status:</strong>User<small>(3 post)</small></div><div class="col-6 small"><span class="text-primary">Date Posted:</span>'+val.datePosted+'</div></div><div class="testimonial-discussion__body">'+val.comment+'</div><a class="btn btn-success btn-circle text-uppercase" href="javascript:void(0);" id="reply"><span class="glyphicon glyphicon-share-alt"></span> Reply</a></div></div>';
+        });
+        $('.testimonial_main_comment_'+testimony_id).html(main_comment);
+        $('#display_comment_section_'+testimony_id).hide( "slow" );
+        $("#addComment_"+testimony_id).val('');
+      },
+      complete:function(data){
+        $("#loader").hide();
+      }
+    });
+  }
+
+  function reply_to_comment(comment_id){
+    var user_id = $('#current_user_id').val();
+    var comment = $("#replyComment_"+comment_id).text();
+    if(user_id != ''){
+      $('#reply_to_comment_section_'+comment_id).show( "slow" );
+    }else{
+      var testimonial_login = confirm("Please Login/Sign up");
+      if (testimonial_login == true) {
+        var session_page = "<?php $this->session->set_userdata('page_url',current_url()); ?>";
+        window.location.replace(base_url+'login'); 
+      } else {
+        return false;
+      } 
+    }
+
+
+  }
+
+  function submitReplyComment(testimony_id,comment_id){
+    var user_id = $('#current_user_id').val();
+    var comment = $.trim($("#replyComment_"+comment_id).val());
+    $.ajax({
+      url: base_url+'add_reply_comment',
+      type: 'post',
+      data: {user_iduser:user_id,testimony_idtestimony:testimony_id,comment:comment,idcomment:comment_id},
+      beforeSend: function(){
+        $("#loader").show();
+      },
+      success: function(response){
+        var additional_comment = '';
+        var dataObj = jQuery.parseJSON(response);
+        $(dataObj).each(function(i,val){
+          additional_comment +='<div class="testimonial-comment-reply"><div class="testimonial-discussion"><div class="row no-gutters"><div class="col-6 small"><strong>Username:</strong>'+val.screenName+'<br><strong>Status:</strong>User<small>(3 post)</small></div><div class="col-6 small"><span class="text-primary">Date Posted:</span>'+val.datePosted+'</div></div><div class="testimonial-discussion__body">'+val.comment+'</div></div></div>';
+        });
+        $('.testimonial_reply_comment_'+comment_id).html(additional_comment);
+        $('#reply_to_comment_section_'+comment_id).hide( "slow" );
+        $("#replyComment_"+comment_id).val('');
+      },
+      complete:function(data){
+        $("#loader").hide();
+      }
+    });
+  }
