@@ -17,8 +17,8 @@ class Admin extends CI_Controller {
 	}
 	public function index()
 	{
-		if(!empty($this->session->userdata('admin_login'))){
-			redirect($_SERVER['HTTP_REFERER']);
+		if(!empty($this->session->userdata('admin_login')['is_admin'])){
+			$this->load->view('admin/home');
 		}else{
 			$this->load->view('admin/adminlogin');
 		}
@@ -30,7 +30,7 @@ class Admin extends CI_Controller {
 
 		$data['username']=htmlspecialchars($_POST['name']);  
 		$data['password']=htmlspecialchars($_POST['pwd']);  
-		$query=$this->db->get_where('user',array('username'=>$data['username'],'password'=>sha1($data['password'])));  
+		$query=$this->db->get_where('admin',array('username'=>$data['username'],'password'=>sha1($data['password'])));  
     	$res= $query->num_rows();  
 		if($res){  
 			$this->db->select('idadmin');
@@ -44,16 +44,21 @@ class Admin extends CI_Controller {
 				'is_admin'=> 1,
 			); 
 			$this->session->set_userdata('admin_login',$session_data);  
-			echo base_url().'Admin/home';
+			redirect(base_url().'Admin/home');
 		}  
 		else{  
-			echo 0;  
+			$this->session->set_flashdata('admin_login_error', 'Invalid Credentials');
+			redirect(base_url().'Admin'); 
 		}   
 	}  
 
 	public function logout(){
 		$this->session->unset_userdata('admin_login');
 		redirect('login', 'refresh');
+	}
+
+	public function home(){
+		$this->load->view('admin/home');
 	}
 
 }
