@@ -11,7 +11,7 @@ class Login extends CI_Controller {
 		$this->load->library('session');
 		$this->load->library('pagination');
 		$this->load->model('Login_model');
-        $this->table = 'user';
+		$this->table = 'user';
 
 
 	}
@@ -20,8 +20,8 @@ class Login extends CI_Controller {
 		if(!empty($this->session->userdata('logged_user'))){
 			redirect($_SERVER['HTTP_REFERER']);
 		}else{
-		$this->session->set_userdata('page_url',$_SERVER['HTTP_REFERER']);  
-		  $this->load->view('login');
+			$this->session->set_userdata('page_url',$_SERVER['HTTP_REFERER']);  
+			$this->load->view('login');
 		}
 	}
 
@@ -96,7 +96,7 @@ class Login extends CI_Controller {
 
 		);
 
-		// $this->session->set_userdata('logged_user', $data);
+// $this->session->set_userdata('logged_user', $data);
 		$updateUser = $this->Login_model->update_user($data,$user_id);
 		$testimonyupdate = array(
 			'state'=> $this->input->post('City'),
@@ -109,7 +109,7 @@ class Login extends CI_Controller {
 
 	public function check_login(){  
 
-		// $data['username']=htmlspecialchars($_POST['name']);  
+// $data['username']=htmlspecialchars($_POST['name']);  
 		$data['username']=htmlspecialchars($_POST['name']);  
 		$data['password']=htmlspecialchars($_POST['pwd']);  
 		$res=$this->Login_model->islogin($data);
@@ -124,8 +124,12 @@ class Login extends CI_Controller {
 				'screenName'=> $data['username'],
 			); 
 			$this->session->set_userdata('logged_user',$session_data);  
-			// echo base_url();
-			print_r($this->session->userdata('page_url'));exit; 
+// echo base_url();
+			if(!empty($this->session->userdata('page_url'))){
+				echo $this->session->userdata('page_url');
+			}else{
+				echo base_url();
+			}
 		}  
 		else{  
 			echo 0;  
@@ -134,7 +138,7 @@ class Login extends CI_Controller {
 
 	public function logout(){
 		$this->session->unset_userdata('logged_user');
-        redirect('login', 'refresh');
+		redirect('login', 'refresh');
 	}
 
 }
