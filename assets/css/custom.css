@@ -5,3 +5,28 @@
     display: block;
     background: 1px solid #e9ecef!important;
 }
+#close_comment {
+    float:right;
+    display:inline-block;
+    padding:2px 5px;
+    background:#ccc;
+}
+
+#close_comment:hover {
+    float:right;
+    display:inline-block;
+    padding:2px 5px;
+    background:#ccc;
+    color:#fff;
+    cursor: pointer;
+}
+.testimonial-comment-reply {
+    border-left: 6px solid #E4E4E4;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 60px;
+}
+
+.testimonial-comment-reply .testimonial-discussion {
+    margin-left: 60px;
+}

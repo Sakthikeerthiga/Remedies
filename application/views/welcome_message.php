@@ -77,7 +77,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<h2 class="share-story-title text-white">
 					People need to hear your story! Share your own experience and testimony.... every input counts!
 				</h2>
-				<a href="<?php base_url();?>ttestimonial" class="btn btn-danger">
+				<a href="<?php base_url();?>testimonial" class="btn btn-danger">
 				share now</a>
 			</div>
 			<div class="col-md-4 ml-auto mt-5 mt-md-0">

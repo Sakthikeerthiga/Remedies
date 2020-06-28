@@ -39,6 +39,60 @@ class Testimonial_model extends CI_Model
         return $results;     
     }
 
+    public function get_sickrealted_main_comment($sick_id){
+
+        $this->db->select('comment,datePosted,idcomment,screenName,testimony_idtestimony');
+        $this->db->join('comment', 'comment.testimony_idtestimony = testimony.idtestimony','LEFT');
+        $this->db->join('user', 'user.iduser = testimony.user_iduser','LEFT');
+        $this->db->where('sickness_idsickness',$sick_id);
+        $this->db->where('comment_idcomment IS NULL', null, false);
+        $this->db->order_by("idcomment", "desc");
+        $fetched_records = $this->db->get($this->table);
+        $results = $fetched_records->result_array();
+        return $results;     
+    }
+
+    public function get_remedyrealted_main_comment($remedy_id){
+
+        $this->db->select('comment,datePosted,idcomment,screenName,testimony_idtestimony');
+        $this->db->join('comment', 'comment.testimony_idtestimony = testimony.idtestimony','LEFT');
+        $this->db->join('user', 'user.iduser = testimony.user_iduser','LEFT');
+        $this->db->where('remedy_idremedy',$remedy_id);
+        $this->db->where('comment_idcomment IS NULL', null, false);
+        $this->db->order_by("idcomment", "desc");
+        $fetched_records = $this->db->get($this->table);
+        $results = $fetched_records->result_array();
+        return $results;     
+    }
+
+
+    public function get_sickrealted_additional_comment($sick_id){
+
+        $this->db->select('comment,datePosted,idcomment,screenName,testimony_idtestimony,comment_idcomment');
+        $this->db->join('comment', 'comment.testimony_idtestimony = testimony.idtestimony','LEFT');
+        $this->db->join('user', 'user.iduser = testimony.user_iduser','LEFT');
+        $this->db->where('sickness_idsickness',$sick_id);
+        $this->db->where('comment_idcomment IS NOT NULL', null, false);
+        $this->db->order_by("idcomment", "desc");
+        $fetched_records = $this->db->get($this->table);
+        $results = $fetched_records->result_array();
+        return $results;     
+    }
+
+    public function get_remedyrealted_additional_comment($remedy_id){
+
+        $this->db->select('comment,datePosted,idcomment,screenName,testimony_idtestimony,comment_idcomment');
+        $this->db->join('comment', 'comment.testimony_idtestimony = testimony.idtestimony','LEFT');
+        $this->db->join('user', 'user.iduser = testimony.user_iduser','LEFT');
+        $this->db->where('remedy_idremedy',$remedy_id);
+        $this->db->where('comment_idcomment IS NOT NULL', null, false);
+        $this->db->order_by("idcomment", "desc");
+        $fetched_records = $this->db->get($this->table);
+        $results = $fetched_records->result_array();
+        return $results;     
+    }
+
+
     public function sickness_data_list()
     {
         $this->db->select('*');
@@ -86,7 +140,42 @@ class Testimonial_model extends CI_Model
     {
         $insert_data = $this->db->insert('testimony',$data);
         $testimony_id = $this->db->insert_id();
-
         return $testimony_id;
     }
+
+    public function add_new_comment($data)
+    {
+        $insert_data = $this->db->insert('comment',$data);
+        $comment_id = $this->db->insert_id();
+        return $comment_id;
+    }
+
+    public function add_reply_comment($data)
+    {
+        $insert_data = $this->db->insert('comment',$data);
+        $comment_id = $this->db->insert_id();
+        return $comment_id;
+    }
+
+    public function get_main_command($testimony_id){
+        $this->db->select('comment,datePosted,idcomment,screenName,testimony_idtestimony');
+        $this->db->join('user', 'user.iduser = comment.user_iduser','LEFT');
+        $this->db->where("testimony_idtestimony", $testimony_id);
+        $this->db->where('comment_idcomment IS NULL', null, false);
+        $this->db->order_by("idcomment", "desc");
+        $fetched_records = $this->db->get('comment');
+        $results = $fetched_records->result();
+        return $results;  
+    }
+
+    public function get_additional_command($comment_id){
+        $this->db->select('comment,datePosted,idcomment,screenName,testimony_idtestimony,comment_idcomment');
+        $this->db->join('user', 'user.iduser = comment.user_iduser','LEFT');
+        $this->db->where("comment_idcomment", $comment_id);
+        $this->db->where('comment_idcomment IS NOT NULL', null, false);
+        $this->db->order_by("idcomment", "desc");
+        $fetched_records = $this->db->get('comment');
+        $results = $fetched_records->result();
+        return $results;  
+   }
 }
