@@ -47,4 +47,8 @@ public function about_us()
 	{
 		$this->load->view('about_us');
 	}
+	public function privacypolicy()
+	{
+		$this->load->view('privacypolicy');
+	}
 }

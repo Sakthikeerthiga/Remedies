@@ -71,7 +71,6 @@ function rateArticle(article_id,val){
     }else{
       var article_login = confirm("Please Login/Sign up");
       if (article_login == true) {
-        var session_page = "<?php $this->session->set_userdata('page_url',current_url()); ?>";
         window.location.replace(base_url+'login'); 
       } else {
         return false;
@@ -253,7 +252,6 @@ function add_comment(testimony_id){
     }else{
       var testimonial_login = confirm("Please Login/Sign up");
       if (testimonial_login == true) {
-        var session_page = "<?php $this->session->set_userdata('page_url',current_url()); ?>";
         window.location.replace(base_url+'login'); 
       } else {
         return false;
@@ -304,7 +302,6 @@ function add_comment(testimony_id){
     }else{
       var testimonial_login = confirm("Please Login/Sign up");
       if (testimonial_login == true) {
-        var session_page = "<?php $this->session->set_userdata('page_url',current_url()); ?>";
         window.location.replace(base_url+'login'); 
       } else {
         return false;
