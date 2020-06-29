@@ -49,10 +49,6 @@ class Login extends CI_Controller {
 
 
 
-		$admin_email=stripslashes('amrudharanibtechit@gmail.com');
-
-		$this->email->bcc($admin_email);
-
 		   // $this->email->to($own_email);// change it to yours
 
 		  $this->email->subject('Password Change');
