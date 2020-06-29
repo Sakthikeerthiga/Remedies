@@ -17,14 +17,14 @@ $this->load->database();
         <img src="<?php echo base_url(); ?>assets/img/best-remedies-logo.png" alt="">
       </div>
 
-      <form class="login100-form validate-form" method="POST" action="<?php echo base_url().'admin/adminlogin';?>">
+      <form class="login100-form validate-form" method="POST" action="<?php echo base_url().'Editor/editorlogin';?>">
         <span class="login100-form-title">
-          Admin Login
+          Editor Login
         </span>
-        <?php if($this->session->flashdata('admin_login_error')){ ?>
+        <?php if($this->session->flashdata('editor_login_error')){ ?>
           <div class="alert alert-danger">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <?php echo $this->session->flashdata('admin_login_error'); ?>
+            <?php echo $this->session->flashdata('editor_login_error'); ?>
           </div>
         <?php } ?>
         <div class="wrap-input100 validate-input" >

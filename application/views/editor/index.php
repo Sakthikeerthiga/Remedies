@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!-- header menu -->
-<?php  $this->load->view('admin/includes/header_menu.php');?>
+<?php  $this->load->view('editor/includes/header_menu.php');?>
 <div id="layoutSidenav_content">
 
     <main>
@@ -11,6 +11,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?php echo $output; ?>
         </div>
     </main>
-
     <!-- footer menu -->
-    <?php  $this->load->view('admin/includes/footer_menu.php');?>
+    <?php  $this->load->view('editor/includes/footer_menu.php');?>
