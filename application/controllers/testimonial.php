@@ -109,8 +109,8 @@ class Testimonial extends CI_Controller {
 			$this->load->library('email', $config);
 
 			$this->email->set_newline("\r\n");
-
-			$this->email->from('sakthichandren@gmail.com','sakthi');
+			$this->email->set_mailtype("html");
+			$this->email->from('sathishdeveloper25@gmail.com','sathish');
 
 			$elist = array($this->input->post('email'));
 
@@ -127,19 +127,19 @@ class Testimonial extends CI_Controller {
 				</head> 
 				<body> 
 				<h1>Thanks you for joining with us!</h1> 
-				<table cellspacing="0" style="border: 2px dashed #FB4314; width: 100%;"> 
+				<table style="text-align:left;width: 50%;"> 
 				<tr> 
-				<th>Name:</th><td>'.$this->input->post('screenName').'</td> 
+				<th style="width:100px;">Name:</th><td style="text-align:left;">'.$this->input->post('screenName').'</td> 
 				</tr> 
 				<tr > 
-				<th>password:</th><td>'.$this->input->post('password').'</td> 
+				<th style="width:100px;">password:</th><td style="text-align:left;">'.$this->input->post('password').'</td> 
 				</tr> 
-				<tr><td>Thank you a million times for taking the time to share you testimony! An email has been sent to the email address you provided for verification. Once you click
+				
+				</table> 
+				<p>Thank you a million times for taking the time to share you testimony! An email has been sent to the email address you provided for verification. Once you click
 				on the link in there, your user account will automatically be created and your testimony be posted to the site. We would be immensely grateful if you could
 				complete that last small step. Should you not confirm the email within the next 72 hours, the submitted data will unfortunately be deleted. This is so to ensure
-				that the source of the data is indeed credible. We are sure that you are….just one small click and we should be good!</td> 
-				</tr> 
-				</table> 
+				that the source of the data is indeed credible. We are sure that you are….just one small click and we should be good!</p>
 				</body> 
 				</html>'
 
@@ -168,16 +168,24 @@ class Testimonial extends CI_Controller {
 		$insertNewPost = $this->Testimonial_model->insert_testimonial_new_post($data);
 				if($this->email->send())
 			{
+			$sickness_name = $this->db->get_where('sickness', array('idsickness' => $this->input->post('sickness_idsickness')))->row()->commonName; 
+			$slugname = str_replace("-", "_", $sickness_name);
+			$sickness_slug = url_title($slugname, 'dash', true);
 
-				$this->session->set_flashdata('testimonial_add_msg', 'Your story has been added successfully.Please check your email for login credential');
-			redirect('testimonial/testimony_for_sickness/'.$this->input->post('sickness_idsickness'));
+			$this->session->set_flashdata('testimonial_add_msg', 'Your story has been added successfully.Please check your email for login credential');
+			redirect('testimonial/testimony_for_sickness/'.$sickness_slug);
 			}
 
 			else
 
 			{
 			
+			$sickness_name = $this->db->get_where('sickness', array('idsickness' => $this->input->post('sickness_idsickness')))->row()->commonName; 
+			$slugname = str_replace("-", "_", $sickness_name);
+			$sickness_slug = url_title($slugname, 'dash', true);
 
+			$this->session->set_flashdata('testimonial_add_msg', 'Your story has been added successfully.There was the problem in Mail sending.');
+			redirect('testimonial/testimony_for_sickness/'.$sickness_slug);
 			}
 			
 	}
