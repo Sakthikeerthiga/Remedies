@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<?php echo $trending['item_heading'] ?>
 						</h4>
 						<a href="<?php echo $trending['item_url'] ?>">
-							<img class="trending-search-item__img" src="assets/img/home-thumb/<?php echo $trending['item_pic'] ?>" alt="" height="250">
+							<img class="trending-search-item__img" src="assets/uploads/sickness/<?php echo $trending['item_pic'] ?>" alt="" height="250">
 						</a>
 						<div class="trending-search-item__content">
 							<p>
