@@ -79,12 +79,13 @@ class Admin extends CI_Controller {
 
 	}
 
-/*public function questionCategory() { $output = $this->grocery_crud->render();
+// public function questionCategory() { $output = $this->grocery_crud->render();
 
-$this->_category_output($output);
-}*/
+// $this->_category_output($output);
+// }
 
 public function questionCategory() { $crud = new grocery_CRUD();
+
 	if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud->set_table('questioncategory');
 	$crud->set_subject('Question Category');
@@ -229,8 +230,8 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 
 // $crud->set_relation('seo_author','editor','surname');
 	$crud->field_type('category','dropdown',array('1' => 'Supplement', '2' => 'Sickness'));
-	$crud->set_relation_n_n('Featured_Remedies', 'featuredRemedies', 'remedy', 'article_idarticle', 'remedy_idremedy', 'name');
-	$crud->set_relation_n_n('Featured_Sicknesses', 'featuredSicknesses', 'sickness', 'article_idarticle', 'sickness_idsickness', 'commonName');
+	$crud->set_relation_n_n('Featured_Remedies', 'featuredremedies', 'remedy', 'article_idarticle', 'remedy_idremedy', 'name');
+	$crud->set_relation_n_n('Featured_Sicknesses', 'featuredsicknesses', 'sickness', 'article_idarticle', 'sickness_idsickness', 'commonName');
 	$output = $crud->render();
 	$this->_example_output($output);
 	}else{
@@ -338,7 +339,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud->columns('questionCategory_idquestionCategory','user_iduser','details','resolve');
 	$crud->set_relation('user_iduser','user','{firstName} {lastName}');
 	$crud->set_subject('Questions');
-	$crud->set_relation('questionCategory_idquestionCategory','questionCategory','name');
+	$crud->set_relation('questionCategory_idquestionCategory','questioncategory','name');
 	$crud->display_as('questionCategory_idquestionCategory','Question Category');
 	$crud->display_as('user_iduser','User');
 	$output = $crud->render();
@@ -347,6 +348,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 			redirect('/Admin');
 	}
 }
+
 
 public function brands() {
 if(!empty($this->session->userdata('admin_login')['is_admin'])){
@@ -374,8 +376,8 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud->field_type('administeredTo','dropdown',array('1' => 'Self', '2' => 'Patient','3' => 'Other' ));
 	$crud->field_type('administeredBy','dropdown',array('1' => 'Self', '2' => 'Medical Doctor','3' => 'Other' ));
 	$crud->field_type('overallExperience','dropdown',array('1' => 'Positive', '2' => 'Negative'));
-	$crud->set_relation_n_n('Specific_Brands', 'citedBrands', 'brands', 'testimony_idtestimony', 'brands_idbrands', 'name');
-	$crud->set_relation_n_n('Additional_Remedies', 'additionalRemedy', 'remedy', 'testimony_idtestimony', 'remedy_idremedy', 'name');
+	$crud->set_relation_n_n('Specific_Brands', 'citedbrands', 'brands', 'testimony_idtestimony', 'brands_idbrands', 'name');
+	$crud->set_relation_n_n('Additional_Remedies', 'additionalremedy', 'remedy', 'testimony_idtestimony', 'remedy_idremedy', 'name');
 	$crud->field_type('date', 'hidden',date('Y-m-d H:i:s'));
 	$crud->display_as('user_iduser','User Name');
 	$crud->display_as('remedy_idremedy','Remedy name');

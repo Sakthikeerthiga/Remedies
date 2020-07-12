@@ -50,8 +50,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<?php echo $trending['item_heading'] ?>
 							</h4>
 							<a href="<?php echo $trending['item_url'] ?>">
+								<?php 
+							$filename = "assets/uploads/sickness/".$trending['item_pic'];
+							if($trending['item_pic'] != '' && file_exists($filename)){ ?>
 								<img class="trending-search-item__img" src="assets/uploads/sickness/<?php echo $trending['item_pic'] ?>" alt="" height="250">
+							<?php } else{ ?>
+								<img class="trending-search-item__img" src="https://dummyimage.com/745x365/3c7800/ffffff.jpg&text=Image+Here" alt="" height="250">
+							<?php } ?>
 							</a>
+							
+							
 							<div class="trending-search-item__content">
 								<p>
 									Positive Testimonies: <?php echo $trending['item_count'] ?>

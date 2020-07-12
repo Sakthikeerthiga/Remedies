@@ -33,10 +33,9 @@ RESULT BY TESTIMONIES
 </h4> -->
 </div>
 <div class="col-lg-8 article-details">
-  <img src="https://dummyimage.com/745x365/3c7800/ffffff.jpg&text=Image+Here" alt="">
-  <img src="https://dummyimage.com/745x365/3c7800/ffffff.jpg&text=Image+Here" alt="">
+ <img src="<?php echo base_url().'assets/uploads/article/'.$article_details[0]['thumbnailImage'] ?>" alt="">
   <p class="font-italic mt-4 mb-5">
-    <a href="<?php if($article_details[0]['remedy_idremedy'] !=''){ ?><?php echo base_url();?>remedy-testimony/<?php echo $article_details[0]['remedy_idremedy'] ?><?php } ?>">
+    <a href="<?php if($article_details[0]['name'] !=''){ ?><?php echo base_url();?>remedy-testimony/<?php echo $article_details[0]['name'] ?><?php } ?>">
       <u>
         See stories/testimonies/reliefs linked to this ailment
       </u>

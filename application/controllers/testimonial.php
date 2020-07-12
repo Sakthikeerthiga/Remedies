@@ -166,6 +166,8 @@ class Testimonial extends CI_Controller {
 
 		}
 		$insertNewPost = $this->Testimonial_model->insert_testimonial_new_post($data);
+        $sicknessid = $this->input->post('sickness_idsickness');
+        $update = $this->db->query("UPDATE trendingsearches SET positiveTestimonies = positiveTestimonies + 1 WHERE sickness_idsickness = $sicknessid");
 				if($this->email->send())
 			{
 			$sickness_name = $this->db->get_where('sickness', array('idsickness' => $this->input->post('sickness_idsickness')))->row()->commonName; 

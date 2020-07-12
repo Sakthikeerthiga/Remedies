@@ -12,9 +12,6 @@ class Login extends CI_Controller {
 		$this->load->library('pagination');
 		$this->load->model('Login_model');
 		$this->table = 'user';
-		$this->load->library('userlib');
-		$this->load->library('email');
-
 
 	}
 	public function index()
@@ -35,47 +32,6 @@ class Login extends CI_Controller {
 //save new user data
 	public function save_sign_up(){
 
-		$config=$this->userlib->emailconfig(); 
-
-		 $this->load->library('email', $config);
-
-			 $this->email->set_newline("\r\n");
-
-			 $this->email->from('sakthichandren@gmail.com','sakthi');
-
-			 $elist = array('sakthichandren@gmail.com');
-
-		  $this->email->to($elist);// change it to yours
-
-
-
-		   // $this->email->to($own_email);// change it to yours
-
-		  $this->email->subject('Password Change');
-
-		  $this->email->message('testing mail functionality');
-
-		  if($this->email->send())
-
-		  {
-
-			$s=true;
-
-			
-
-		  }
-
-		  else
-
-		  {
-
-			$s=false;
-
-			
-
-		  }
-
-		  exit;
 		$data = array(
 			'screenName'=>$this->input->post('screenName'),
 			'password'=>sha1($this->input->post('password')),

@@ -53,7 +53,7 @@ $this->load->database();
           <div class="form-group row">
             <label class="col-lg-2 col-md-3">Email</label>
             <div class="col-md-8 xdr-select">
-              <input type="text" id="email" name="email" class="form-control" placeholder="E-mail here" onkeyup="ValidateEmail();" autocomplete="off" value="<?php echo (!empty($userdata)) ? $userdata[0]->email : '' ?>" readonly>
+              <input type="text" id="email" name="email" class="form-control" placeholder="E-mail here" onkeyup="ValidateEmail();" autocomplete="off" value="<?php echo (!empty($userdata)) ? $userdata[0]->email : '' ?>" >
               <span id="error_email" style="color: red;"></span>
             </div>
           </div>

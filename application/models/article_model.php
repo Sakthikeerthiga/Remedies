@@ -32,6 +32,9 @@ class Article_model extends CI_Model
         $this->db->select('*');
         $this->db->from('article');
         $this->db->join('featuredsicknesses', 'featuredsicknesses.article_idarticle = article.idarticle','LEFT');
+        $this->db->join('featuredremedies', 'featuredremedies.article_idarticle = article.idarticle','LEFT');
+        $this->db->join('sickness', 'featuredsicknesses.sickness_idsickness = sickness.idsickness','LEFT');
+        $this->db->join('remedy', 'featuredremedies.remedy_idremedy = remedy.idremedy','LEFT');
         $this->db->where('article.idarticle',$article_id);
         $article_list= $this->db->get()->result_array();
         return $article_list;
@@ -42,6 +45,7 @@ class Article_model extends CI_Model
         $this->db->select('*');
         $this->db->from('article');
         $this->db->join('featuredsicknesses', 'featuredsicknesses.article_idarticle = article.idarticle','LEFT');
+        $this->db->join('sickness', 'featuredsicknesses.sickness_idsickness = sickness.idsickness','LEFT');
         $this->db->where('featuredsicknesses.sickness_idsickness',$sickeness_id);
         $sickness_article_list= $this->db->get()->result_array();
         return $sickness_article_list;
@@ -52,6 +56,7 @@ class Article_model extends CI_Model
         $this->db->select('*');
         $this->db->from('article');
         $this->db->join('featuredremedies', 'featuredremedies.article_idarticle = article.idarticle');
+        $this->db->join('remedy', 'featuredremedies.remedy_idremedy = remedy.idremedy','LEFT');
         $this->db->where('featuredremedies.remedy_idremedy',$remedy_id);
         $remedy_article_list= $this->db->get()->result_array();
         return $remedy_article_list;

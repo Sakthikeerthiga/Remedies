@@ -173,6 +173,7 @@ if(!empty($this->session->userdata('editor_login')['is_editor'])){
 	}
 }
 
+
 public function article() {
 if(!empty($this->session->userdata('editor_login')['is_editor'])){
 
@@ -192,8 +193,8 @@ if(!empty($this->session->userdata('editor_login')['is_editor'])){
 
 // $crud->set_relation('seo_author','editor','surname');
 	$crud->field_type('category','dropdown',array('1' => 'Supplement', '2' => 'Sickness'));
-	$crud->set_relation_n_n('Featured_Remedies', 'featuredRemedies', 'remedy', 'article_idarticle', 'remedy_idremedy', 'name');
-	$crud->set_relation_n_n('Featured_Sicknesses', 'featuredSicknesses', 'sickness', 'article_idarticle', 'sickness_idsickness', 'commonName');
+	$crud->set_relation_n_n('Featured_Remedies', 'featuredremedies', 'remedy', 'article_idarticle', 'remedy_idremedy', 'name');
+	$crud->set_relation_n_n('Featured_Sicknesses', 'featuredsicknesses', 'sickness', 'article_idarticle', 'sickness_idsickness', 'commonName');
 	 $crud->unset_delete();
 		  $crud->unset_edit();
 	$output = $crud->render();

@@ -43,9 +43,13 @@ class Article extends CI_Controller {
 	}
 
 // sickness id based articles list
-	public function sickness_article_list($sickeness_id='')
+	public function sickness_article_list($sicknessname='')
 	{       
-		if($sickeness_id!=''){
+		if($sicknessname!=''){
+            
+			$slugname = str_replace("-", " ", $sicknessname);
+			$slug = str_replace("_", "-", $slugname);
+			$sickeness_id = $this->db->get_where('sickness', array('commonName' => $slug))->row()->idsickness; 
 
 			$data['article_details']= $this->Article_model->sickness_article_list($sickeness_id);
 			if(!empty($data['article_details'])){
@@ -64,9 +68,15 @@ class Article extends CI_Controller {
 	}
 
 // Remedy id based articles list
-	public function remedy_article_list($remedy_id='')
+	public function remedy_article_list($remedy_name='')
 	{       
-		if($remedy_id!=''){
+		if($remedy_name!=''){
+
+		$slugname = str_replace("-", " ", $remedy_name);
+		$slug = str_replace("_", "-", $slugname);
+		$remedy_id = $this->db->get_where('remedy', array('name' => $slug))->row()->idremedy;
+
+
 			$data['article_details']= $this->Article_model->remedy_article_list($remedy_id);
 			if(!empty($data['article_details'])){
 				$data['get_related_article'] = $this->Article_model->get_remedy_related_article($remedy_id,$data['article_details'][0]['idarticle']);
