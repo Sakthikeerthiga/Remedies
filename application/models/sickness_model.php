@@ -38,4 +38,14 @@ class Sickness_model extends CI_Model
         return $results;
     }
 
+     public function update_sickness_metatags($data)
+    {
+         $this->db->select('*');
+        $this->db->where("title like '".addslashes($data)."'  ");
+        $fetched_records = $this->db->get('metatags');
+        $results = $fetched_records->result_array();
+        return $results;
+
+    }
+
 }

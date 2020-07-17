@@ -26,16 +26,16 @@ class Testimonial extends CI_Controller {
 // sickness testimonial list
 	public function testimony_for_sickness($sicknessname='')
 	{
-		$slugname = str_replace("-", " ", $sicknessname);
-		$slug = str_replace("_", "-", $slugname);
-		$sickness_id = $this->db->get_where('sickness', array('commonName' => $slug))->row()->idsickness; 
+		$sickness_name =$this->db->get_where('metatags', array('pageName' => $sicknessname))->row()->title;
+
+		$sickness_id = $this->db->get_where('sickness', array('commonName' => $sickness_name))->row()->idsickness; 
 
 		if($sickness_id!=''){
 			$data['testimonial_details']= $this->Testimonial_model->sickness_testimony_list($sickness_id);
 			$data['get_related_article'] = $this->Article_model->sickness_article_list($sickness_id);
 			$data['related_comment'] = $this->Testimonial_model->get_sickrealted_main_comment($sickness_id);
 			$data['additional_reply_comment'] = $this->Testimonial_model->get_sickrealted_additional_comment($sickness_id);
-			$data['testimonial_heading'] = $slug;
+			$data['testimonial_heading'] = $sickness_name;
 			$data['breadcrumb'] = 'Conditions';
 			$data['breadcrumb_url'] = 'condition-list';
 		}
@@ -45,16 +45,15 @@ class Testimonial extends CI_Controller {
 // remedy testimonial list
 	public function testimony_for_remedy($remedy_name='')
 	{    
-		$slugname = str_replace("-", " ", $remedy_name);
-		$slug = str_replace("_", "-", $slugname);
-		$remedy_id = $this->db->get_where('remedy', array('name' => $slug))->row()->idremedy;
+		$remedy_id = $this->db->get_where('remedy', array('link' => $remedy_name))->row()->idremedy;
+		$remedyName = $this->db->get_where('remedy', array('link' => $remedy_name))->row()->name;
 
 		if($remedy_id!=''){
 			$data['testimonial_details']= $this->Testimonial_model->remedy_testimony_list($remedy_id);
 			$data['get_related_article'] = $this->Article_model->remedy_article_list($remedy_id);
 			$data['related_comment'] = $this->Testimonial_model->get_remedyrealted_main_comment($remedy_id);
 			$data['additional_reply_comment'] = $this->Testimonial_model->get_remedyrealted_additional_comment($remedy_id);
-			$data['testimonial_heading'] = $slug;
+			$data['testimonial_heading'] = $remedyName;
 			$data['breadcrumb'] = 'Remedies';
 			$data['breadcrumb_url'] = 'remedies-list';
 		}

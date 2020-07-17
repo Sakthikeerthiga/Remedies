@@ -67,7 +67,7 @@ $route['article-list'] = 'article/articlelist';
 $route['article-list/(:num)'] = 'article/articlelist';
 
 
-$route['sickness-testimony/(:any)'] ='testimonial/testimony_for_sickness/$1';
+$route['condition/(:any)'] ='testimonial/testimony_for_sickness/$1';
 $route['remedy-testimony/(:any)'] ='testimonial/testimony_for_remedy/$1';
 
 $route['sign-up'] ='login/sign_up';

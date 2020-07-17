@@ -33,7 +33,7 @@ RESULT BY TESTIMONIES
 </h4> -->
 </div>
 <div class="col-lg-8 article-details">
- <img src="<?php echo base_url().'assets/uploads/article/'.$article_details[0]['thumbnailImage'] ?>" alt="">
+  <img src="<?php echo base_url().'assets/uploads/article/'.$article_details[0]['thumbnailImage'] ?>" alt="">
   <p class="font-italic mt-4 mb-5">
     <a href="<?php if($article_details[0]['name'] !=''){ ?><?php echo base_url();?>remedy-testimony/<?php echo $article_details[0]['name'] ?><?php } ?>">
       <u>
@@ -57,32 +57,33 @@ RESULT BY TESTIMONIES
     echo $string;
 
     ?>
-  </p>
+  </p> 
+  <?php if(isset($get_related_article) && !empty($get_related_article)){ ?>
 
-  <div class="space-5 mb-0">
-    <h4 class="text-primary">
-      Other articles on this particular condition:
-    </h4>
-    <ul class="list-unstyled text-secondary link-list-blurb">
-      <?php if(isset($get_related_article) && !empty($get_related_article)){ 
-        foreach($get_related_article as $article){ ?>
+    <div class="space-5 mb-0">
+      <h4 class="text-primary">
+        Other articles on this particular condition:
+      </h4>
+      <ul class="list-unstyled text-secondary link-list-blurb">
+        <?php foreach($get_related_article as $article){ ?>
           <li> <a href="<?php echo base_url().''.$article['articleUrl'] ?>">  <?php echo $article['seo_title']; ?> </a></li>
-        <?php } } ?>
+        <?php } ?>
       </ul>
     </div>
-    <?php if($get_article_vote == 0 || $get_article_vote == ''){ ?>
-      <div class="article-feedback mt-5 text-center vote-article">
-        <h4>
-          was this article helpful?
-        </h4>
-        <button class="btn btn-outline-primary" onclick="rateArticle(<?php echo $article_details[0]['idarticle']; ?> ,'1');"> Yes </button>
-        <button class="btn btn-outline-secondary" onclick="rateArticle(<?php echo $article_details[0]['idarticle']; ?> ,'0');"> No </button>
-      </div>
-    <?php } ?>
-    <div class="article-feedback mt-5 text-center article-success-message">
-
+  <?php } ?>
+  <?php if($get_article_vote == 0 || $get_article_vote == ''){ ?>
+    <div class="article-feedback mt-5 text-center vote-article">
+      <h4>
+        was this article helpful?
+      </h4>
+      <button class="btn btn-outline-primary" onclick="rateArticle(<?php echo $article_details[0]['idarticle']; ?> ,'1');"> Yes </button>
+      <button class="btn btn-outline-secondary" onclick="rateArticle(<?php echo $article_details[0]['idarticle']; ?> ,'0');"> No </button>
     </div>
-  </div><!-- END col-lg-8 -->
+  <?php } ?>
+  <div class="article-feedback mt-5 text-center article-success-message">
+
+  </div>
+</div><!-- END col-lg-8 -->
 <?php }else{ ?>
 
   <div class="col-lg-8 article-details">

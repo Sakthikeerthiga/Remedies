@@ -21,9 +21,7 @@ class Article extends CI_Controller {
 // particular article detail page
 	public function detail_page($article_name='')
 	{
-		$slugname = str_replace("-", " ", $article_name);
-		$slug = str_replace("_", "-", $slugname);
-		$article_id = $this->db->get_where('article', array('seo_title' => $slug))->row()->idarticle;
+		$article_id = $this->db->get_where('article', array('articleUrl' => $article_name))->row()->idarticle;
 
 		if($article_id!=''){
 			$articleVisitCount = $this->Article_model->articleVisitCount($article_id);
@@ -47,13 +45,13 @@ class Article extends CI_Controller {
 	{       
 		if($sicknessname!=''){
             
-			$slugname = str_replace("-", " ", $sicknessname);
-			$slug = str_replace("_", "-", $slugname);
-			$sickeness_id = $this->db->get_where('sickness', array('commonName' => $slug))->row()->idsickness; 
+			$sickness_name =$this->db->get_where('metatags', array('pageName' => $sicknessname))->row()->title;
+		    $sickness_id = $this->db->get_where('sickness', array('commonName' => $sickness_name))->row()->idsickness; 
 
-			$data['article_details']= $this->Article_model->sickness_article_list($sickeness_id);
+			$data['article_details']= $this->Article_model->sickness_article_list($sickness_id);
+
 			if(!empty($data['article_details'])){
-				$data['get_related_article'] = $this->Article_model->get_sickness_related_article($sickeness_id,$data['article_details'][0]['idarticle']);
+				$data['get_related_article'] = $this->Article_model->get_sickness_related_article($sickness_id,$data['article_details'][0]['idarticle']);
 				$articleVisitCount = $this->Article_model->articleVisitCount($data['article_details'][0]['idarticle']);
 			}
 
@@ -72,11 +70,7 @@ class Article extends CI_Controller {
 	{       
 		if($remedy_name!=''){
 
-		$slugname = str_replace("-", " ", $remedy_name);
-		$slug = str_replace("_", "-", $slugname);
-		$remedy_id = $this->db->get_where('remedy', array('name' => $slug))->row()->idremedy;
-
-
+		$remedy_id = $this->db->get_where('remedy', array('link' => $remedy_name))->row()->idremedy;
 			$data['article_details']= $this->Article_model->remedy_article_list($remedy_id);
 			if(!empty($data['article_details'])){
 				$data['get_related_article'] = $this->Article_model->get_remedy_related_article($remedy_id,$data['article_details'][0]['idarticle']);

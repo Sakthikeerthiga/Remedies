@@ -54,10 +54,8 @@ $this->load->database();
 			<div class="col-lg-8">
 				<ul class="list-unstyled link-clouds">
 					<?php if(isset($article_list) && $article_list!=''){ 
-						foreach ($article_list as $key => $list) { 
-							$slugname = str_replace("-", "_", $list['seo_title']);
-							$article_slug = url_title($slugname, 'dash', true);?>
-							<li><a href="<?php echo base_url();?>article-detail/<?php echo $article_slug ?>"> <?php echo $list['seo_title'] ?></a>
+						foreach ($article_list as $key => $list) { ?>
+							<li><a href="<?php echo base_url();?>article-detail/<?php echo $list['articleUrl'] ?>"> <?php echo $list['seo_title'] ?></a>
 							</li>
 						<?php } } ?>
 						<div class="xdr-adds-container my-4">

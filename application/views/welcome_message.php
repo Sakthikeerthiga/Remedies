@@ -47,7 +47,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<div class="col-lg-3 col-md-6">
 						<div class="trending-search-item">
 							<h4 class="trending-search-item__heading">
-								<?php echo $trending['item_heading'] ?>
+								<p>
+
+								<?php $string = strip_tags($trending['item_heading']);
+								if (strlen($string) > 20) {
+
+// truncate string
+									$stringCut = substr($string, 0, 20);
+									$endPoint = strrpos($stringCut, ' ');
+
+//if the string doesn't contain any space then it will cut without word basis.
+									$result_data = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+									$string = $result_data.'...';
+								}
+								echo $string;
+
+								?>
+
+							</p>
+								
 							</h4>
 							<a href="<?php echo $trending['item_url'] ?>">
 								<?php 
@@ -111,7 +129,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="row">
 				<div class="col-lg-7">
 					<article class="article article-featured">
-						<a href="<?php echo $article_main_result[0]['articleUrl'] ?>" class="article__img">
+						<a href="article-detail/<?php echo $article_main_result[0]['articleUrl'] ?>" class="article__img">
 							<img class="trending-search-item__img" src="assets/img/home-thumb/<?php echo $article_main_result[0]['thumbnailImage']?>" alt="">
 						</a>
 						<h4 class="article__heading">
@@ -137,7 +155,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								?>
 
 							</p>
-							<a href="<?php echo $article_main_result[0]['articleUrl']?>" class="link">
+							<a href="article-detail/<?php echo $article_main_result[0]['articleUrl']?>" class="link">
 								Read more
 							</a>
 						</div>

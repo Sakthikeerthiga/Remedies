@@ -12,6 +12,7 @@ class Admin extends CI_Controller {
 		$this->load->library('pagination');
 		$this->load->model('Login_model');
 		$this->load->library('grocery_CRUD');
+		$this->load->model('Sickness_model');
 		$this->table = 'user';
 
 
@@ -71,11 +72,43 @@ class Admin extends CI_Controller {
 		$crud->set_table('sickness');
 		$crud->set_subject('Sickness');
 		$crud->set_field_upload('ThumnailImage','assets/uploads/sickness');
+		$crud->callback_before_insert(array($this,'insert_sickness_metatages')); 
+		$crud->callback_before_update(array($this,'update_sickness_metatages')); 
 		$output = $crud->render();
 		$this->_example_output($output);
 	}else{
 			redirect('/Admin');
 	}
+
+	}
+
+	function update_sickness_metatages($post_array){
+		$title = $post_array['commonName']; 
+		$pageName = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-',$title)));
+		$response = $this->Sickness_model->update_sickness_metatags($title);
+		if(count($response) > 0){
+			$data = array(
+				'pageName' => $pageName,
+			);
+			$this->db->where("title like '".addslashes($title)."' ");
+			$this->db->update('metatags', $data);
+		}else{
+			$data = array( 
+				'pageName' => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-',$title))),
+				'title' => $title); 
+			$this->db->insert('metatags', $data); 
+		}
+        return true;
+	}
+
+	function insert_sickness_metatages($post_array){
+
+		$title = $post_array['commonName']; 
+		$data = array( 
+			'pageName' => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-',$title))),
+			'title' => $title); 
+		$this->db->insert('metatags', $data); 
+		return true;
 
 	}
 
@@ -160,7 +193,10 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud->set_table('remedy');
 	$crud->set_subject('Remedies');
 	$crud->required_fields('type', 'name');
+	$crud->field_type('link', 'hidden');
 	$crud->set_field_upload('picture','assets/uploads/remedy');
+	$crud->callback_after_insert(array($this,'insert_remedy_link')); 
+	$crud->callback_after_update(array($this,'insert_remedy_link')); 
 // $crud->columns('type','name','shortName','link', 'picture');
 // $crud->fields('type','name','shortName','link', 'picture','expertAdvice');
 	$crud->field_type('type','dropdown',array('1' => 'Supplement', '2' => 'Activity','3' => 'Other','4' => 'Unclassified' ));
@@ -173,6 +209,20 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 			redirect('/Admin');
 	}
 }
+
+	function insert_remedy_link($post_array){
+		$name = $post_array['name']; 
+		$link = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-',$name)));
+			$data = array(
+				'link' => $link,
+			);
+			$this->db->where("name like '".addslashes($name)."' ");
+			$this->db->update('remedy', $data);
+		
+        return true;
+	}
+
+
 
 public function _remedy_output($output = null) {
 if(!empty($this->session->userdata('admin_login')['is_admin'])){
@@ -227,11 +277,14 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud->display_as('authorId','Author');
 	$crud->display_as('editor_idEditor','Editor');
 	$crud->field_type('created_at', 'hidden',date('Y-m-d H:i:s'));
+	$crud->field_type('articleUrl', 'hidden');
 
 // $crud->set_relation('seo_author','editor','surname');
 	$crud->field_type('category','dropdown',array('1' => 'Supplement', '2' => 'Sickness'));
 	$crud->set_relation_n_n('Featured_Remedies', 'featuredremedies', 'remedy', 'article_idarticle', 'remedy_idremedy', 'name');
 	$crud->set_relation_n_n('Featured_Sicknesses', 'featuredsicknesses', 'sickness', 'article_idarticle', 'sickness_idsickness', 'commonName');
+	$crud->callback_after_insert(array($this,'insert_article_url')); 
+	$crud->callback_after_update(array($this,'insert_article_url')); 
 	$output = $crud->render();
 	$this->_example_output($output);
 	}else{
@@ -239,10 +292,24 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	}
 }
 
+	function insert_article_url($post_array){
+		$seo_title = $post_array['seo_title']; 
+		$link = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-',$seo_title)));
+			$data = array(
+				'articleUrl' => $link,
+			);
+			$this->db->where("seo_title like '".addslashes($seo_title)."' ");
+			$this->db->update('article', $data);
+		
+        return true;
+	}
+
+
 public function metaTags() {
 if(!empty($this->session->userdata('admin_login')['is_admin'])){
 
 	$crud = new grocery_CRUD();
+	$crud->field_type('title', 'hidden');
 	$crud->set_table('metatags');
 	$output = $crud->render();
 	$this->_example_output($output);

@@ -33,7 +33,7 @@ RESULT BY TESTIMONIES
 <div class="col-lg-8 article-details">
   <img src="<?php echo base_url().'assets/uploads/article/'.$article_details[0]['thumbnailImage'] ?>" alt="">
   <p class="font-italic mt-4 mb-5">
-    <a href="<?php if($article_details[0]['name'] !=''){ ?><?php echo base_url();?>remedy-testimony/<?php echo $article_details[0]['name'] ?><?php } ?>">
+    <a href="<?php if($article_details[0]['link'] !=''){ ?><?php echo base_url();?>remedy-testimony/<?php echo $article_details[0]['link'] ?><?php } ?>">
       <u>
         See stories/testimonies/reliefs linked to this ailment 
       </u>
@@ -57,19 +57,18 @@ RESULT BY TESTIMONIES
     ?>
   </p>
 
+    <?php if(isset($get_related_article) && !empty($get_related_article)){ ?>
   <div class="space-5 mb-0">
     <h4 class="text-primary">
       Other articles on this particular condition:
     </h4>
     <ul class="list-unstyled text-secondary link-list-blurb">
-      <?php if(isset($get_related_article) && !empty($get_related_article)){ 
-        foreach($get_related_article as $article){ ?>
+      <?php  foreach($get_related_article as $article){ ?>
           <li> <a href="<?php echo base_url().''.$article['articleUrl'] ?>">  <?php echo $article['seo_title']; ?> </a></li>
-        <?php } }else{ ?>
-          <p> No articles found</p>
-        <?php }?>
+        <?php } ?>
       </ul>
     </div>
+  <?php } ?>
     <?php if($get_article_vote == 0 || $get_article_vote == ''){ ?>
       <div class="article-feedback mt-5 text-center vote-article">
         <h4>

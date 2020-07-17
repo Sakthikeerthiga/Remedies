@@ -16,13 +16,18 @@ class Login extends CI_Controller {
 	}
 	public function index()
 	{
+		echo "<pre>";print_r($this->session->userdata('logged_user'));
+		if(isset($_SERVER['HTTP_REFERER'])){
 		if(!empty($this->session->userdata('logged_user'))){
 			redirect($_SERVER['HTTP_REFERER']);
 		}else{
 			$this->session->set_userdata('page_url',$_SERVER['HTTP_REFERER']);  
 			$this->load->view('login');
 		}
+	}else{
+           redirect('/', 'refresh'); 
 	}
+   }
 
 // user registration page
 	public function sign_up()
