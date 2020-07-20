@@ -44,10 +44,10 @@ $this->load->database();
 				</div>
 				<form action="<?php echo base_url();?>save-data" method="POST">
 					<div class="form-group row align-items-center">
-						<label class="col-lg-2 col-md-3"> Username </label>
+						<label class="col-lg-2 col-md-3"> Email </label>
 						<div class="col-md-8 xdr-select">
-							 <input type="text" class="form-control" name="screenName" placeholder="Enter User Name" id="username" onkeyup="ValidateUsername();" autocomplete="off" required >
-                              &nbsp;&nbsp;<span id="error_username" style="color: red;"></span>
+							 <input type="text" class="form-control" name="email" placeholder="Enter User Name" id="email" onkeyup="ValidateEmail();" autocomplete="off" required >
+                              &nbsp;&nbsp;<span id="error_email" style="color: red;"></span>
 						</div>
 					</div>
 

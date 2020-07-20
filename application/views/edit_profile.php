@@ -46,14 +46,14 @@ $this->load->database();
           <div class="form-group row">
             <label class="col-lg-2 col-md-3">User Name</label>
             <div class="col-md-8 xdr-select">
-              <input type="text" class="form-control" name="screenName" placeholder="Enter User Name" id="username" onkeyup="ValidateUsername();" autocomplete="off" value="<?php echo (!empty($userdata)) ? $userdata[0]->screenName : '' ?>" readonly>
+              <input type="text" class="form-control" name="screenName" placeholder="Enter User Name" id="username" onkeyup="ValidateUsername();" autocomplete="off" value="<?php echo (!empty($userdata)) ? $userdata[0]->screenName : '' ?>" >
               <span id="error_username" style="color: red;"></span>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-lg-2 col-md-3">Email</label>
             <div class="col-md-8 xdr-select">
-              <input type="text" id="email" name="email" class="form-control" placeholder="E-mail here" onkeyup="ValidateEmail();" autocomplete="off" value="<?php echo (!empty($userdata)) ? $userdata[0]->email : '' ?>" >
+              <input type="text" id="email" name="email" class="form-control" placeholder="E-mail here" onkeyup="ValidateEmail();" autocomplete="off" value="<?php echo (!empty($userdata)) ? $userdata[0]->email : '' ?>" readonly>
               <span id="error_email" style="color: red;"></span>
             </div>
           </div>
@@ -66,9 +66,14 @@ $this->load->database();
           <div class="form-group row">
             <label class="col-lg-2 col-md-3">Country</label>
             <div class="col-md-8 xdr-select">
-              <input type="text" class="form-control" name="Country" placeholder="Enter Country" required="required" value="<?php echo (!empty($userdata)) ? $userdata[0]->Country : '' ?>">
-            </div>
+              <select class="form-control  selectpicker" name="sickness_idsickness" data-live-search="true" required>
+                <option selected="selected">Select Country</option>
+                <?php foreach ($countries as $key => $county) { ?>
+                <option value="<?php echo $county['countryName']?>"><?php echo $county['countryName']?></option>
+              <?php } ?>
+            </select>
           </div>
+        </div>
           <div class="form-group row">
             <label class="col-lg-2 col-md-3">City</label>
             <div class="col-md-8 xdr-select">

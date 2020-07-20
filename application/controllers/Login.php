@@ -16,7 +16,6 @@ class Login extends CI_Controller {
 	}
 	public function index()
 	{
-		echo "<pre>";print_r($this->session->userdata('logged_user'));
 		if(isset($_SERVER['HTTP_REFERER'])){
 		if(!empty($this->session->userdata('logged_user'))){
 			redirect($_SERVER['HTTP_REFERER']);
@@ -38,18 +37,17 @@ class Login extends CI_Controller {
 	public function save_sign_up(){
 
 		$data = array(
-			'screenName'=>$this->input->post('screenName'),
+			'email'=>$this->input->post('email'),
 			'password'=>sha1($this->input->post('password')),
 			'dateReg'=> date("Y-m-d h:i"),
 		);
 		$insertUser = $this->Login_model->insert_user($data);
 		$sess_array = array(
 			'user_id' => $insertUser,
-			'screenName' => $this->input->post('screenName'),
+			'email' => $this->input->post('email'),
 			'user_password' => $this->input->post('password'),
 			'logged_in' => 1
 		);
-
 
 		$this->session->set_userdata('logged_user', $sess_array);
 		redirect('profile'); 
@@ -62,6 +60,7 @@ class Login extends CI_Controller {
 		if(!empty($this->session->userdata('logged_user'))){
 			$user_id = $this->session->userdata('logged_user')['user_id'];
 			$result['userdata'] = $this->Login_model->getuserdetails($user_id);
+			$result['countries'] = $this->Login_model->getCountryList();
 			$this->load->view('edit_profile',$result);
 		}else{
 			$this->load->view('sign_up');
@@ -104,30 +103,37 @@ class Login extends CI_Controller {
 
 // $this->session->set_userdata('logged_user', $data);
 		$updateUser = $this->Login_model->update_user($data,$user_id);
+
 		$testimonyupdate = array(
 			'state'=> $this->input->post('City'),
 			'country'=> $this->input->post('Country')
 		);
+
+		$session_data = array(
+				'user_id' =>$user_id,
+				'screenName'=> $data['screenName'],
+			); 
+			$this->session->set_userdata('logged_user',$session_data);  
+
 		$updateTestimonyFields = $this->Login_model->update_testimony_fields($testimonyupdate,$user_id);
 		$this->session->set_flashdata('profile_update', 'Your profile has been updated successfully');
 		redirect('/', 'refresh'); 
 	}
 
 	public function check_login(){  
-
 // $data['username']=htmlspecialchars($_POST['name']);  
-		$data['username']=htmlspecialchars($_POST['name']);  
+		$data['email']=htmlspecialchars($_POST['email']);  
 		$data['password']=htmlspecialchars($_POST['pwd']);  
 		$res=$this->Login_model->islogin($data);
 		if($res){  
-			$this->db->select('iduser');
+			$this->db->select('*');
 			$this->db->from('user');
-			$this->db->where('screenName',$data['username']);
+			$this->db->where('email',$data['email']);
 			$query= $this->db->get()->result();   
 
 			$session_data = array(
 				'user_id' =>$query[0]->iduser,
-				'screenName'=> $data['username'],
+				'screenName'=> $query[0]->screenName,
 			); 
 			$this->session->set_userdata('logged_user',$session_data);  
 // echo base_url();
@@ -144,7 +150,8 @@ class Login extends CI_Controller {
 
 	public function logout(){
 		$this->session->unset_userdata('logged_user');
-		redirect('login', 'refresh');
+		$this->session->set_flashdata('profile_update', 'You have been logged out successfully.');
+		redirect('/', 'refresh');
 	}
 
 }

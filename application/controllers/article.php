@@ -47,9 +47,11 @@ class Article extends CI_Controller {
             
 			$sickness_name =$this->db->get_where('metatags', array('pageName' => $sicknessname))->row()->title;
 		    $sickness_id = $this->db->get_where('sickness', array('commonName' => $sickness_name))->row()->idsickness; 
-
 			$data['article_details']= $this->Article_model->sickness_article_list($sickness_id);
-
+			$data['remedy_chart'] = $this->Article_model->remedy_chart_list($sickness_id);
+			$data['relief_chart'] = $this->Article_model->relief_chart_list($sickness_id);
+            $data['sickness_name'] = $sickness_name;
+            $data['sickness_slug'] = $sicknessname;
 			if(!empty($data['article_details'])){
 				$data['get_related_article'] = $this->Article_model->get_sickness_related_article($sickness_id,$data['article_details'][0]['idarticle']);
 				$articleVisitCount = $this->Article_model->articleVisitCount($data['article_details'][0]['idarticle']);

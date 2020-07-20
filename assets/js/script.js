@@ -5,10 +5,10 @@ var base_url = 'http://localhost/Remedies/';
 $(document).ready(function(){  
 
     $("#login").click(function(){  
-        var user_name = $("#name").val();  
+        var email = $("#email").val();  
         var password = $("#pwd").val();  
     // Returns error message when submitted without req fields.  
-    if(user_name==''||password=='')  
+    if(email==''||password=='')  
     {  
         jQuery("div#err_msg").show();  
         jQuery("span#msg").html("All fields are required");  
@@ -20,7 +20,7 @@ $(document).ready(function(){
     $.ajax({  
         type: "POST",  
         url:  base_url + "check_login",  
-        data: {name: user_name, pwd: password},  
+        data: {email: email, pwd: password},  
         cache: false,  
         success: function(result){  
             if(result!=0){  

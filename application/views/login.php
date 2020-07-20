@@ -44,14 +44,14 @@ $this->load->database();
 				<form  method="POST">
 
 					<div class="form-group row align-items-center">
-						<label class="col-lg-2 col-md-3"> Username </label>
+						<label class="col-lg-2 col-md-3"> Email </label>
 						<div class="col-md-8 xdr-select">
-							<input type="text" class="form-control"  id="name" placeholder="username here" required="required">
+							<input type="text" class="form-control"  id="email" placeholder="Email here" required="required">
 						</div>
 					</div>
 
 					<div class="form-group row align-items-center">
-						<label class="col-lg-2 col-md-3"> Pasword </label>
+						<label class="col-lg-2 col-md-3"> Password </label>
 						<div class="col-md-8 xdr-select">
 							<input type="password" class="form-control" id="pwd" placeholder="Pasword here" required="required">
 						</div>

@@ -131,4 +131,30 @@ class Article_model extends CI_Model
         $this->db->where('idarticle',$article_id);
         $this->db->update('article');
     }
+
+    public function remedy_chart_list($sickness_id)
+    {
+
+            $this->db->select('name as remedy_name,COUNT(idtestimony) as testimony_count');
+            $this->db->from('testimony');
+            $this->db->join('remedy', 'remedy.idremedy = testimony.remedy_idremedy');
+            $this->db->where('testimony.sickness_idsickness',$sickness_id);
+            $this->db->group_by('testimony.remedy_idremedy');
+            $this->db->order_by("remedy.name", "asc");
+            $results = $this->db->get()->result_array();
+            return $results;
+    }
+
+    public function relief_chart_list($sickness_id)
+    {
+
+            $this->db->select('type as relief_name,COUNT(user_iduser) as relief_count');
+            $this->db->from('testimony');
+            $this->db->join('relieftype', 'relieftype.idrelief = testimony.relief_idrelief');
+            $this->db->where('testimony.sickness_idsickness',$sickness_id);
+            $this->db->group_by('testimony.relief_idrelief');
+            $this->db->order_by("relieftype.type", "asc");
+            $results = $this->db->get()->result_array();
+            return $results;
+    }
 }

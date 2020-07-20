@@ -4,6 +4,115 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- header menu -->
 <?php  $this->load->view('includes/header_menu.php');?>
 
+<?php
+$dataPoints = array();
+foreach($remedy_chart as $remedychart) {
+        array_push($dataPoints, array("y"=> $remedychart['testimony_count'],"label"=>$remedychart['remedy_name']));
+}
+
+
+$dataPoints1 = array();
+foreach($relief_chart as $reliefchart) {
+        array_push($dataPoints1, array("y"=> $reliefchart['relief_count'],"label"=>$reliefchart['relief_name']));
+}
+
+?>
+
+
+
+
+<script>
+ 
+window.onload = function() {
+
+        CanvasJS.addColorSet("greenShades",
+                [//colorSet Array
+
+                "#2B60DE",
+                "#B161ED",
+                "#ED61B5",
+                "#ED616F",
+                "#ED6B61",
+                "#ED8261",
+                "#EDDF61",
+                "#FFFD7F",
+                "#ACFF80",
+                "#66B93A"          
+                ]);
+ 
+var chart = new CanvasJS.Chart("chartContainer", {
+  colorSet: "greenShades",
+  animationEnabled: true,
+  exportEnabled: true,
+theme: "light1", // "light1", "light2", "dark1", "dark2"
+  title:{
+    text: "Remedies for this sickness",
+    fontColor: "#66B93A",
+    fontFamily: "tahoma",
+     fontSize: 30
+  },
+  axisY: {
+    title: "Testimonial Count",
+    labelFontColor: "#3ABA8D",
+    titleFontColor: "#3ABA8D"
+
+  },
+   axisX:{
+        labelFontColor: "#151B8D",
+      },
+  data: [{
+    type: "bar",
+    yValueFormatString: "",
+    indexLabel: "{y}",
+    indexLabelPlacement: "inside",
+    indexLabelFontWeight: "bolder",
+    indexLabelFontColor: "white",
+    dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+  }]
+});
+chart.render();
+
+
+
+
+var chart = new CanvasJS.Chart("chartContainer1", {
+  animationEnabled: true,
+  exportEnabled: true,
+theme: "light1", // "light1", "light2", "dark1", "dark2"
+  title:{
+    text: "Relief for this sickness",
+    fontColor: "#66B93A",
+    fontFamily: "tahoma",
+
+  },
+  axisY: {
+    title: "User's vote Count",
+    labelFontColor: "#3ABA8D",
+    titleFontColor: "#3ABA8D"
+
+  },
+   axisX:{
+        labelFontColor: "#151B8D",
+      },
+  data: [{
+    type: "bar",
+    yValueFormatString: "",
+    indexLabel: "{y}",
+    indexLabelPlacement: "inside",
+    indexLabelFontWeight: "bolder",
+    indexLabelFontColor: "white",
+    dataPoints: <?php echo json_encode($dataPoints1, JSON_NUMERIC_CHECK); ?>
+  }]
+});
+chart.render();
+
+ 
+}
+
+</script>
+
+
+
 <!-- breadcrumb section -->
 <div class="container">
   <nav aria-label="breadcrumb">
@@ -22,42 +131,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="container">
 
     <div class="row">
-      <?php if(!empty($article_details)){ ?>
 
         <div class="col-12">
           <h2 class="text-uppercase space-mb-4">
-            <?php echo $article_details[0]['seo_title'] ?>
+            <?php echo $sickness_name ?>
           </h2>
 <!--  <h4>
 RESULT BY TESTIMONIES
 </h4> -->
+
+<!-- barchart -->
+<?php if(!empty($remedy_chart) || !empty($relief_chart) ){ ?>
+   <div id="chartContainer" style="height: 370px; width: 100%;"></div><br>
+   <div id="chartContainer1" style="height: 370px; width: 100%;"></div>
+<?php }else{ ?>
+  <p>We are still gathering data on this item and will display at a later time. But you still can get <br> good information in this page below </p>
+<?php } ?>
+
+<br>
 </div>
+      <?php if(!empty($article_details)){ ?>
+
 <div class="col-lg-8 article-details">
-  <img src="<?php echo base_url().'assets/uploads/article/'.$article_details[0]['thumbnailImage'] ?>" alt="">
   <p class="font-italic mt-4 mb-5">
-    <?php $article_name = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-',$article_details[0]['commonName']))); ?>
-    <a href="<?php if($article_details[0]['commonName'] !=''){ ?><?php echo base_url();?>condition/<?php echo  $article_name?><?php } ?>">
+     <a href="<?php if($sickness_slug !=''){ ?><?php echo base_url();?>condition/<?php echo  $sickness_slug?><?php } ?>">
       <u>
         See stories/testimonies/reliefs linked to this ailment
       </u>
     </a>
   </p>
-  <img class="rounded my-3" src="<?php echo base_url();?>assets/img/home-thumb/<?php echo $article_details[0]['thumbnailImage'] ?>"
+  <div class="row"><h1><?php echo strtoupper($article_details[0]['seo_title']); ?></h1></div>
+  <img class="rounded my-3" src="<?php echo base_url().'assets/uploads/article/'.$article_details[0]['thumbnailImage'] ?>"
   alt="<?php echo $article_details[0]['imageAltText'] ?>">
   <p>
-    <?php $string = strip_tags($article_details[0]['seo_description']);
-    if (strlen($string) > 100) {
-
-// truncate string
-      $stringCut = substr($string, 0, 100);
-      $endPoint = strrpos($stringCut, ' ');
-
-//if the string doesn't contain any space then it will cut without word basis.
-      $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
-    }
-    echo $string;
-
-    ?>
+    <?php echo $article_details[0]['articlepart']; ?>
   </p>
 
   <?php if(isset($get_related_article) && !empty($get_related_article)){ ?>
@@ -89,7 +196,7 @@ RESULT BY TESTIMONIES
 
   <div class="col-lg-8 article-details">
 
-    <h6> No related articles found  </h6>
+    <h3> <center>No related articles found  </center></h3>
 
   </div>
 <?php } ?>
@@ -160,3 +267,4 @@ RESULT BY TESTIMONIES
 </section>
 <!-- footer menu -->
 <?php  $this->load->view('includes/footer_menu.php');?>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>

@@ -58,7 +58,15 @@ class Login_model extends CI_Model
     }
 
     public function islogin($data){  
-    $query=$this->db->get_where('user',array('screenName'=>$data['username'],'password'=>sha1($data['password'])));  
+    $query=$this->db->get_where('user',array('email'=>$data['email'],'password'=>sha1($data['password'])));  
     return $query->num_rows();  
 }  
+
+   public function getCountryList(){
+        $this->db->select('*');
+        $this->db->order_by("countryName", "asc");
+        $fetched_records = $this->db->get('countries');
+        $results = $fetched_records->result_array();
+        return $results;
+   }
 }

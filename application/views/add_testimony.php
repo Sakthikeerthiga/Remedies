@@ -74,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-md-8 xdr-select">
               <select class="selectpicker" name="sickness_idsickness" data-live-search="true" required>
                 <option selected="selected">Select Sickness idsickness</option>
-                <?php foreach ($sickness as $key => $sick) { echo"<pre>";print_r($sick);?>
+                <?php foreach ($sickness as $key => $sick) { ?>
                 <option value="<?php echo $sick['idsickness']?>"><?php echo $sick['commonName']?></option>
               <?php } ?>
             </select>
