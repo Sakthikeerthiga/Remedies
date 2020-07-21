@@ -56,6 +56,7 @@ $route['about-us'] ='welcome/about_us';
 $route['sicksearch'] = 'sickness/search';
 $route['remedysearch'] = 'remedies/search';
 $route['article-detail/(:any)'] ='article/detail_page/$1';
+$route['sickness-articles/(:any)/(:any)'] ='article/sickness_related_article/$1/$2';
 $route['sickness-articles/(:any)'] ='article/sickness_article_list/$1';
 $route['updatetrendingsearch'] = 'sickness/updatetrendingsearch';
 $route['condition-list'] = 'sickness/sicknesslist';
@@ -63,6 +64,7 @@ $route['condition-list/(:num)'] = 'sickness/sicknesslist';
 $route['remedies-list'] = 'remedies/remedylist';
 $route['remedies-list/(:num)'] = 'remedies/remedylist';
 $route['remedy-articles/(:any)'] ='article/remedy_article_list/$1';
+$route['remedy-articles/(:any)/(:any)'] ='article/remedy_relates_article/$1/$2';
 $route['article-list'] = 'article/articlelist';
 $route['article-list/(:num)'] = 'article/articlelist';
 

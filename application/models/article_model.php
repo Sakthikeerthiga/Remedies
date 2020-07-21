@@ -51,6 +51,32 @@ class Article_model extends CI_Model
         return $sickness_article_list;
     }
 
+    public function sickness_related_article_list($sickeness_id,$article_id)
+    {
+        $this->db->select('*');
+        $this->db->from('article');
+        $this->db->join('featuredsicknesses', 'featuredsicknesses.article_idarticle = article.idarticle','LEFT');
+        $this->db->join('sickness', 'featuredsicknesses.sickness_idsickness = sickness.idsickness','LEFT');
+        $this->db->where('featuredsicknesses.sickness_idsickness',$sickeness_id);
+        $this->db->where('featuredsicknesses.article_idarticle',$article_id);
+        $sickness_article_list= $this->db->get()->result_array();
+        return $sickness_article_list;
+    }
+
+
+    public function remedy_related_article_list($remedy_id,$article_id)
+    {
+        $this->db->select('*');
+        $this->db->from('article');
+        $this->db->join('featuredremedies', 'featuredremedies.article_idarticle = article.idarticle');
+        $this->db->join('remedy', 'featuredremedies.remedy_idremedy = remedy.idremedy','LEFT');
+        $this->db->where('featuredremedies.remedy_idremedy',$remedy_id);
+        $this->db->where('featuredremedies.article_idarticle',$article_id);
+        $remedy_article_list= $this->db->get()->result_array();
+        return $remedy_article_list;
+    }
+
+
     public function remedy_article_list($remedy_id)
     {
         $this->db->select('*');
@@ -132,7 +158,7 @@ class Article_model extends CI_Model
         $this->db->update('article');
     }
 
-    public function remedy_chart_list($sickness_id)
+    public function sickness_remedy_chart_list($sickness_id)
     {
 
             $this->db->select('name as remedy_name,COUNT(idtestimony) as testimony_count');
@@ -140,12 +166,12 @@ class Article_model extends CI_Model
             $this->db->join('remedy', 'remedy.idremedy = testimony.remedy_idremedy');
             $this->db->where('testimony.sickness_idsickness',$sickness_id);
             $this->db->group_by('testimony.remedy_idremedy');
-            $this->db->order_by("remedy.name", "asc");
+            $this->db->order_by("testimony_count", "asc");
             $results = $this->db->get()->result_array();
             return $results;
     }
 
-    public function relief_chart_list($sickness_id)
+    public function sickness_relief_chart_list($sickness_id)
     {
 
             $this->db->select('type as relief_name,COUNT(user_iduser) as relief_count');
@@ -153,8 +179,56 @@ class Article_model extends CI_Model
             $this->db->join('relieftype', 'relieftype.idrelief = testimony.relief_idrelief');
             $this->db->where('testimony.sickness_idsickness',$sickness_id);
             $this->db->group_by('testimony.relief_idrelief');
-            $this->db->order_by("relieftype.type", "asc");
+            $this->db->order_by("relief_count", "asc");
             $results = $this->db->get()->result_array();
+            return $results;
+    }
+
+    public function relief_remedy_chart_list($remedy_id)
+    {
+
+            $this->db->select('commonName as remedy_name,COUNT(idtestimony) as testimony_count');
+            $this->db->from('testimony');
+            $this->db->join('sickness', 'sickness.idsickness = testimony.sickness_idsickness');
+            $this->db->where('testimony.remedy_idremedy',$remedy_id);
+            $this->db->group_by('testimony.sickness_idsickness');
+            $this->db->order_by("testimony_count", "asc");
+            $results = $this->db->get()->result_array();
+            return $results;
+    }
+
+    public function relief_relief_chart_list($remedy_id)
+    {
+
+            $this->db->select('type as relief_name,COUNT(user_iduser) as relief_count');
+            $this->db->from('testimony');
+            $this->db->join('relieftype', 'relieftype.idrelief = testimony.relief_idrelief');
+            $this->db->where('testimony.remedy_idremedy',$remedy_id);
+            $this->db->group_by('testimony.relief_idrelief');
+            $this->db->order_by("relief_count", "asc");
+            $results = $this->db->get()->result_array();
+            return $results;
+    }
+
+      public function get_reviwer_name($article_id)
+    {
+
+            $this->db->select('username');
+            $this->db->from('article');
+            $this->db->join('editor', 'editor.idEditor = article.reviewerId');
+            $this->db->where('article.idarticle',$article_id);
+            $results = $this->db->get()->result();
+            return $results;
+    }
+
+     public function get_author_name($article_id)
+    {
+
+            $this->db->select('username');
+            $this->db->from('article');
+            $this->db->join('editor', 'editor.idEditor = article.authorId');
+            $this->db->where('article.idarticle',$article_id);
+            $results = $this->db->get()->result();
             return $results;
     }
 }

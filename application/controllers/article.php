@@ -25,6 +25,8 @@ class Article extends CI_Controller {
 
 		if($article_id!=''){
 			$articleVisitCount = $this->Article_model->articleVisitCount($article_id);
+			$data['reviwer_name'] = $this->Article_model->get_reviwer_name($article_id);
+                 $data['author_name'] = $this->Article_model->get_author_name($article_id);
 			$data['article_details']= $this->Article_model->article_details_list($article_id);
 			$get_related_sickeness = $this->db->query("select sickness_idsickness from featuredsicknesses where article_idarticle='$article_id'")->result_array();
 			if(count($get_related_sickeness) > 0){
@@ -47,14 +49,52 @@ class Article extends CI_Controller {
             
 			$sickness_name =$this->db->get_where('metatags', array('pageName' => $sicknessname))->row()->title;
 		    $sickness_id = $this->db->get_where('sickness', array('commonName' => $sickness_name))->row()->idsickness; 
+
 			$data['article_details']= $this->Article_model->sickness_article_list($sickness_id);
-			$data['remedy_chart'] = $this->Article_model->remedy_chart_list($sickness_id);
-			$data['relief_chart'] = $this->Article_model->relief_chart_list($sickness_id);
+			$data['remedy_chart'] = $this->Article_model->sickness_remedy_chart_list($sickness_id);
+			$data['relief_chart'] = $this->Article_model->sickness_relief_chart_list($sickness_id);
             $data['sickness_name'] = $sickness_name;
             $data['sickness_slug'] = $sicknessname;
+          
 			if(!empty($data['article_details'])){
 				$data['get_related_article'] = $this->Article_model->get_sickness_related_article($sickness_id,$data['article_details'][0]['idarticle']);
 				$articleVisitCount = $this->Article_model->articleVisitCount($data['article_details'][0]['idarticle']);
+				 $data['reviwer_name'] = $this->Article_model->get_reviwer_name($data['article_details'][0]['idarticle']);
+                 $data['author_name'] = $this->Article_model->get_author_name($data['article_details'][0]['idarticle']);
+   
+			}
+
+		}
+		if(!empty($this->session->userdata('logged_user')) && !empty($data['article_details'])){
+			$data['get_article_vote'] = $this->Article_model->get_article_success($data['article_details'][0]['idarticle'],$this->session->userdata('logged_user')['user_id']);
+		}else{
+			$data['get_article_vote'] = '';
+		}
+
+		$this->load->view('sickeness_article_list', $data);
+	}
+
+
+	public function sickness_related_article($article_id='',$sickness_name='')
+	{
+
+		if($sickness_name!=''){
+            $article_id = $this->db->get_where('article', array('articleUrl' => $article_id))->row()->idarticle;
+		    $sickness_id = $this->db->get_where('sickness', array('commonName' => $sickness_name))->row()->idsickness; 
+			$sicknessname =$this->db->get_where('metatags', array('title' => $sickness_name))->row()->pageName;
+
+			$data['article_details']= $this->Article_model->sickness_related_article_list($sickness_id,$article_id);
+			$data['remedy_chart'] = $this->Article_model->sickness_remedy_chart_list($sickness_id);
+			$data['relief_chart'] = $this->Article_model->sickness_relief_chart_list($sickness_id);
+            $data['sickness_name'] = $sickness_name;
+            $data['sickness_slug'] = $sicknessname;
+          
+			if(!empty($data['article_details'])){
+				$data['get_related_article'] = $this->Article_model->get_sickness_related_article($sickness_id,$data['article_details'][0]['idarticle']);
+				$articleVisitCount = $this->Article_model->articleVisitCount($data['article_details'][0]['idarticle']);
+				 $data['reviwer_name'] = $this->Article_model->get_reviwer_name($data['article_details'][0]['idarticle']);
+                 $data['author_name'] = $this->Article_model->get_author_name($data['article_details'][0]['idarticle']);
+   
 			}
 
 		}
@@ -73,10 +113,19 @@ class Article extends CI_Controller {
 		if($remedy_name!=''){
 
 		$remedy_id = $this->db->get_where('remedy', array('link' => $remedy_name))->row()->idremedy;
+        
+        $data['slug'] = $remedy_name;
+        $data['remedy_name'] = $this->db->get_where('remedy', array('link' => $remedy_name))->row()->name;
+		$data['remedy_chart'] = $this->Article_model->relief_remedy_chart_list($remedy_id);
+		$data['relief_chart'] = $this->Article_model->relief_relief_chart_list($remedy_id);
+
 			$data['article_details']= $this->Article_model->remedy_article_list($remedy_id);
 			if(!empty($data['article_details'])){
 				$data['get_related_article'] = $this->Article_model->get_remedy_related_article($remedy_id,$data['article_details'][0]['idarticle']);
 				$articleVisitCount = $this->Article_model->articleVisitCount($data['article_details'][0]['idarticle']);
+				 $data['reviwer_name'] = $this->Article_model->get_reviwer_name($data['article_details'][0]['idarticle']);
+                 $data['author_name'] = $this->Article_model->get_author_name($data['article_details'][0]['idarticle']);
+   
 			}
 		}
 		if(!empty($this->session->userdata('logged_user')) && !empty($data['article_details'])){
@@ -86,6 +135,36 @@ class Article extends CI_Controller {
 		}
 		$this->load->view('remedy_article_list', $data);
 	}
+
+		public function remedy_relates_article($article_name='',$remedy_name='')
+	{       
+		if($remedy_name!=''){
+
+			$remedy_id = $this->db->get_where('remedy', array('name' => $remedy_name))->row()->idremedy;
+
+			$data['slug'] = $this->db->get_where('remedy', array('name' => $remedy_name))->row()->link;
+			$data['remedy_name'] = $remedy_name;
+			$data['remedy_chart'] = $this->Article_model->relief_remedy_chart_list($remedy_id);
+			$data['relief_chart'] = $this->Article_model->relief_relief_chart_list($remedy_id);
+			$article_id = $this->db->get_where('article', array('articleUrl' => $article_name))->row()->idarticle;
+
+			$data['article_details']= $this->Article_model->remedy_related_article_list($remedy_id,$article_id);
+			if(!empty($data['article_details'])){
+				$data['get_related_article'] = $this->Article_model->get_remedy_related_article($remedy_id,$data['article_details'][0]['idarticle']);
+				$articleVisitCount = $this->Article_model->articleVisitCount($data['article_details'][0]['idarticle']);
+				 $data['reviwer_name'] = $this->Article_model->get_reviwer_name($data['article_details'][0]['idarticle']);
+                 $data['author_name'] = $this->Article_model->get_author_name($data['article_details'][0]['idarticle']);
+   
+			}
+		}
+		if(!empty($this->session->userdata('logged_user')) && !empty($data['article_details'])){
+			$data['get_article_vote'] = $this->Article_model->get_article_success($data['article_details'][0]['idarticle'],$this->session->userdata('logged_user')['user_id']);
+		}else{
+			$data['get_article_vote'] = '';
+		}
+		$this->load->view('remedy_article_list', $data);
+	}
+
 
 	public function articlelist()
 	{   
