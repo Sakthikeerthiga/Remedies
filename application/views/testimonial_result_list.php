@@ -283,7 +283,7 @@ See stories/testimonies/reliefs linked to this ailment
             <h4 class="text-secondary">
               <?php echo $article['seo_title']; ?>
             </h4>
-            <img class="rounded my-3" src="<?php echo base_url();?>assets/img/home-thumb/<?php echo $article['thumbnailImage'] ?>"
+            <img class="rounded my-3" src="<?php echo base_url();?>assets/uploads/article/<?php echo $article['thumbnailImage'] ?>"
             alt="<?php echo $article['imageAltText'] ?>">
             <h4>
               <?php echo $article['seo_keywords']; ?>
@@ -307,7 +307,7 @@ See stories/testimonies/reliefs linked to this ailment
 
               </p>
             </p>
-            <a href="<?php echo base_url().''.$article['articleUrl'] ?>" class="link">
+            <a href="<?php echo base_url().'article-detail/'.$article['articleUrl'] ?>" class="link">
               Read more
             </a>
           </article>

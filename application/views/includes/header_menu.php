@@ -62,10 +62,12 @@
 
         <div class="collapse navbar-collapse" id="br_navbar_sm">
           <ul class="navbar-nav ml-auto main-menu">
+            <?php if(empty($this->session->userdata('logged_user')['user_id'])){ ?>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url(); ?>">Home
               </a>
             </li>
+          <?php }?>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url(); ?>about-us">About us</a>
             </li>
@@ -78,6 +80,12 @@
             <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url(); ?>article-list">Articles</a>
             </li>
+             <?php if(!empty($this->session->userdata('logged_user')['user_id'])){ ?>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo base_url(); ?>testimonial">Post Testimony
+              </a>
+            </li>
+          <?php }?>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact us</a>
             </li>

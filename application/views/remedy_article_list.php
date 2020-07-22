@@ -136,11 +136,11 @@ data: [{
         <h2 class="text-uppercase space-mb-4">
           <?php echo strtoupper($remedy_name); ?>
         </h2>
-
+<?php if(!empty($article_details)){ ?>
         <h4>ARTICLE WRITTEN BY <b class="text-secondary"><?php echo strtoupper($author_name[0]->username); ?> </b></h4>
         <?php if(!empty($reviwer_name[0]->username)) { ?>
           <p>ARTICLE REVIEWED BY <b class="text-secondary"><?php echo strtoupper($reviwer_name[0]->username); ?> </b></p>
-        <?php } ?>
+        <?php } } ?>
 <!--  <h4>
 RESULT BY TESTIMONIES
 </h4> -->
@@ -149,16 +149,6 @@ RESULT BY TESTIMONIES
 <?php if(!empty($remedy_chart) || !empty($relief_chart) ){ ?>
   <div id="chartContainer" style="height: 370px; width: 100%;"></div><br>
   <div id="chartContainer1" style="height: 370px; width: 100%;"></div>
-<?php }else{ ?>
-  <p>We are still gathering data on this item and will display at a later time. But you still can get <br> good information in this page below </p>
-<?php } ?>
-
-<br>
-</div>
-<?php if(!empty($article_details)){ ?>
-
-  <div class="col-lg-8 article-details">
-
 
 
     <p class="font-italic mt-4 mb-5">
@@ -168,6 +158,17 @@ RESULT BY TESTIMONIES
         </u>
       </a>
     </p>
+<?php }else{ ?>
+   <p class="info_mark">"We are still gathering data on this item and will display at a later
+time. But you still can get good information in this page below".</p>
+<?php } ?>
+
+<br>
+</div>
+<?php if(!empty($article_details)){ ?>
+
+  <div class="col-lg-8 article-details">
+
     <h2 class="text-secondary">
       <center><?php echo strtoupper($article_details[0]['seo_title']); ?></center>
     </h2>

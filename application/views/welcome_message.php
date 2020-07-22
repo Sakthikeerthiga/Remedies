@@ -130,7 +130,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="col-lg-7">
 					<article class="article article-featured">
 						<a href="article-detail/<?php echo $article_main_result[0]['articleUrl'] ?>" class="article__img">
-							<img class="trending-search-item__img" src="assets/img/home-thumb/<?php echo $article_main_result[0]['thumbnailImage']?>" alt="">
+							<img class="trending-search-item__img" src="<?php echo base_url().'assets/uploads/article/'.$article_main_result[0]['thumbnailImage'] ?>" alt="">
 						</a>
 						<h4 class="article__heading">
 							<a href="<?php echo $article_main_result[0]['articleUrl'] ?>" class="article__img">
@@ -170,8 +170,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 						<article class="article row">
 							<div class="col-4">
-								<a href="<?php echo $article_side['articleUrl'] ?>" class="article__img">
-									<img class="trending-search-item__img" src="assets/img/home-thumb/<?php echo $article_side['thumbnailImage'] ?>" alt="" height="160">
+								<a href="article-detail/<?php echo $article_side['articleUrl'] ?>" class="article__img">
+									<img class="trending-search-item__img" src="<?php echo base_url().'assets/uploads/article/'. $article_side['thumbnailImage'] ?>" alt="" height="160">
 								</a>
 							</div>
 
@@ -197,7 +197,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										?>
 
 									</p>
-									<a href="<?php echo $article_side['articleUrl']?>" class="link">
+									<a href="article-detail/<?php echo $article_side['articleUrl'] ?>" class="link">
 										Read more
 									</a>
 								</div>

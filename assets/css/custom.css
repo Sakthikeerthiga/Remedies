@@ -35,3 +35,7 @@
 b.text-secondary.article_part{
     line-height: 30px ;
 }
+.info_mark{
+    color: #914f05;
+    font-style: italic;
+}
