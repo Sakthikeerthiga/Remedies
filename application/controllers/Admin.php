@@ -435,14 +435,14 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud = new grocery_CRUD();
 	$crud->set_table('testimony');
 	$crud->set_subject('Testimonies');
-	$crud->set_relation('user_iduser','user','{firstName} {lastName}');
+	$crud->set_relation('user_iduser','user','{screenName}',null,null,'{email}');
 	$crud->set_relation('remedy_idremedy','remedy','name');
 	$crud->set_relation('relief_idrelief','relieftype','type');
 	$crud->set_relation('sickness_idsickness','sickness','commonName');
 	$crud->set_relation('country','countries',' {countryName} {countryCode}');
 	$crud->field_type('administeredTo','dropdown',array('1' => 'Self', '2' => 'Patient','3' => 'Other' ));
 	$crud->field_type('administeredBy','dropdown',array('1' => 'Self', '2' => 'Medical Doctor','3' => 'Other' ));
-	$crud->field_type('overallExperience','dropdown',array('1' => 'Positive', '2' => 'Negative'));
+	$crud->field_type('overallExperience','dropdown',array('1' => 'Positive', '2' => 'Negative' , '3' => 'No Effect'));
 	$crud->set_relation_n_n('Specific_Brands', 'citedbrands', 'brands', 'testimony_idtestimony', 'brands_idbrands', 'name');
 	$crud->set_relation_n_n('Additional_Remedies', 'additionalremedy', 'remedy', 'testimony_idtestimony', 'remedy_idremedy', 'name');
 	$crud->field_type('date', 'hidden',date('Y-m-d H:i:s'));

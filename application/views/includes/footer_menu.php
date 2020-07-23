@@ -64,6 +64,7 @@
  <link href= 
 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
           rel='stylesheet'> 
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
       
     <script src= 
 "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" > 

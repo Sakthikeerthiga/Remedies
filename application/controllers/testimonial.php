@@ -31,6 +31,8 @@ class Testimonial extends CI_Controller {
 		$sickness_id = $this->db->get_where('sickness', array('commonName' => $sickness_name))->row()->idsickness; 
 
 		if($sickness_id!=''){
+			$data['remedy_chart'] = $this->Article_model->sickness_remedy_chart_list($sickness_id);
+			$data['relief_chart'] = $this->Article_model->sickness_relief_chart_list($sickness_id);
 			$data['testimonial_details']= $this->Testimonial_model->sickness_testimony_list($sickness_id);
 			$data['get_related_article'] = $this->Article_model->sickness_article_list($sickness_id);
 			$data['related_comment'] = $this->Testimonial_model->get_sickrealted_main_comment($sickness_id);
@@ -49,6 +51,8 @@ class Testimonial extends CI_Controller {
 		$remedyName = $this->db->get_where('remedy', array('link' => $remedy_name))->row()->name;
 
 		if($remedy_id!=''){
+			$data['remedy_chart'] = $this->Article_model->relief_remedy_chart_list($remedy_id);
+		    $data['relief_chart'] = $this->Article_model->relief_relief_chart_list($remedy_id);
 			$data['testimonial_details']= $this->Testimonial_model->remedy_testimony_list($remedy_id);
 			$data['get_related_article'] = $this->Article_model->remedy_article_list($remedy_id);
 			$data['related_comment'] = $this->Testimonial_model->get_remedyrealted_main_comment($remedy_id);
@@ -83,9 +87,9 @@ class Testimonial extends CI_Controller {
 				'dosage'=>$this->input->post('dosage'),
 				'administeredTo'=>$this->input->post('administeredTo'),
 				'administeredBy'=>$this->input->post('administeredBy'),
+				'overallExperience' => $this->input->post('overallExperience'),
 				'country'=>$country[0]->Country,
 				'state'=> $state[0]->City,
-				'testimonyUrl'=>'testimonial/testimony_for_sickness/'.$this->input->post('sickness_idsickness'),
 				'warnings'=>$this->input->post('warnings'),
 			);
 
@@ -156,7 +160,7 @@ class Testimonial extends CI_Controller {
 					'dosage'=>$this->input->post('dosage'),
 					'administeredTo'=>$this->input->post('administeredTo'),
 					'administeredBy'=>$this->input->post('administeredBy'),
-					'testimonyUrl'=>'testimonial/testimony_for_sickness/'.$this->input->post('sickness_idsickness'),
+				    'overallExperience' => $this->input->post('overallExperience'),
 					'warnings'=>$this->input->post('warnings'),
 				);
 			}
@@ -166,27 +170,18 @@ class Testimonial extends CI_Controller {
 		}
 		$insertNewPost = $this->Testimonial_model->insert_testimonial_new_post($data);
         $sicknessid = $this->input->post('sickness_idsickness');
-        $update = $this->db->query("UPDATE trendingsearches SET positiveTestimonies = positiveTestimonies + 1 WHERE sickness_idsickness = $sicknessid");
-				if($this->email->send())
-			{
 			$sickness_name = $this->db->get_where('sickness', array('idsickness' => $this->input->post('sickness_idsickness')))->row()->commonName; 
-			$slugname = str_replace("-", "_", $sickness_name);
-			$sickness_slug = url_title($slugname, 'dash', true);
+			$sickness_slug = $this->db->get_where('metatags', array('title' => $sickness_name))->row()->pageName;
+        $update = $this->db->query("UPDATE trendingsearches SET positiveTestimonies = positiveTestimonies + 1 WHERE sickness_idsickness = $sicknessid");
+			if($this->email->send())
+			{
 
 			$this->session->set_flashdata('testimonial_add_msg', 'Your story has been added successfully.Please check your email for login credential');
-			redirect('testimonial/testimony_for_sickness/'.$sickness_slug);
-			}
-
-			else
-
-			{
+			redirect('condition/'.$sickness_slug);
+			}else{
 			
-			$sickness_name = $this->db->get_where('sickness', array('idsickness' => $this->input->post('sickness_idsickness')))->row()->commonName; 
-			$slugname = str_replace("-", "_", $sickness_name);
-			$sickness_slug = url_title($slugname, 'dash', true);
-
 			$this->session->set_flashdata('testimonial_add_msg', 'Your story has been added successfully.There was the problem in Mail sending.');
-			redirect('testimonial/testimony_for_sickness/'.$sickness_slug);
+			redirect('condition/'.$sickness_slug);
 			}
 			
 	}

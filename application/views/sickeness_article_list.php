@@ -323,4 +323,3 @@ time. But you still can get good information in this page below".</p>
 </section>
 <!-- footer menu -->
 <?php  $this->load->view('includes/footer_menu.php');?>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>

@@ -41,7 +41,7 @@ class Testimonial_model extends CI_Model
 
     public function get_sickrealted_main_comment($sick_id){
 
-        $this->db->select('comment,datePosted,idcomment,screenName,testimony_idtestimony');
+        $this->db->select('*');
         $this->db->join('comment', 'comment.testimony_idtestimony = testimony.idtestimony','LEFT');
         $this->db->join('user', 'user.iduser = testimony.user_iduser','LEFT');
         $this->db->where('sickness_idsickness',$sick_id);
@@ -54,7 +54,7 @@ class Testimonial_model extends CI_Model
 
     public function get_remedyrealted_main_comment($remedy_id){
 
-        $this->db->select('comment,datePosted,idcomment,screenName,testimony_idtestimony');
+        $this->db->select('*');
         $this->db->join('comment', 'comment.testimony_idtestimony = testimony.idtestimony','LEFT');
         $this->db->join('user', 'user.iduser = testimony.user_iduser','LEFT');
         $this->db->where('remedy_idremedy',$remedy_id);
@@ -68,7 +68,7 @@ class Testimonial_model extends CI_Model
 
     public function get_sickrealted_additional_comment($sick_id){
 
-        $this->db->select('comment,datePosted,idcomment,screenName,testimony_idtestimony,comment_idcomment');
+        $this->db->select('*');
         $this->db->join('comment', 'comment.testimony_idtestimony = testimony.idtestimony','LEFT');
         $this->db->join('user', 'user.iduser = testimony.user_iduser','LEFT');
         $this->db->where('sickness_idsickness',$sick_id);
@@ -81,7 +81,7 @@ class Testimonial_model extends CI_Model
 
     public function get_remedyrealted_additional_comment($remedy_id){
 
-        $this->db->select('comment,datePosted,idcomment,screenName,testimony_idtestimony,comment_idcomment');
+        $this->db->select('*');
         $this->db->join('comment', 'comment.testimony_idtestimony = testimony.idtestimony','LEFT');
         $this->db->join('user', 'user.iduser = testimony.user_iduser','LEFT');
         $this->db->where('remedy_idremedy',$remedy_id);

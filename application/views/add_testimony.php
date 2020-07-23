@@ -143,6 +143,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
         </div>
 
+
+        <div class="form-group row">
+          <label class="col-lg-2 col-md-3"> OverallExperience </label>
+          <div class="col-md-8 xdr-select">
+            <select class="selectpicker" name="overallExperience" data-live-search="true" required>
+              <option selected="selected"> Select OverallExperience </option>
+              <option value="1">Positive</option>
+              <option value="2">Negative</option>
+              <option value="3">No Effect</option>
+            </select>
+          </div>
+        </div>
+        
+
         <div class="form-group row">
           <label class="col-lg-2 col-md-3"> Text formating here </label>
           <div class="col-md-8 xdr-select">

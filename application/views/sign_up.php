@@ -46,7 +46,7 @@ $this->load->database();
 					<div class="form-group row align-items-center">
 						<label class="col-lg-2 col-md-3"> Email </label>
 						<div class="col-md-8 xdr-select">
-							 <input type="text" class="form-control" name="email" placeholder="Enter User Name" id="email" onkeyup="ValidateEmail();" autocomplete="off" required >
+							 <input type="text" class="form-control" name="email" placeholder="Enter email" id="email" onkeyup="ValidateEmail();" autocomplete="off" required >
                               &nbsp;&nbsp;<span id="error_email" style="color: red;"></span>
 						</div>
 					</div>
