@@ -72,6 +72,44 @@ class Testimonial extends CI_Controller {
 	}
 
 	public function save_testimony(){
+
+		if (is_numeric($_POST['sickness_idsickness'])) { 
+
+			$sickness_idsickness = $this->input->post('sickness_idsickness');
+
+		}else{
+
+			$sickness_name = $this->input->post('sickness_idsickness');
+			$data = array(
+				'commonName'=>$this->input->post('sickness_idsickness'),
+				'scientificName'=>$this->input->post('sickness_idsickness')
+			);
+			$sickness_idsickness = $this->Testimonial_model->insert_sickness($data);
+
+			$data_meta = array( 
+				'pageName' => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-',$sickness_name))),
+				'title' => $sickness_name); 
+			$this->db->insert('metatags', $data_meta); 
+		}
+
+		if (is_numeric($_POST['remedy_idremedy'])) { 
+
+			$remedy_idremedy = $this->input->post('remedy_idremedy');
+
+		}else{
+
+			$remedy_name = $this->input->post('remedy_idremedy');
+			$data = array(
+				'type'=> 4,
+				'name'=>$remedy_name,
+				'link'=>strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-',$remedy_name))),
+			);
+			$this->db->insert('remedy', $data); 
+            $remedy_idremedy = $this->db->insert_id();
+
+		}
+
+
 // register login users
 		if(!empty($this->session->userdata('logged_user'))){
 			$user_id = $this->session->userdata('logged_user')['user_id'];
@@ -80,8 +118,8 @@ class Testimonial extends CI_Controller {
 			$data = array(
 				'date'=>date("Y-m-d h:i"),
 				'user_iduser'=>$user_id,
-				'sickness_idsickness'=>$this->input->post('sickness_idsickness'),
-				'remedy_idremedy'=> $this->input->post('remedy_idremedy'),
+				'sickness_idsickness'=>$sickness_idsickness,
+				'remedy_idremedy'=> $remedy_idremedy,
 				'relief_idrelief'=>$this->input->post('relief_idrelief'),
 				'story'=>$this->input->post('story'),
 				'dosage'=>$this->input->post('dosage'),
@@ -153,8 +191,8 @@ class Testimonial extends CI_Controller {
 				$data = array(
 					'date'=>date("Y-m-d h:i"),
 					'user_iduser'=>$insertUser,
-					'sickness_idsickness'=>$this->input->post('sickness_idsickness'),
-					'remedy_idremedy'=> $this->input->post('remedy_idremedy'),
+					'sickness_idsickness'=>$sickness_idsickness,
+					'remedy_idremedy'=> $remedy_idremedy,
 					'relief_idrelief'=>$this->input->post('relief_idrelief'),
 					'story'=>$this->input->post('story'),
 					'dosage'=>$this->input->post('dosage'),
@@ -169,10 +207,12 @@ class Testimonial extends CI_Controller {
 
 		}
 		$insertNewPost = $this->Testimonial_model->insert_testimonial_new_post($data);
-        $sicknessid = $this->input->post('sickness_idsickness');
-			$sickness_name = $this->db->get_where('sickness', array('idsickness' => $this->input->post('sickness_idsickness')))->row()->commonName; 
+        $sicknessid = $sickness_idsickness;
+			$sickness_name = $this->db->get_where('sickness', array('idsickness' => $sickness_idsickness))->row()->commonName; 
 			$sickness_slug = $this->db->get_where('metatags', array('title' => $sickness_name))->row()->pageName;
-        $update = $this->db->query("UPDATE trendingsearches SET positiveTestimonies = positiveTestimonies + 1 WHERE sickness_idsickness = $sicknessid");
+			if( $this->input->post('overallExperience') == 1){
+				$update = $this->db->query("UPDATE trendingsearches SET positiveTestimonies = positiveTestimonies + 1 WHERE sickness_idsickness = $sicknessid");
+			}
 			if($this->email->send())
 			{
 

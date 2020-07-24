@@ -70,10 +70,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         <?php  } ?>
           <div class="form-group row">
-            <label class="col-lg-2 col-md-3">Sickness idsickness</label>
-            <div class="col-md-8 xdr-select">
-              <select class="selectpicker" name="sickness_idsickness" data-live-search="true" required>
-                <option selected="selected">Select Sickness idsickness</option>
+            <label class="col-lg-2 col-md-3">Select Sickness</label>
+            <div class="col-md-5 xdr-select">
+              <select class="sickness_search form-control" name="sickness_idsickness"  required>
+                <option selected="selected">Select Sickness name</option>
                 <?php foreach ($sickness as $key => $sick) { ?>
                 <option value="<?php echo $sick['idsickness']?>"><?php echo $sick['commonName']?></option>
               <?php } ?>
@@ -82,10 +82,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
 
         <div class="form-group row">
-          <label class="col-lg-2 col-md-3"> Remedy idremedy: </label>
-          <div class="col-md-8 xdr-select">
-            <select class="selectpicker" name="remedy_idremedy" data-live-search="true" required>
-              <option selected="selected"> Select Remedy idremedy </option>
+          <label class="col-lg-2 col-md-3">Select Remedy </label>
+          <div class="col-md-5 xdr-select">
+            <select class="remedy_search form-control" name="remedy_idremedy" required>
+              <option selected="selected"> Select Remedy name </option>
               <?php foreach ($remedies as $key => $remedy) { ?>
                 <option value="<?php echo $remedy['idremedy'] ?>"><?php echo $remedy['name']?></option>
               <?php } ?>
@@ -120,9 +120,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
 
         <div class="form-group row">
-          <label class="col-lg-2 col-md-3"> Relief Id Relief </label>
+          <label class="col-lg-2 col-md-3"> select Relief</label>
           <div class="col-md-8 xdr-select">
-            <select class="selectpicker" name="relief_idrelief" data-live-search="true" required>
+            <select class="relief_type form-group" name="relief_idrelief" required>
               <option selected="selected"> Select Relief Id Relief</option>
               <?php foreach ($relief_type as $key => $relief) { ?>
                 <option value="<?php echo $relief['idrelief'] ?>"><?php echo $relief['type']?></option>
@@ -186,3 +186,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!-- footer menu -->
 <?php  $this->load->view('includes/footer_menu.php');?>
+<script type="text/javascript">
+$(".sickness_search").select2({
+    minimumInputLength: 2,
+    tags: true,
+    ajax: {
+        url: URL,
+        dataType: 'json',
+        type: "GET",
+        quietMillis: 50,
+        data: function (term) {
+            return {
+                term: term
+            };
+        },
+        results: function (data) {
+            return {
+                results: $.map(data, function (item) {
+                    return {
+                        text: item.completeName,
+                        slug: item.slug,
+                        id: item.id
+                    }
+                })
+            };
+        }
+    }
+});
+
+$(".sickness_search").select2({
+  tags: true
+});
+
+$(".remedy_search").select2({
+  tags: true
+});
+
+
+$(".relief_type").select2({
+});
+</script>

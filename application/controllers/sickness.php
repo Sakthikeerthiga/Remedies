@@ -96,4 +96,9 @@ public function __construct()
 
 
 	}
+
+	public function checksickness_list(){
+		$sickness_list  = $this->Sickness_model->ajax_sickness_search($_POST["searchTerm"]);
+		echo "<pre>";print_r($sickness_list);exit();
+	}
 }

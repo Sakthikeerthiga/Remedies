@@ -57,9 +57,9 @@ $this->load->database();
 						foreach ($remedylist as $key => $list) { 
 							$slugname = str_replace("-", "_", $list['name']);
 							$remedy_slug = url_title($slugname, 'dash', true);?>
-							<li><a href="<?php echo base_url();?>remedy-articles/<?php echo $remedy_slug ?>"> <?php echo $list['name'] ?></a><span><?php $Testimoniescnt = $this->db->get_where('testimony', array('remedy_idremedy' => $list['idremedy']))->num_rows();
+							<li><a href="<?php echo base_url();?>remedy-articles/<?php echo $list['link'] ?>"> <?php echo $list['name'] ?></a><span><?php $Testimoniescnt = $this->db->get_where('testimony', array('remedy_idremedy' => $list['idremedy']))->num_rows();
 							
-							if($Testimoniescnt > 0){ ?><a href="<?php echo base_url();?>remedy-testimony/<?php echo $remedy_slug ?>">(<?php echo $Testimoniescnt ?> user stories)</a><?php } ?></span></li>
+							if($Testimoniescnt > 0){ ?><a href="<?php echo base_url();?>remedy-testimony/<?php echo $list['link'] ?>">(<?php echo $Testimoniescnt ?> user stories)</a><?php } ?></span></li>
 						<?php } } ?>
 						<div class="xdr-adds-container my-4">
 							<img class="rounded" src="https://dummyimage.com/730x100/914E05/ffffff.jpg&text=adds+here" alt="">

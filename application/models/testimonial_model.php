@@ -150,6 +150,12 @@ class Testimonial_model extends CI_Model
         return $comment_id;
     }
 
+    public function insert_sickness($data){
+        $insert_data = $this->db->insert('sickness',$data);
+        $sickness_id = $this->db->insert_id();
+        return $sickness_id;
+    }
+
     public function add_reply_comment($data)
     {
         $insert_data = $this->db->insert('comment',$data);

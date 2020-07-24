@@ -91,3 +91,6 @@ $route['save-testimony'] = 'testimonial/save_testimony';
 $route['add_new_comment'] = 'testimonial/add_new_comment';
 $route['add_reply_comment'] = 'testimonial/add_reply_comment';
 $route['privacy-policy'] = 'welcome/privacypolicy';
+
+
+$route['checksickness_list'] = 'sickness/checksickness_list';

@@ -211,7 +211,7 @@ $(function () {
                     var dataObj = jQuery.parseJSON(msg);
                     if(dataObj.length > 0){
                         $(dataObj).each(function(i,val){
-                            html += '<a href="'+base_url+'remedy-testimony/'+val.id+'"><li data-id="'+val.id+'">'+val.text+'</li></a>';
+                            html += '<a href="'+base_url+'remedy-testimony/'+val.link+'"><li data-id="'+val.id+'">'+val.text+'</li></a>';
                         });
                     }else{
                         html += '<li>No Related Data Found</li>';

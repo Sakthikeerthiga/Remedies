@@ -19,7 +19,7 @@ class Remedy_model extends CI_Model
 
         $data = array();
         foreach($results as $result){
-            $data[] = array("id"=>$result['idremedy'], "text"=>$result['name']);
+            $data[] = array("id"=>$result['idremedy'], "text"=>$result['name'],"link"=>$result['link']);
         }
         return $data;
     }

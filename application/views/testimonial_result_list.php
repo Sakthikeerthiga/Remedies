@@ -124,7 +124,11 @@ See stories/testimonies/reliefs linked to this ailment
             <div class="col-6">
               <ul class="list-unstyled">
                 <li class="text-danger font-weight-semibold">
-                  <a href="<?php echo $testimonial_detail['sellerLink'];?>" class="d-flex">
+                  <?php if(!empty($testimonial_detail['sellerLink'])) { ?>
+                  <a href="<?php echo $testimonial_detail['sellerLink'];?>" target="_blank" class="d-flex">
+                    <?php }else{ ?>
+                    <a href="JavaScript:Void(0);"  class="d-flex">
+                      <?php } ?>
                     <img src="<?php echo base_url();?>assets/img/supplement_icon.svg" height="25" class="mr-1 mb-0" alt="">
                     <u>
                       Check this supplement near you!
@@ -133,7 +137,7 @@ See stories/testimonies/reliefs linked to this ailment
                 </li>
                 <li>
                   Read more about:
-                  <a href="<?php echo $testimonial_detail['link'];?>">
+                  <a href="<?php echo base_url().'remedy-articles/'.$testimonial_detail['link']?>">
                     <u><?php echo $testimonial_detail['name'];?></u>
                   </a>
                 </li>
