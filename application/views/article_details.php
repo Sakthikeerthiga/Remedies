@@ -69,7 +69,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </h4>
       <ul class="list-unstyled text-secondary link-list-blurb">
         <?php  foreach($get_related_article as $article){ ?>
-          <li> <a href="<?php echo base_url().''.$article['articleUrl'] ?>">  <?php echo $article['seo_title']; ?> </a></li>
+          <li> <a href="<?php echo base_url().'article-detail/'.$article['articleUrl'] ?>">  <?php echo $article['seo_title']; ?> </a></li>
         <?php } ?>
       </ul>
     </div>
@@ -129,7 +129,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             </p>
           </p>
-          <a href="<?php echo base_url().''.$article['articleUrl'] ?>" class="link">
+          <a href="<?php echo base_url().'article-detail/'.$article['articleUrl'] ?>" class="link">
             Read more
           </a>
         </article>

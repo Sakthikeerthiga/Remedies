@@ -74,3 +74,8 @@ b.text-secondary.article_part{
     box-shadow: 0 10px 15px 1px rgba(0, 0, 0, 0.175)  !important;  }
 
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable{background-color: rgb(61 120 0) !important;}
+
+.img-responsive {
+    width: auto;
+    height: 200px;
+}

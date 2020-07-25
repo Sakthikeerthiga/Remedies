@@ -55,6 +55,7 @@ See stories/testimonies/reliefs linked to this ailment
 
 <ul class="list-unstyled testimonial-discussion-group">
   <?php foreach ($testimonial_details as $key => $testimonial_detail) {
+    $post_count =$this->db->get_where('testimony', array('user_iduser' => $testimonial_detail['user_iduser']))->num_rows();
     ?>
     <li>
       <div class="testimonial-discussion">
@@ -66,21 +67,27 @@ See stories/testimonies/reliefs linked to this ailment
           <div class="row no-gutters">
             <div class="col-6 small">
               <strong>Username:</strong>
-              <?php echo $testimonial_detail['screenName'];?>
+              <?php echo $testimonial_detail['firstName'] .' '.$testimonial_detail['lastName'] ;?>
               <br>
               <strong>Status:</strong>
               User
-              <small>(3 post)</small>
+              <small>( <?php echo $post_count ?> post)</small>
             </div>
             <div class="col-6 small">
               <strong>
                 <span class="text-primary">Overall Experience:</span>
-                <?php echo $testimonial_detail['overallExperience'];?>
+                <?php if($testimonial_detail['overallExperience'] == 1){?>
+                   Positive
+                <?php }elseif($testimonial_detail['overallExperience'] == 2){ ?>
+                 Negative
+                <?php }else{ ?>
+                 No Effect
+                <?php } ?>
               </strong>
               <br>
               <strong>
                 <span class="text-primary">Specific Experience:</span>
-                Complete and Permanent Relief
+               <?php echo $testimonial_detail['type'];?>
               </strong>
               <br>
               <span class="text-primary">Date Posted:</span>
@@ -187,7 +194,10 @@ See stories/testimonies/reliefs linked to this ailment
     <div class="testimonial_main_comment_<?php echo $testimonial_detail['idtestimony'];?>">
       <?php if(!empty($related_comment)){ 
         foreach($related_comment as $main_comment){ 
-          if($testimonial_detail['idtestimony'] ==  $main_comment['testimony_idtestimony']){?>
+          if($testimonial_detail['idtestimony'] ==  $main_comment['testimony_idtestimony']){
+          $user_post_count = $this->db->get_where('testimony', array('user_iduser' => $main_comment['user_iduser']))->num_rows();
+
+            ?>
             <div class="testimonial-discussion-reply">
               <div class="testimonial-discussion"><div class="row no-gutters">
                 <div class="col-6 small">
@@ -196,7 +206,7 @@ See stories/testimonies/reliefs linked to this ailment
                   <br>
                   <strong>Status:</strong>
                   User
-                  <small>(3 post)</small>
+                  <small>(<?php echo $user_post_count ?> post)</small>
                 </div>
                 <div class="col-6 small">
                   <span class="text-primary">Date Posted:</span>
@@ -231,7 +241,9 @@ See stories/testimonies/reliefs linked to this ailment
           <div class="testimonial_reply_comment_<?php echo $main_comment['idcomment'] ;?>">
             <?php if(!empty($additional_reply_comment)){ 
               foreach($additional_reply_comment as $add_comment){  
-                if($main_comment['idcomment'] ==  $add_comment['comment_idcomment']){ ?>
+                if($main_comment['idcomment'] ==  $add_comment['comment_idcomment']){ 
+               $add_post_count = $this->db->get_where('testimony', array('user_iduser' => $add_comment['user_iduser']))->num_rows();
+          ?>
                   <div class="testimonial-comment-reply">
                     <div class="testimonial-discussion"><div class="row no-gutters">
                       <div class="col-6 small">
@@ -240,7 +252,7 @@ See stories/testimonies/reliefs linked to this ailment
                         <br>
                         <strong>Status:</strong>
                         User
-                        <small>(3 post)</small>
+                        <small>(<?php echo $add_post_count ?> post)</small>
                       </div>
                       <div class="col-6 small">
                         <span class="text-primary">Date Posted:</span>

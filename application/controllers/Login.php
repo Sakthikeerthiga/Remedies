@@ -61,7 +61,13 @@ class Login extends CI_Controller {
 			$user_id = $this->session->userdata('logged_user')['user_id'];
 			$result['userdata'] = $this->Login_model->getuserdetails($user_id);
 			$result['countries'] = $this->Login_model->getCountryList();
-			$this->load->view('edit_profile',$result);
+			if(!empty($result['userdata'][0]->Country)){
+			$selected_country_name = $this->db->get_where('countries', array('id' => $result['userdata'][0]->Country))->row()->countryName;
+			$result['states'] = $this->Login_model->getStateList($selected_country_name);
+            }else{
+			$result['states'] = $this->Login_model->getStateList();
+		    }
+		  	$this->load->view('edit_profile',$result);
 		}else{
 			$this->load->view('sign_up');
 		}
@@ -85,7 +91,6 @@ class Login extends CI_Controller {
 	public function update_user()
 	{
 		$user_id = $this->input->post('user_id');
-
 		$data = array(
 			'firstName'=>$this->input->post('firstName'),
 			'lastName'=>$this->input->post('lastName'),
@@ -152,6 +157,17 @@ class Login extends CI_Controller {
 		$this->session->unset_userdata('logged_user');
 		$this->session->set_flashdata('profile_update', 'You have been logged out successfully.');
 		redirect('/', 'refresh');
+	}
+
+
+	public function search_state(){
+		$country = $_POST['country'];
+		
+		$this->db->select('*');
+        $this->db->where("country_name", $country);
+        $fetched_records = $this->db->get('states');
+        $results = $fetched_records->result_array();
+        echo json_encode($results);
 	}
 
 }

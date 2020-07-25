@@ -87,7 +87,7 @@
             </li>
           <?php }?>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact us</a>
+              <a class="nav-link" href="<?php echo base_url().'contact-us' ?>">Contact us</a>
             </li>
           </ul>
         </div>

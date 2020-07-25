@@ -53,6 +53,8 @@ class Login_model extends CI_Model
     public function getuserdetails($uid){
         $this->db->select('*');
         $this->db->from('user');
+        $this->db->join('countries', 'countries.id = user.Country','LEFT');
+        $this->db->join('states', 'states.state_id = user.City','LEFT');
         $this->db->where('iduser',$uid);
         return $this->db->get()->result();
     }
@@ -69,4 +71,19 @@ class Login_model extends CI_Model
         $results = $fetched_records->result_array();
         return $results;
    }
+
+   public function getStateList($selected_country_name=''){
+    if($selected_country_name != ''){
+        $this->db->select('*');
+        $this->db->where("country_name", $selected_country_name);
+        $fetched_records = $this->db->get('states');
+        $results = $fetched_records->result_array();
+    }else{
+        $this->db->select('*');
+        $this->db->order_by("state_name", "asc");
+        $fetched_records = $this->db->get('states');
+        $results = $fetched_records->result_array();
+    }
+    return $results;
+}
 }

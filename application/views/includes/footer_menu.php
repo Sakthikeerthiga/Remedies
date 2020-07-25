@@ -10,7 +10,7 @@
 						<div class="col-6">
 							<ul class="list-unstyled footer-nav">
 								<li>
-									<a href="#">Disclaimer</a>
+									<a href="<?php echo base_url().'disclaimer' ?>">Disclaimer</a>
 								</li>
 								<li>
 									<a href="#">Footer section</a>
@@ -19,23 +19,23 @@
 									<a href="#">Best Remedies</a>
 								</li>
 								<li>
-									<a href="#">Testimonies</a>
+									<a href="<?php echo base_url().'testimonial' ?>">Testimonies</a>
 								</li>
 							</ul>
 						</div>
 						<div class="col-6">
 							<ul class="list-unstyled footer-nav">
 								<li>
-									<a href="#">Supplements</a>
+									<a href="<?php echo base_url().'remedies-list' ?>">Supplements</a>
 								</li>
 								<li>
-									<a href="#">Articles</a>
+									<a href="<?php echo base_url().'article-list' ?>">Articles</a>
 								</li>
 								<li>
-									<a href="#">About us</a>
+									<a href="<?php echo base_url().'about-us' ?>">About us</a>
 								</li>
 								<li>
-									<a href="#">Contact us</a>
+									<a href="<?php echo base_url().'contact-us' ?>">Contact us</a>
 								</li>
 							</ul>
 						</div>

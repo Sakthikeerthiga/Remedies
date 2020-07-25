@@ -34,212 +34,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </p>
         </div> <!-- END col-12 -->
 
+     <?php if(!empty($about_us)){ 
+        foreach($about_us as $about){ ?>
         <div class="col-lg-3 col-md-6">
           <div class="team">
-            <img class="team__img rounded" src="https://dummyimage.com/204x204/4D4D4D/ffffff.jpg&text=Image+Here"
+            <img class="team__img rounded img-responsive" src="<?php echo (!empty($about['profilePic']) ? base_url().'assets/uploads/editors/writers/'.$about['profilePic'] : "https://dummyimage.com/204x204/4D4D4D/ffffff.jpg&text=Image+Here" ); ?>"
               alt="">
             <div class="team__info">
               <h6>
-                JOHN SMITH
+                <?php echo $about['firstName'].'&nbsp'.$about['surname']; ?>
               </h6>
               <p>
-                Sr. Director of Medical
+                <?php  echo  $about['title']; ?>
               </p>
               <span class="divider"></span>
             </div>
             <div class="team__txt">
               <p>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore
-                magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                clita kasd
-                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
+                <?php  echo  $about['bio']; ?>
               </p>
             </div>
           </div> <!-- END team -->
         </div><!-- END  col-lg-3 col-md-6-->
-
-        <div class="col-lg-3 col-md-6">
-          <div class="team">
-            <img class="team__img rounded" src="https://dummyimage.com/204x204/4D4D4D/ffffff.jpg&text=Image+Here"
-              alt="">
-            <div class="team__info">
-              <h6>
-                JOHN SMITH
-              </h6>
-              <p>
-                Sr. Director of Medical
-              </p>
-              <span class="divider"></span>
-            </div>
-            <div class="team__txt">
-              <p>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore
-                magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                clita kasd
-                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
-              </p>
-            </div>
-          </div> <!-- END team -->
-        </div><!-- END  col-lg-3 col-md-6-->
-
-        <div class="col-lg-3 col-md-6">
-          <div class="team">
-            <img class="team__img rounded" src="https://dummyimage.com/204x204/4D4D4D/ffffff.jpg&text=Image+Here"
-              alt="">
-            <div class="team__info">
-              <h6>
-                JOHN SMITH
-              </h6>
-              <p>
-                Sr. Director of Medical
-              </p>
-              <span class="divider"></span>
-            </div>
-            <div class="team__txt">
-              <p>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore
-                magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                clita kasd
-                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
-              </p>
-            </div>
-          </div> <!-- END team -->
-        </div><!-- END  col-lg-3 col-md-6-->
-
-        <div class="col-lg-3 col-md-6">
-          <div class="team">
-            <img class="team__img rounded" src="https://dummyimage.com/204x204/4D4D4D/ffffff.jpg&text=Image+Here"
-              alt="">
-            <div class="team__info">
-              <h6>
-                JOHN SMITH
-              </h6>
-              <p>
-                Sr. Director of Medical
-              </p>
-              <span class="divider"></span>
-            </div>
-            <div class="team__txt">
-              <p>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore
-                magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                clita kasd
-                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
-              </p>
-            </div>
-          </div> <!-- END team -->
-        </div><!-- END  col-lg-3 col-md-6-->
-
-        <div class="col-lg-3 col-md-6">
-          <div class="team">
-            <img class="team__img rounded" src="https://dummyimage.com/204x204/4D4D4D/ffffff.jpg&text=Image+Here"
-              alt="">
-            <div class="team__info">
-              <h6>
-                JOHN SMITH
-              </h6>
-              <p>
-                Sr. Director of Medical
-              </p>
-              <span class="divider"></span>
-            </div>
-            <div class="team__txt">
-              <p>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore
-                magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                clita kasd
-                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
-              </p>
-            </div>
-          </div> <!-- END team -->
-        </div><!-- END  col-lg-3 col-md-6-->
-
-        <div class="col-lg-3 col-md-6">
-          <div class="team">
-            <img class="team__img rounded" src="https://dummyimage.com/204x204/4D4D4D/ffffff.jpg&text=Image+Here"
-              alt="">
-            <div class="team__info">
-              <h6>
-                JOHN SMITH
-              </h6>
-              <p>
-                Sr. Director of Medical
-              </p>
-              <span class="divider"></span>
-            </div>
-            <div class="team__txt">
-              <p>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore
-                magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                clita kasd
-                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
-              </p>
-            </div>
-          </div> <!-- END team -->
-        </div><!-- END  col-lg-3 col-md-6-->
-
-        <div class="col-lg-3 col-md-6">
-          <div class="team">
-            <img class="team__img rounded" src="https://dummyimage.com/204x204/4D4D4D/ffffff.jpg&text=Image+Here"
-              alt="">
-            <div class="team__info">
-              <h6>
-                JOHN SMITH
-              </h6>
-              <p>
-                Sr. Director of Medical
-              </p>
-              <span class="divider"></span>
-            </div>
-            <div class="team__txt">
-              <p>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore
-                magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                clita kasd
-                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
-              </p>
-            </div>
-          </div> <!-- END team -->
-        </div><!-- END  col-lg-3 col-md-6-->
-
-        <div class="col-lg-3 col-md-6">
-          <div class="team">
-            <img class="team__img rounded" src="https://dummyimage.com/204x204/4D4D4D/ffffff.jpg&text=Image+Here"
-              alt="">
-            <div class="team__info">
-              <h6>
-                JOHN SMITH
-              </h6>
-              <p>
-                Sr. Director of Medical
-              </p>
-              <span class="divider"></span>
-            </div>
-            <div class="team__txt">
-              <p>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore
-                magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                clita kasd
-                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
-              </p>
-            </div>
-          </div> <!-- END team -->
-        </div><!-- END  col-lg-3 col-md-6-->
+     
+     <?php } }else{ ?>
+       <center><p>No data found. </p></center>
+     <?php  } ?>
+  
       </div> <!-- END row -->
     </div>
   </section>
+       
 
 
 
 
 
-	<!-- footer menu -->
-	<?php  $this->load->view('includes/footer_menu.php');?>
+  <!-- footer menu -->
+  <?php  $this->load->view('includes/footer_menu.php');?>

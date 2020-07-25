@@ -66,18 +66,25 @@ $this->load->database();
           <div class="form-group row">
             <label class="col-lg-2 col-md-3">Country</label>
             <div class="col-md-8 xdr-select">
-              <select class="form-control  selectpicker" name="sickness_idsickness" data-live-search="true" required>
+              <select class="form-control  selectpicker" name="Country" id="country" data-live-search="true" onchange="selectState();" required>
                 <option selected="selected">Select Country</option>
                 <?php foreach ($countries as $key => $county) { ?>
-                <option value="<?php echo $county['countryName']?>"><?php echo $county['countryName']?></option>
-              <?php } ?>
-            </select>
+                  <option value="<?php echo $county['id']?>"  <?php if(!empty($userdata[0])){ echo ($userdata[0]->Country == $county['id'])?"selected":""; }?> ><?php echo $county['countryName']?></option>
+                <?php } ?>
+              </select>
+            </div>
           </div>
-        </div>
           <div class="form-group row">
-            <label class="col-lg-2 col-md-3">City</label>
+            <label class="col-lg-2 col-md-3">State</label>
             <div class="col-md-8 xdr-select">
-              <input type="text" class="form-control" name="City" placeholder="Enter City" required="required" value="<?php echo (!empty($userdata)) ? $userdata[0]->City : ''?>">
+              
+             <!--   <input type="text" id="selectedState" class="form-control"  value="<?php echo (!empty($userdata[0]->City)) ? $userdata[0]->City : '' ?>" readonly> -->
+                <select class="form-control selectpicker" name="City" id="state" data-live-search="true" required style="display: none;">
+                  <option selected="selected">Select State</option>
+                   <?php foreach ($states as $key => $state) { ?>
+                  <option value="<?php echo $state['state_id']?>"  <?php if(!empty($userdata[0])){ echo ($userdata[0]->City == $state['state_id'])?"selected":""; }?> ><?php echo $state['state_name']?></option>
+                <?php  } ?>
+                </select>
             </div>
           </div>
           <div class="form-group row">
@@ -104,9 +111,9 @@ $this->load->database();
               <!-- <input type="text" class="form-control" placeholder="Enter Gender" required="required"> -->
             </div>
           </div>
-            <div style="text-align:center"> 
+          <div style="text-align:center"> 
             <input class="btn btn-primary px-5" type="submit" id="update_user" value="UPDATE" > 
-            </div>
+          </div>
         </form>
 
       </div>
@@ -116,6 +123,37 @@ $this->load->database();
 </section>
 
 
-
 <!-- footer menu -->
 <?php  $this->load->view('includes/footer_menu.php');?>
+<script>
+
+  function selectState() {
+    var country = $('#country option:selected').text();
+    var selectedState = $('#selectedState').val();
+    $.ajax({
+      url : base_url + 'search_state',
+      data: {country:country},
+      cache : false,
+      type: 'POST',
+      success : function(response){
+        $('#state').empty();
+
+        var html = '';
+        var mySelect = $('#state');
+        var dataObj = jQuery.parseJSON(response);
+        $.each(dataObj, function(i, v) {
+          var ul = document.getElementById("state");
+          var li = document.createElement("option");
+          li.value = v.state_id;
+          li.text = v.state_name;
+           ul.appendChild(li);
+        })
+        if(selectedState !=''){
+          $('#state').val(selectedState);
+        }
+// Example call of 'refresh'
+$('#state').selectpicker('refresh');
+}
+})
+  }
+</script>

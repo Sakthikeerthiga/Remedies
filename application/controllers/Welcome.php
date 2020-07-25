@@ -29,6 +29,7 @@ public function __construct()
 		$this->load->model('Trending_search');
 		$this->load->model('Article_model');
 		$this->load->model('Mission_model');
+		$this->load->model('Editor_model');
 		$this->load->library('grocery_CRUD');
 
 		
@@ -43,12 +44,26 @@ public function index()
 		$data['mission_text']= $this->Mission_model->mission_text();
 		$this->load->view('welcome_message', $data);
 	}
-public function about_us()
+   public function about_us()
 	{
-		$this->load->view('about_us');
+		$data['about_us']= $this->Editor_model->get_writers();
+
+		$this->load->view('about_us',$data);
+	}
+
+	public function disclaimer()
+	{
+		$data['disclaimer']= $this->Editor_model->disclaimer();
+
+		$this->load->view('disclaimer',$data);
 	}
 	public function privacypolicy()
 	{
 		$this->load->view('privacypolicy');
+	}
+
+	public function contact_us(){
+
+		$this->load->view('contact');
 	}
 }

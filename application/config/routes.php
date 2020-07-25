@@ -91,6 +91,8 @@ $route['save-testimony'] = 'testimonial/save_testimony';
 $route['add_new_comment'] = 'testimonial/add_new_comment';
 $route['add_reply_comment'] = 'testimonial/add_reply_comment';
 $route['privacy-policy'] = 'welcome/privacypolicy';
+$route['disclaimer'] = 'welcome/disclaimer';
+$route['contact-us'] = 'welcome/contact_us';
+$route['search_state'] = 'login/search_state';
 
 
-$route['checksickness_list'] = 'sickness/checksickness_list';
