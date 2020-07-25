@@ -336,7 +336,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 
 	$crud->set_subject('Article Sucess');
 	$crud->set_relation('article_idarticle','article','seo_title');
-	$crud->set_relation('user_iduser','user','{firstName} {lastName}');
+	$crud->set_relation('user_iduser','user','{firstName} {lastName}',array('status' => '1'));
 	$crud->display_as('user_iduser','User Name');
 	$crud->display_as('article_idarticle','Article Name');
 	$crud->required_fields('sucessRating','article_idarticle');
@@ -389,7 +389,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud = new grocery_CRUD();
 	$crud->set_table('comment');
 	$crud->set_subject('Comments');
-	$crud->set_relation('user_iduser','user','{firstName} {lastName}');
+	$crud->set_relation('user_iduser','user','{firstName} {lastName}',array('status' => '1'));
 	$crud->set_relation('testimony_idtestimony','testimony','idtestimony');
 	$crud->display_as('user_iduser','user');
 	$crud->display_as('testimony_idtestimony','Testimony id');
@@ -413,7 +413,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud = new grocery_CRUD();
 	$crud->set_table('questions');
 	$crud->columns('questionCategory_idquestionCategory','user_iduser','details','resolve');
-	$crud->set_relation('user_iduser','user','{firstName} {lastName}');
+	$crud->set_relation('user_iduser','user','{firstName} {lastName}',array('status' => '1'));
 	$crud->set_subject('Questions');
 	$crud->set_relation('questionCategory_idquestionCategory','questioncategory','name');
 	$crud->display_as('questionCategory_idquestionCategory','Question Category');
@@ -444,7 +444,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud = new grocery_CRUD();
 	$crud->set_table('testimony');
 	$crud->set_subject('Testimonies');
-	$crud->set_relation('user_iduser','user','{screenName}',null,null,'{email}');
+	$crud->set_relation('user_iduser','user','{screenName}',array('status' => '1'));
 	$crud->set_relation('remedy_idremedy','remedy','name');
 	$crud->set_relation('relief_idrelief','relieftype','type');
 	$crud->set_relation('sickness_idsickness','sickness','commonName');
@@ -487,8 +487,10 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud = new grocery_CRUD();
 	$crud->set_table('user');
 	$crud->set_subject('Users');
+	$crud->fields('firstName','lastName','screenName','Address','Country','City','email','password','mobileNo','status','dateReg','dob','gender');
 	$crud->required_fields('firstName', 'lastName', 'screenName', 'Country', 'email');
 	$crud->set_relation('Country','countries',' {countryName} {countryCode}');
+	$crud->set_relation('City','states',' {state_name}');
 	$crud->field_type('status','dropdown',array('1' => 'Approved', '2' => 'Pending','3' => 'Closed' ));
 	$crud->field_type('gender','dropdown',array('1' => 'Male', '2' => 'Female','3' => 'Undisclosed' ));
 	$crud->change_field_type('password', 'password');
