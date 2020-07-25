@@ -136,19 +136,20 @@ class Login extends CI_Controller {
 			$this->db->where('email',$data['email']);
 			$this->db->where('status',1);
 			$query= $this->db->get()->result();   
-
-			$session_data = array(
-				'user_id' =>$query[0]->iduser,
-				'screenName'=> $query[0]->screenName,
-			); 
-			$this->session->set_userdata('logged_user',$session_data);  
-// echo base_url();
-			if(!empty($this->session->userdata('page_url'))){
-				echo $this->session->userdata('page_url');
-			}else{
-				echo base_url();
-			}
-		}  
+			if(!empty($query)){
+				$session_data = array(
+					'user_id' =>$query[0]->iduser,
+					'screenName'=> $query[0]->screenName,
+				); 
+				$this->session->set_userdata('logged_user',$session_data);  
+	// echo base_url();
+				if(!empty($this->session->userdata('page_url'))){
+					echo $this->session->userdata('page_url');
+				}else{
+					echo base_url();
+				}
+			}  
+		}
 		else{  
 			echo 0;  
 		}   
