@@ -71,6 +71,7 @@ class Admin extends CI_Controller {
 		$crud = new grocery_CRUD();
 		$crud->set_table('sickness');
 		$crud->set_subject('Sickness');
+	    $crud->required_fields('commonName','scientificName');
 		$crud->set_field_upload('ThumnailImage','assets/uploads/sickness');
 		$crud->callback_before_insert(array($this,'insert_sickness_metatages')); 
 		$crud->callback_before_update(array($this,'update_sickness_metatages')); 
@@ -131,9 +132,8 @@ public function questionCategory() { $crud = new grocery_CRUD();
 
 public function disclaimer() { 
 	if(!empty($this->session->userdata('admin_login')['is_admin'])){
-
+	$this->grocery_crud->required_fields('title', 'body', 'shortName', 'legalVettingName');
 	$output = $this->grocery_crud->render();
-
 	$this->_example_output($output);
 	}else{
 			redirect('/Admin');
@@ -152,6 +152,7 @@ public function homePage() {
 	$crud = new grocery_CRUD();
 	$crud->set_table('homepage');
 	$crud->set_subject('Home Page');
+	$crud->required_fields('mission', 'bannerText', 'videoUrl', 'qualityPromise');
 	$output = $crud->render();
 	$this->_example_output($output);
 	}else{
@@ -169,6 +170,7 @@ public function dosageUnit() { $crud = new grocery_CRUD();
 
 	$crud->set_table('dosageunit');
 	$crud->set_subject('Dosage Unit');
+	$crud->required_fields('unitName', 'unitShortName');
 	$output = $crud->render();
 	$this->_example_output($output);
 	}else{
@@ -178,6 +180,7 @@ public function dosageUnit() { $crud = new grocery_CRUD();
 
 public function duration() { 
 if(!empty($this->session->userdata('admin_login')['is_admin'])){
+	 $this->grocery_crud->required_fields('unit');
 	$output = $this->grocery_crud->render();
 
 	$this->_example_output($output);
@@ -192,7 +195,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud = new grocery_CRUD();
 	$crud->set_table('remedy');
 	$crud->set_subject('Remedies');
-	$crud->required_fields('type', 'name');
+	$crud->required_fields('type', 'name','shortName');
 	$crud->field_type('link', 'hidden');
 	$crud->set_field_upload('picture','assets/uploads/remedy');
 	$crud->callback_after_insert(array($this,'insert_remedy_link')); 
@@ -241,6 +244,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud->set_subject('Availability');
 	$crud->set_relation('remedy_idremedy','remedy','name');
 	$crud->set_relation('country','countries','countryName');
+	$crud->required_fields('country','state','localCommonName','localScientificName');
 	$crud->display_as('remedy_idremedy','Remedy');
 	$output = $crud->render();
 	$this->_example_output($output);
@@ -256,6 +260,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud = new grocery_CRUD();
 	$crud->set_table('relieftype');
 	$crud->set_subject('ReliefType');
+	$crud->required_fields('type');
 	$output = $crud->render();
 	$this->_example_output($output);
 	}else{
@@ -278,6 +283,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud->display_as('editor_idEditor','Editor');
 	$crud->field_type('created_at', 'hidden',date('Y-m-d H:i:s'));
 	$crud->field_type('articleUrl', 'hidden');
+	$crud->required_fields('seo_title','seo_description','seo_keywords','articlepart');
 
 // $crud->set_relation('seo_author','editor','surname');
 	$crud->field_type('category','dropdown',array('1' => 'Supplement', '2' => 'Sickness'));
@@ -311,6 +317,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud = new grocery_CRUD();
 	$crud->field_type('title', 'hidden');
 	$crud->set_table('metatags');
+	$crud->required_fields('pageName','title','description','keywords');
 	$output = $crud->render();
 	$this->_example_output($output);
 	}else{
@@ -332,7 +339,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud->set_relation('user_iduser','user','{firstName} {lastName}');
 	$crud->display_as('user_iduser','User Name');
 	$crud->display_as('article_idarticle','Article Name');
-
+	$crud->required_fields('sucessRating','article_idarticle');
 	$crud->field_type('sucessRating','dropdown',array('1' => 'Yes', '2' => 'No'));
 	$output = $crud->render();
 	$this->_example_output($output);
@@ -351,6 +358,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
     $crud->change_field_type('password', 'password');
     $crud->callback_before_insert(array($this,'encrypt_pw'));
     $crud->callback_before_update(array($this,'encrypt_pw'));
+	$crud->required_fields('firstName','surname','title','bio','education','role','profilePic','username','password','email');
      $crud->unique_fields(array('username','email'));
 	$output = $crud->render();
 	$this->_example_output($output);
@@ -388,6 +396,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud->field_type('datePosted', 'hidden', date('Y-m-d H:i:s'));
 	$crud->callback_edit_field('editDate',array($this,'example_callback'));
 	$crud->columns('comment','user_iduser','testimony_idtestimony');
+	$crud->required_fields('comment');
 	$output = $crud->render();
 	$crud->render();
 
@@ -419,9 +428,9 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 
 public function brands() {
 if(!empty($this->session->userdata('admin_login')['is_admin'])){
-
 	$crud = new grocery_CRUD();
 	$crud->set_table('brands');
+	$crud->required_fields('name');
 	$output = $crud->render();
 	$this->_example_output($output);
 }else{
@@ -450,6 +459,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud->display_as('remedy_idremedy','Remedy name');
 	$crud->display_as('relief_idrelief','Relief Type');
 	$crud->display_as('sickness_idsickness','Sickness Name');
+	$crud->required_fields('sickness_idsickness','remedy_idremedy','relief_idrelief','story','dosage','expertComment');
 	$crud->field_type('theme','dropdown',array('1' => 'Supplement', '2' => 'Sickness','3' => 'Other' ));
 	$output = $crud->render();
 

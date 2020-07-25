@@ -33,6 +33,8 @@
               <div class="dropdown-menu logout">
                 <a class="dropdown-item" href="<?php echo base_url();?>profile">Edit Profile</a>
                 <a class="divider"></a>
+                <a class="dropdown-item" href="javascript:void(0);" onclick="deleteUser();">Delete Account</a>
+                <a class="divider"></a>
                 <a class="dropdown-item" href="<?php echo base_url();?>logout">Logout</a>
               </div>
             </div>

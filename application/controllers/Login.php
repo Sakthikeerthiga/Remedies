@@ -17,16 +17,16 @@ class Login extends CI_Controller {
 	public function index()
 	{
 		if(isset($_SERVER['HTTP_REFERER'])){
-		if(!empty($this->session->userdata('logged_user'))){
-			redirect($_SERVER['HTTP_REFERER']);
+			if(!empty($this->session->userdata('logged_user'))){
+				redirect($_SERVER['HTTP_REFERER']);
+			}else{
+				$this->session->set_userdata('page_url',$_SERVER['HTTP_REFERER']);  
+				$this->load->view('login');
+			}
 		}else{
-			$this->session->set_userdata('page_url',$_SERVER['HTTP_REFERER']);  
-			$this->load->view('login');
+			redirect('/', 'refresh'); 
 		}
-	}else{
-           redirect('/', 'refresh'); 
 	}
-   }
 
 // user registration page
 	public function sign_up()
@@ -62,12 +62,12 @@ class Login extends CI_Controller {
 			$result['userdata'] = $this->Login_model->getuserdetails($user_id);
 			$result['countries'] = $this->Login_model->getCountryList();
 			if(!empty($result['userdata'][0]->Country)){
-			$selected_country_name = $this->db->get_where('countries', array('id' => $result['userdata'][0]->Country))->row()->countryName;
-			$result['states'] = $this->Login_model->getStateList($selected_country_name);
-            }else{
-			$result['states'] = $this->Login_model->getStateList();
-		    }
-		  	$this->load->view('edit_profile',$result);
+				$selected_country_name = $this->db->get_where('countries', array('id' => $result['userdata'][0]->Country))->row()->countryName;
+				$result['states'] = $this->Login_model->getStateList($selected_country_name);
+			}else{
+				$result['states'] = $this->Login_model->getStateList();
+			}
+			$this->load->view('edit_profile',$result);
 		}else{
 			$this->load->view('sign_up');
 		}
@@ -115,10 +115,10 @@ class Login extends CI_Controller {
 		);
 
 		$session_data = array(
-				'user_id' =>$user_id,
-				'screenName'=> $data['screenName'],
-			); 
-			$this->session->set_userdata('logged_user',$session_data);  
+			'user_id' =>$user_id,
+			'screenName'=> $data['screenName'],
+		); 
+		$this->session->set_userdata('logged_user',$session_data);  
 
 		$updateTestimonyFields = $this->Login_model->update_testimony_fields($testimonyupdate,$user_id);
 		$this->session->set_flashdata('profile_update', 'Your profile has been updated successfully');
@@ -134,6 +134,7 @@ class Login extends CI_Controller {
 			$this->db->select('*');
 			$this->db->from('user');
 			$this->db->where('email',$data['email']);
+			$this->db->where('status',1);
 			$query= $this->db->get()->result();   
 
 			$session_data = array(
@@ -153,6 +154,17 @@ class Login extends CI_Controller {
 		}   
 	}  
 
+	public function delete_user(){
+		if(!empty($this->session->userdata('logged_user')['user_id'])){
+			$data['status'] = '3';
+			$this->db->where('iduser', $this->session->userdata('logged_user')['user_id']);
+			$this->db->update('user',$data);
+			$this->session->unset_userdata('logged_user');
+			$this->session->set_flashdata('profile_update', 'You account have been deleted successfully.');
+			echo base_url();
+		}
+	}
+
 	public function logout(){
 		$this->session->unset_userdata('logged_user');
 		$this->session->set_flashdata('profile_update', 'You have been logged out successfully.');
@@ -162,12 +174,12 @@ class Login extends CI_Controller {
 
 	public function search_state(){
 		$country = $_POST['country'];
-		
+
 		$this->db->select('*');
-        $this->db->where("country_name", $country);
-        $fetched_records = $this->db->get('states');
-        $results = $fetched_records->result_array();
-        echo json_encode($results);
+		$this->db->where("country_name", $country);
+		$fetched_records = $this->db->get('states');
+		$results = $fetched_records->result_array();
+		echo json_encode($results);
 	}
 
 }

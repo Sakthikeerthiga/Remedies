@@ -336,3 +336,24 @@ function add_comment(testimony_id){
       }
     });
   }
+
+  function deleteUser(){
+    var article_login = confirm("Are you sure to delete this record?");
+    if (article_login == true) {
+        $.ajax({
+            url: base_url+'deleteUser',
+            type: 'post',
+            success: function(response){
+                if(response!=0){  
+                // On success redirect.  
+                window.location.replace(response);  
+                }  
+            },
+            complete:function(data){
+                $("#loader").hide();
+            }
+        });
+    } else {
+        return false;
+    }
+  }
