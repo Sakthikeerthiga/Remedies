@@ -196,111 +196,22 @@ See stories/testimonies/reliefs linked to this ailment
             </u>
           </a>
         </li>
-
       </ul>
 
-
-
-      <div class="testimonial_main_comment_<?php echo $testimonial_detail['idtestimony'];?>">
-        <?php if(!empty($related_comment)){ 
-          foreach($related_comment as $main_comment){ 
-            if($testimonial_detail['idtestimony'] ==  $main_comment['testimony_idtestimony']){
-              $user_post_count = $this->db->get_where('testimony', array('user_iduser' => $main_comment['user_iduser']))->num_rows();
-
-              ?>
-              <div class="testimonial-discussion-reply">
-                <div class="testimonial-discussion"><div class="row no-gutters">
-                  <div class="col-6 small">
-                    <strong>Username:</strong>
-                    <?php echo $main_comment['screenName']; ?>
-                    <br>
-                    <strong>Status:</strong>
-                    <?php if($main_comment['status'] == 1){?>
-                      Approved
-                    <?php }elseif($main_comment['status'] == 2){ ?>
-                      Pending
-                    <?php }else{ ?>
-                      Closed
-                    <?php } ?>
-                    <small>(<?php echo $user_post_count ?> post)</small>
-                  </div>
-                  <div class="col-6 small">
-                    <span class="text-primary">Date Posted:</span>
-                    <?php echo $main_comment['datePosted']; ?>
-                  </div>
-                </div>
-                <div class="testimonial-discussion__body">
-                  <?php echo $main_comment['comment']; ?>
-                </div> <a class="btn btn-success btn-circle text-uppercase" href="javascript:void(0);" id="reply" onclick="reply_to_comment('<?php echo $main_comment['idcomment'];?>')"><span class="glyphicon glyphicon-share-alt"></span> Reply</a>
-                <!-- reply to comment -->
-                <div class="tab-pane" id="reply_to_comment_section_<?php echo $main_comment['idcomment'];?>" style="display: none;">
-                  <form action="javascript:void(0);" method="post" class="form-horizontal" id="commentForm" role="form"> 
-                    <div class="form-group"> <span id='close_comment' onclick="close_reply('<?php echo $main_comment['idcomment'];?>')">x</span></div>
-                    <div class="form-group">
-                      <label for="email" class="col-sm-2 control-label">Comment</label>
-                      <div class="col-sm-10">
-                        <textarea class="form-control" name="replyComment" id="replyComment_<?php echo $main_comment['idcomment'];?>" rows="5" required=""></textarea>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">                    
-                        <button class="btn btn-success btn-circle text-uppercase" type="submit" onclick="submitReplyComment('<?php echo $testimonial_detail['idtestimony'];?>','<?php echo  $main_comment['idcomment'];?>')"><span class="glyphicon glyphicon-send"></span> Submit comment</button>
-                      </div>
-                    </div>            
-                  </form>
-                </div>
-                <!-- end to reply to comment -->
-              </div>
-            </div>
-
-            <!-- reply commands listing section -->
-            <div class="testimonial_reply_comment_<?php echo $main_comment['idcomment'] ;?>">
-              <?php if(!empty($additional_reply_comment)){ 
-                foreach($additional_reply_comment as $add_comment){  
-                  if($main_comment['idcomment'] ==  $add_comment['comment_idcomment']){ 
-                    $add_post_count = $this->db->get_where('testimony', array('user_iduser' => $add_comment['user_iduser']))->num_rows();
-                    ?>
-                    <div class="testimonial-comment-reply">
-                      <div class="testimonial-discussion"><div class="row no-gutters">
-                        <div class="col-6 small">
-                          <strong>Username:</strong>
-                          <?php echo $add_comment['screenName']; ?>
-                          <br>
-                          <strong>Status:</strong>
-                          <?php if($add_comment['status'] == 1){?>
-                            Approved
-                          <?php }elseif($add_comment['status'] == 2){ ?>
-                            Pending
-                          <?php }else{ ?>
-                            Closed
-                          <?php } ?>
-                          <small>(<?php echo $add_post_count ?> post)</small>
-                        </div>
-                        <div class="col-6 small">
-                          <span class="text-primary">Date Posted:</span>
-                          <?php echo $add_comment['datePosted']; ?>
-                        </div>
-                      </div>
-                      <div class="testimonial-discussion__body">
-                        <?php echo $add_comment['comment']; ?>
-                      </div> 
-                      <!-- end to reply to comment -->
-                    </div>
-                  </div>
-                <?php  } } } ?>
-              </div>
-              <!-- end for listing reply command section -->
-            <?php } } }?>
-            <!-- END testimonial-discussion -->
-          </div>
-
-
-
+      <!-- testing comments-->
+    <div class="nestedcommentwrapper_<?php echo $testimonial_detail['idtestimony']?>">
+    <div class="nestedcomment_<?php echo $testimonial_detail['idtestimony']?>">
+    <?php
+      $this->load->model('Testimonial_model');
+      echo $this->Testimonial_model->get_blog_comments($testimonial_detail['idtestimony']);
+    ?>
+    </div>
+  </div>
+    <!-- testing comments-->
           <!-- END testimonial-discussion-reply -->
         </li>
       <?php } ?>
 
->>>>>>> bc61e9de677f48f626f279896ea02c0b7dfe8186
 
 
 
