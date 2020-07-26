@@ -184,4 +184,88 @@ class Testimonial_model extends CI_Model
         $results = $fetched_records->result();
         return $results;  
    }
+
+   public function get_blog_comments($testimony_id) {
+        $query = $this->db->query('SELECT bc.idcomment, bc.testimony_idtestimony, bc.comment_idcomment, bc.comment, 
+                    bc.datePosted FROM comment bc, testimony b
+                    WHERE bc.testimony_idtestimony=b.idtestimony AND 
+                        b.idtestimony=' . $testimony_id .
+                ' ORDER BY bc.datePosted DESC');
+        if ($query->num_rows() > 0) {
+            $items = array();
+
+            foreach ($query->result() as $row) {
+                $items[] = $row;
+            }
+            //return $items;
+            $comments = $this->format_comments($testimony_id,$items);
+            return $comments;
+        }
+        return '<ul class="comment"></ul>';
+    }
+
+    //format comments for display on blog and article
+    private function format_comments($testimony_id,$comments) {
+        $html = array();
+        $root_id = 0;
+
+        foreach ($comments as $comment)
+            $children[$comment->comment_idcomment][] = $comment;
+
+        // loop will be false if the root has no children (i.e., an empty comment!)
+        $loop = !empty($children[$root_id]);
+
+        // initializing $parent as the root
+        $parent = $root_id;
+        $parent_stack = array();
+
+        // HTML wrapper for the menu (open)
+        $html[] = '<ul class="comment">';
+
+        while ($loop && ( ( $option = each($children[$parent]) ) || ( $parent > $root_id ) )) {
+            if ($option === false) {
+                $parent = array_pop($parent_stack);
+
+                // HTML for comment item containing childrens (close)
+                $html[] = str_repeat("\t", ( count($parent_stack) + 1 ) * 2) . '</ul>';
+                $html[] = str_repeat("\t", ( count($parent_stack) + 1 ) * 2 - 1) . '</li>';
+            } elseif (!empty($children[$option['value']->idcomment])) {
+                $tab = str_repeat("\t", ( count($parent_stack) + 1 ) * 2 - 1);
+
+                // HTML for comment item containing childrens (open)
+                $html[] = sprintf(
+                        '%1$s<li id="li_comment_%2$s">' .
+                        '%1$s%1$s<div class="testimonial-discussion comment_div_%2$s"><div><span class="comment_date">%3$s</span></div>' .
+                        '%1$s%1$s<div style="margin-top:4px;">%4$s</div>' .
+                        '%1$s%1$s<a class="btn btn-success btn-circle text-uppercase" href="javascript:void(0);" onclick="reply_to_comment(%5$s,%2$s)"><span class="glyphicon glyphicon-send"></span> Reply</a></div><br>', $tab, // %1$s = tabulation
+                        $option['value']->idcomment, //%2$s id
+                        $option['value']->comment, // %4$s = comment
+                        $option['value']->datePosted, // %3$s = comment created_date
+                        $option['value']->testimony_idtestimony // %5$s = testimony_id
+                );
+                //$check_status = "";
+                $html[] = $tab . "\t" . '<ul class="comment">';
+
+                array_push($parent_stack, $option['value']->comment_idcomment);
+                $parent = $option['value']->idcomment;
+            } else {
+                // HTML for comment item with no children (aka "leaf") 
+                $html[] = sprintf(
+                        '%1$s<li id="li_comment_%2$s">' .
+                        '%1$s%1$s<div class="testimonial-discussion comment_div_%2$s"><div><span class="comment_date">%3$s</span></div>' .
+                        '%1$s%1$s<div style="margin-top:4px;">%4$s</div>' .
+                        '%1$s%1$s<a class="btn btn-success btn-circle text-uppercase" href="javascript:void(0);" onclick="reply_to_comment(%5$s,%2$s)"><span class="glyphicon glyphicon-send"></span> Reply</a></div><br>' .
+                        '%1$s</li>', str_repeat("\t", ( count($parent_stack) + 1 ) * 2 - 1), // %1$s = tabulation
+                        $option['value']->idcomment, //%2$s id
+                        $option['value']->comment, // %4$s = comment
+                        $option['value']->datePosted, // %3$s = comment created_date
+                        $option['value']->testimony_idtestimony // %5$s = testimony_id
+                );
+            }
+        }
+
+        // HTML wrapper for the comment (close)
+        $html[] = '</ul>';
+        return implode("\r\n", $html);
+    }
 }

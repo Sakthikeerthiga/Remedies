@@ -294,11 +294,13 @@ function add_comment(testimony_id){
     });
   }
 
-  function reply_to_comment(comment_id){
+  function reply_to_comment(testimony_id,comment_id){
+   // alert(comment_id);return false;
     var user_id = $('#current_user_id').val();
     var comment = $("#replyComment_"+comment_id).text();
     if(user_id != ''){
-      $('#reply_to_comment_section_'+comment_id).show( "slow" );
+      var html = '<div class="new-reply"><textarea class="form-control" id="new_comment_'+comment_id+'"></textarea><a class="btn btn-success btn-circle text-uppercase" href="javascript:void(0);" onclick="submitReplyComment('+testimony_id+','+comment_id+')">Reply</a></div>';
+      $(".comment_div_"+comment_id).after(html);
     }else{
       var testimonial_login = confirm("Please Login/Sign up");
       if (testimonial_login == true) {
@@ -313,7 +315,8 @@ function add_comment(testimony_id){
 
   function submitReplyComment(testimony_id,comment_id){
     var user_id = $('#current_user_id').val();
-    var comment = $.trim($("#replyComment_"+comment_id).val());
+    var comment = $('#new_comment_'+comment_id).val();
+    
     $.ajax({
       url: base_url+'add_reply_comment',
       type: 'post',
@@ -322,17 +325,8 @@ function add_comment(testimony_id){
         $("#loader").show();
       },
       success: function(response){
-        var additional_comment = '';
-        var dataObj = jQuery.parseJSON(response);
-        $(dataObj).each(function(i,val){
-          additional_comment +='<div class="testimonial-comment-reply"><div class="testimonial-discussion"><div class="row no-gutters"><div class="col-6 small"><strong>Username:</strong>'+val.screenName+'<br><strong>Status:</strong>User<small>(3 post)</small></div><div class="col-6 small"><span class="text-primary">Date Posted:</span>'+val.datePosted+'</div></div><div class="testimonial-discussion__body">'+val.comment+'</div></div></div>';
-        });
-        $('.testimonial_reply_comment_'+comment_id).html(additional_comment);
-        $('#reply_to_comment_section_'+comment_id).hide( "slow" );
-        $("#replyComment_"+comment_id).val('');
-      },
-      complete:function(data){
-        $("#loader").hide();
+        var url = window.location.href;
+        $('.nestedcommentwrapper_'+testimony_id).load(url + ' .nestedcomment_'+testimony_id); 
       }
     });
   }
