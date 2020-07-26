@@ -115,7 +115,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="form-group row">
           <label class="col-lg-2 col-md-3"> Dosage </label>
           <div class="col-md-8 xdr-select">
-            <input type="text" class="form-control" name="dosage" required>
+          <select class="selectpicker" name="dosage" data-live-search="true" required>
+              <option selected="selected"> Select dosage</option>
+              <?php foreach ($dosage_unit as $key => $dosage) { ?>
+                <<option value="<?php echo $dosage['iddosageUnit'] ?>"><?php echo $dosage['unitName'].' '.$dosage['unitShortName']?></option>
+              <?php } ?>
+            </select>
           </div>
         </div>
 
@@ -123,7 +128,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <label class="col-lg-2 col-md-3"> select Relief</label>
           <div class="col-md-8 xdr-select">
             <select class="relief_type form-group" name="relief_idrelief" required>
-              <option selected="selected"> Select Relief Id Relief</option>
+              <option selected="selected"> Select Relief type</option>
               <?php foreach ($relief_type as $key => $relief) { ?>
                 <option value="<?php echo $relief['idrelief'] ?>"><?php echo $relief['type']?></option>
               <?php } ?>

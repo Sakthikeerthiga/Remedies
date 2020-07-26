@@ -119,6 +119,14 @@ class Testimonial_model extends CI_Model
         return $results;     
     }
 
+    public function dosage_unit(){
+        $this->db->select('*');
+        $this->db->order_by("unitShortName", "asc");
+        $fetched_records = $this->db->get('dosageunit');
+        $results = $fetched_records->result_array();
+        return $results;     
+    }
+
     public function relief_data_list()
     {
         $this->db->select('*');

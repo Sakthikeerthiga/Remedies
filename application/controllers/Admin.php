@@ -449,6 +449,7 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud->set_relation('relief_idrelief','relieftype','type');
 	$crud->set_relation('sickness_idsickness','sickness','commonName');
 	$crud->set_relation('country','countries',' {countryName} {countryCode}');
+	$crud->set_relation('dosage','dosageunit',' {unitName} {unitShortName}');
 	$crud->field_type('administeredTo','dropdown',array('1' => 'Self', '2' => 'Patient','3' => 'Other' ));
 	$crud->field_type('administeredBy','dropdown',array('1' => 'Self', '2' => 'Medical Doctor','3' => 'Other' ));
 	$crud->field_type('overallExperience','dropdown',array('1' => 'Positive', '2' => 'Negative' , '3' => 'No Effect'));

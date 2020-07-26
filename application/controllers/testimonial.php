@@ -70,6 +70,7 @@ class Testimonial extends CI_Controller {
 			$data['sickness'] = $this->Testimonial_model->sickness_data_list();
 			$data['remedies'] = $this->Testimonial_model->remedy_data_list();
 			$data['relief_type'] = $this->Testimonial_model->relief_data_list();
+     		$data['dosage_unit'] = $this->Testimonial_model->dosage_unit();
 			$data['testimonial_details'] = $this->Testimonial_model->get_testimonial_detail($id);
 			$this->load->view('edit_testimony',$data);
 		}
@@ -150,6 +151,7 @@ class Testimonial extends CI_Controller {
 		$data['sickness'] = $this->Testimonial_model->sickness_data_list();
 		$data['remedies'] = $this->Testimonial_model->remedy_data_list();
 		$data['relief_type'] = $this->Testimonial_model->relief_data_list();
+		$data['dosage_unit'] = $this->Testimonial_model->dosage_unit();
 		$this->load->view('add_testimony',$data);
 	}
 

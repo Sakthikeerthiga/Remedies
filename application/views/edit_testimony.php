@@ -36,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <form action="<?php echo base_url();?>update-testimony" method="POST">
           <?php foreach($testimonial_details as $testimony){?>
-            <input type="text" name="testimonial_id" value="<?php echo $testimony['idtestimony']; ?>" >
+            <input type="hidden" name="testimonial_id" value="<?php echo $testimony['idtestimony']; ?>" >
           <div class="form-group row">
             <label class="col-lg-2 col-md-3">Select Sickness</label>
             <div class="col-md-5 xdr-select">
@@ -83,7 +83,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="form-group row">
           <label class="col-lg-2 col-md-3"> Dosage </label>
           <div class="col-md-8 xdr-select">
-            <input type="text" class="form-control" name="dosage" value="<?php echo $testimony['dosage'] ?>">
+             <select class="selectpicker" name="dosage" data-live-search="true" required>
+              <option selected="selected"> Select dosage</option>
+              <?php foreach ($dosage_unit as $key => $dosage) { ?>
+                <option value="<?php echo $dosage['iddosageUnit'] ?>"  <?php echo ($testimony['dosage'] == $dosage['iddosageUnit']) ? 'selected' : '' ?> ><?php echo $dosage['unitName'].' '.$dosage['unitShortName']?></option>
+              <?php } ?>
+            </select>
           </div>
         </div>
 
