@@ -34,48 +34,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </p>
 
         </div>
-        <form action="<?php echo base_url();?>save-testimony" method="POST">
-          <?php if(empty($this->session->userdata('logged_user'))){ ?>
-            <div class="form-group row align-items-center">
-              <label class="col-lg-2 col-md-3"> Name </label>
-              <div class="col-md-4 xdr-select">
-                <input type="text" class="form-control" name="firstName" placeholder="Enter First Name" required="required" value="">
-              </div>
-              <div class="col-md-4 xdr-select">
-                <input type="text" class="form-control" name="lastName" placeholder="Enter Last Name" required="required" value="">
-              </div>
-            </div>
-
-            <div class="form-group row align-items-center">
-              <label class="col-lg-2 col-md-3"> User Name </label>
-              <div class="col-md-8 xdr-select">
-                <input type="text" class="form-control" name="screenName" placeholder="Enter User Name" id="username" onkeyup="ValidateUsername();" autocomplete="off" required value="">
-                <span id="error_username" style="color: red;"></span>
-              </div>
-            </div>
-
-            <div class="form-group row align-items-center">
-              <label class="col-lg-2 col-md-3"> Email </label>
-              <div class="col-md-8 xdr-select">
-                <input type="text" id="email" name="email" class="form-control" placeholder="E-mail here" onkeyup="ValidateEmail();" autocomplete="off" value="" required>
-                <span id="error_email" style="color: red;"></span>
-              </div>
-            </div>
-
-            <div class="form-group row align-items-center">
-              <label class="col-lg-2 col-md-3"> Pasword </label>
-              <div class="col-md-8 xdr-select">
-                <input type="password" id="password" name="password" class="form-control" placeholder="Pasword here" required>
-              </div>
-            </div>
-        <?php  } ?>
+        <form action="<?php echo base_url();?>update-testimony" method="POST">
+          <?php foreach($testimonial_details as $testimony){?>
+            <input type="hidden" name="testimonial_id" value="<?php echo $testimony['idtestimony']; ?>" >
           <div class="form-group row">
             <label class="col-lg-2 col-md-3">Select Sickness</label>
             <div class="col-md-5 xdr-select">
               <select class="sickness_search form-control" name="sickness_idsickness"  required>
                 <option selected="selected">Select Sickness name</option>
                 <?php foreach ($sickness as $key => $sick) { ?>
-                <option value="<?php echo $sick['idsickness']?>"><?php echo $sick['commonName']?></option>
+                <option value="<?php echo $sick['idsickness']?>" <?php echo ($testimony['sickness_idsickness'] == $sick['idsickness']) ? 'selected' : '' ?>><?php echo $sick['commonName']?></option>
               <?php } ?>
             </select>
           </div>
@@ -87,7 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <select class="remedy_search form-control" name="remedy_idremedy" required>
               <option selected="selected"> Select Remedy name </option>
               <?php foreach ($remedies as $key => $remedy) { ?>
-                <option value="<?php echo $remedy['idremedy'] ?>"><?php echo $remedy['name']?></option>
+                <option value="<?php echo $remedy['idremedy'] ?>" <?php echo ($testimony['remedy_idremedy'] == $remedy['idremedy']) ? 'selected' : '' ?>><?php echo $remedy['name']?></option>
               <?php } ?>
             </select>
           </div>
@@ -98,9 +66,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="col-md-8 xdr-select">
             <select class="selectpicker" name="administeredBy" data-live-search="true" required>
               <option selected="selected"> Select Administered By </option>
-              <option value="1">Self</option>
-              <option value="2">Medical Doctor</option>
-              <option value="3">Other</option>
+              <option value="1" <?php echo ($testimony['administeredBy'] == 1) ? 'selected' : '' ?>>Self</option>
+              <option value="2" <?php echo ($testimony['administeredBy'] == 2) ? 'selected' : '' ?>>Medical Doctor</option>
+              <option value="3" <?php echo ($testimony['administeredBy'] == 3) ? 'selected' : '' ?>>Other</option>
             </select>
           </div>
         </div>
@@ -108,17 +76,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="form-group row">
           <label class="col-lg-2 col-md-3"> Compose </label>
           <div class="col-md-8 xdr-select">
-            <textarea class="form-control texteditor" name="story" rows="7" placeholder="Text formating here"></textarea>
+            <textarea class="form-control texteditor" name="story" rows="7" placeholder="Text formating here"><?php echo $testimony['story'] ?></textarea>
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-lg-2 col-md-3"> Dosage </label>
           <div class="col-md-8 xdr-select">
-          <select class="selectpicker" name="dosage" data-live-search="true" required>
+             <select class="selectpicker" name="dosage" data-live-search="true" required>
               <option selected="selected"> Select dosage</option>
               <?php foreach ($dosage_unit as $key => $dosage) { ?>
-                <<option value="<?php echo $dosage['iddosageUnit'] ?>"><?php echo $dosage['unitName'].' '.$dosage['unitShortName']?></option>
+                <option value="<?php echo $dosage['iddosageUnit'] ?>"  <?php echo ($testimony['dosage'] == $dosage['iddosageUnit']) ? 'selected' : '' ?> ><?php echo $dosage['unitName'].' '.$dosage['unitShortName']?></option>
               <?php } ?>
             </select>
           </div>
@@ -128,9 +96,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <label class="col-lg-2 col-md-3"> select Relief</label>
           <div class="col-md-8 xdr-select">
             <select class="relief_type form-group" name="relief_idrelief" required>
-              <option selected="selected"> Select Relief type</option>
+              <option selected="selected"> Select Relief Id Relief</option>
               <?php foreach ($relief_type as $key => $relief) { ?>
-                <option value="<?php echo $relief['idrelief'] ?>"><?php echo $relief['type']?></option>
+                <option value="<?php echo $relief['idrelief'] ?>" <?php echo ($testimony['relief_idrelief'] == $relief['idrelief']) ? 'selected' : '' ?>><?php echo $relief['type']?></option>
               <?php } ?>
             </select>
           </div>
@@ -141,9 +109,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="col-md-8 xdr-select">
             <select class="selectpicker" name="administeredTo" data-live-search="true" required>
               <option selected="selected"> Select Administered To </option>
-              <option value="1">Self</option>
-              <option value="2">Patient</option>
-              <option value="3">Other</option>
+              <option value="1"  <?php echo ($testimony['administeredTo'] == 1) ? 'selected' : '' ?>>Self</option>
+              <option value="2"  <?php echo ($testimony['administeredTo'] == 2) ? 'selected' : '' ?>>Patient</option>
+              <option value="3"  <?php echo ($testimony['administeredTo'] == 3) ? 'selected' : '' ?>>Other</option>
             </select>
           </div>
         </div>
@@ -154,9 +122,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="col-md-8 xdr-select">
             <select class="selectpicker" name="overallExperience" data-live-search="true" required>
               <option selected="selected"> Select OverallExperience </option>
-              <option value="1">Positive</option>
-              <option value="2">Negative</option>
-              <option value="3">No Effect</option>
+              <option value="1" <?php echo ($testimony['overallExperience'] == 1) ? 'selected' : '' ?> >Positive</option>
+              <option value="2" <?php echo ($testimony['overallExperience'] == 2) ? 'selected' : '' ?> >Negative</option>
+              <option value="3" <?php echo ($testimony['overallExperience'] == 3) ? 'selected' : '' ?> >No Effect</option>
             </select>
           </div>
         </div>
@@ -165,17 +133,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="form-group row">
           <label class="col-lg-2 col-md-3"> Text formating here </label>
           <div class="col-md-8 xdr-select">
-            <textarea class="form-control texteditor" name="warnings" rows="3" placeholder="Text formating here"></textarea>
+            <textarea class="form-control texteditor" name="warnings" rows="3" placeholder="Text formating here"><?php echo $testimony['warnings'] ?></textarea>
           </div>
         </div>
 
         <div class="row mt-5">
           <div class="col-12 text-center">
-            <button class="btn btn-primary px-5">SUBMIT</button>
+            <button class="btn btn-primary px-5">Update</button>
           </div>
         </div>
-      </form>
 
+     <?php } ?>
+      </form>
 
 
     </div> <!-- END col-12 -->

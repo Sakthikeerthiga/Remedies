@@ -157,7 +157,7 @@ class Login extends CI_Controller {
 
 	public function delete_user(){
 		if(!empty($this->session->userdata('logged_user')['user_id'])){
-			$data['status'] = '3';
+			$data['status'] = 3;
 			$this->db->where('iduser', $this->session->userdata('logged_user')['user_id']);
 			$this->db->update('user',$data);
 			$this->session->unset_userdata('logged_user');

@@ -39,6 +39,14 @@ class Testimonial_model extends CI_Model
         return $results;     
     }
 
+    public function get_testimonial_detail($testimony_id){
+        $this->db->select('*');
+        $this->db->where('idtestimony',$testimony_id);
+         $fetched_records = $this->db->get($this->table);
+        $results = $fetched_records->result_array();
+        return $results;     
+    }
+
     public function get_sickrealted_main_comment($sick_id){
 
         $this->db->select('*');
@@ -107,6 +115,14 @@ class Testimonial_model extends CI_Model
         $this->db->select('*');
         $this->db->order_by("name", "asc");
         $fetched_records = $this->db->get('remedy');
+        $results = $fetched_records->result_array();
+        return $results;     
+    }
+
+    public function dosage_unit(){
+        $this->db->select('*');
+        $this->db->order_by("unitShortName", "asc");
+        $fetched_records = $this->db->get('dosageunit');
         $results = $fetched_records->result_array();
         return $results;     
     }

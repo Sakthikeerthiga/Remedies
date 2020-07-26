@@ -88,6 +88,9 @@ $route['rate-article'] = 'article/rateArticle';
 
 $route['testimonial'] = 'testimonial/add_testimony';
 $route['save-testimony'] = 'testimonial/save_testimony';
+$route['edit-testimony/(:any)'] = 'testimonial/edit_testimony/$1';
+$route['update-testimony'] = 'testimonial/update_testimony';
+
 
 $route['add_new_comment'] = 'testimonial/add_new_comment';
 $route['add_reply_comment'] = 'testimonial/add_reply_comment';
