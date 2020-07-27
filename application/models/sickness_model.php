@@ -30,6 +30,7 @@ class Sickness_model extends CI_Model
     
     public function get_sickness_list($limit, $start)
     {
+
         $this->db->select('*');
         $this->db->order_by("commonName", "asc");
         $this->db->limit($limit, $start);

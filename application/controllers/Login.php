@@ -42,6 +42,34 @@ class Login extends CI_Controller {
 			'dateReg'=> date("Y-m-d h:i"),
 		);
 		$insertUser = $this->Login_model->insert_user($data);
+		$from    =  "info@best-remedies.com";
+		$to      =  $this->input->post('email');
+		$subject = 'Thank you for joining with us'; 
+		$data = array('name' => $this->input->post('screenName'),'subject' => 'Please find your login details below','message' => '
+			<html> 
+			<head> 
+			<title>Welcome to Best-Remedies</title> 
+			</head> 
+			<body> 
+			<h1>Thanks you for joining with us!</h1> 
+			<table style="text-align:left;width: 50%;"> 
+			<tr> 
+			<th style="width:100px;">Email:</th><td style="text-align:left;">'.$this->input->post('email').'</td> 
+			</tr> 
+			<tr > 
+			<th style="width:100px;">Password:</th><td style="text-align:left;">'.$this->input->post('password').'</td> 
+			</tr> 
+
+			</table> 
+			<p>Thank you a million times for taking the time to share you testimony! An email has been sent to the email address you provided for verification. Once you click
+			on the link in there, your user account will automatically be created and your testimony be posted to the site. We would be immensely grateful if you could
+			complete that last small step. Should you not confirm the email within the next 72 hours, the submitted data will unfortunately be deleted. This is so to ensure
+			that the source of the data is indeed credible. We are sure that you are….just one small click and we should be good!</p>
+			</body> 
+			</html>');
+		$this->htmlmail($from,$to,$subject,$data);
+
+
 		$sess_array = array(
 			'user_id' => $insertUser,
 			'email' => $this->input->post('email'),
@@ -142,7 +170,7 @@ class Login extends CI_Controller {
 					'screenName'=> $query[0]->screenName,
 				); 
 				$this->session->set_userdata('logged_user',$session_data);  
-	// echo base_url();
+// echo base_url();
 				if(!empty($this->session->userdata('page_url'))){
 					echo $this->session->userdata('page_url');
 				}else{
@@ -183,4 +211,9 @@ class Login extends CI_Controller {
 		echo json_encode($results);
 	}
 
+	public function htmlmail($from,$to,$subject,$data){
+		$msg = $this->load->view('emails/new_user.php',$data,TRUE);
+		$this->load->model('Email_model');
+		$mail = $this->Email_model->send_mail($from,$to,$subject,$msg);
+	}
 }

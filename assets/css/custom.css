@@ -79,3 +79,8 @@ b.text-secondary.article_part{
     width: auto;
     height: 200px;
 }
+.testimonial_design{max-height: 900px;
+    margin-bottom: 10px;
+    overflow: scroll;
+   -webkit-overflow-scrolling: touch;}
+

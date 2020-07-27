@@ -271,13 +271,12 @@ function add_comment(testimony_id){
   function submitComment(testimony_id){
     var user_id = $('#current_user_id').val();
     var comment = $.trim($("#addComment_"+testimony_id).val());
+    var location_url = $(location).attr('href');
+
     $.ajax({
       url: base_url+'add_new_comment',
       type: 'post',
-      data: {user_iduser:user_id,testimony_idtestimony:testimony_id,comment:comment},
-      beforeSend: function(){
-        $("#loader").show();
-      },
+      data: {user_iduser:user_id,testimony_idtestimony:testimony_id,comment:comment,location_url:location_url},
       success: function(response){
         var main_comment = '';
         var dataObj = jQuery.parseJSON(response);
@@ -287,6 +286,8 @@ function add_comment(testimony_id){
         $('.testimonial_main_comment_'+testimony_id).html(main_comment);
         $('#display_comment_section_'+testimony_id).hide( "slow" );
         $("#addComment_"+testimony_id).val('');
+       var url = window.location.href;
+        $('.nestedcommentwrapper_'+testimony_id).load(url + ' .nestedcomment_'+testimony_id); 
       },
       complete:function(data){
         $("#loader").hide();
@@ -299,7 +300,7 @@ function add_comment(testimony_id){
     var user_id = $('#current_user_id').val();
     var comment = $("#replyComment_"+comment_id).text();
     if(user_id != ''){
-      var html = '<div class="new-reply"><textarea class="form-control" id="new_comment_'+comment_id+'"></textarea><a class="btn btn-success btn-circle text-uppercase" href="javascript:void(0);" onclick="submitReplyComment('+testimony_id+','+comment_id+')">Reply</a></div>';
+      var html = ' <div class="reply_comment_div_'+comment_id+'"><div class="form-group"> <span id="close_comment" onclick="close_comment_reply('+comment_id+')">x</span></div><div class="form-group"><label for="email" class="col-sm-2 control-label">Comment</label><div class="row"><div class="new-reply col-sm-9"><textarea class="form-control" rows="3"  id="new_comment_'+comment_id+'"></textarea></div><div class="col-sm-3" style="margin:auto"><a class="btn btn-success btn-circle text-uppercase" href="javascript:void(0);" onclick="submitReplyComment('+testimony_id+','+comment_id+')">Submit</a></div></div></div></div>';
       $(".comment_div_"+comment_id).after(html);
     }else{
       var testimonial_login = confirm("Please Login/Sign up");
@@ -313,14 +314,20 @@ function add_comment(testimony_id){
 
   }
 
+    function close_comment_reply(comment_id){
+    $('.reply_comment_div_'+comment_id).hide( "slow" );
+  }
+
+
   function submitReplyComment(testimony_id,comment_id){
     var user_id = $('#current_user_id').val();
     var comment = $('#new_comment_'+comment_id).val();
+    var location_url = $(location).attr('href');
     
     $.ajax({
       url: base_url+'add_reply_comment',
       type: 'post',
-      data: {user_iduser:user_id,testimony_idtestimony:testimony_id,comment:comment,idcomment:comment_id},
+      data: {user_iduser:user_id,testimony_idtestimony:testimony_id,comment:comment,idcomment:comment_id,location_url:location_url},
       beforeSend: function(){
         $("#loader").show();
       },

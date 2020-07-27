@@ -73,7 +73,7 @@ $this->load->database();
 							<img class="rounded" src="https://dummyimage.com/300x200/914E05/ffffff.jpg&text=adds+here" alt="">
 						</div>
 
-						<div class="xdr-adds-container mt-auto">
+						<div class="xdr-adds-container">
 							<img class="rounded" src="https://dummyimage.com/300x600/914E05/ffffff.jpg&text=adds+here" alt="">
 						</div>
 					</div>

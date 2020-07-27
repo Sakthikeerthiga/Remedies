@@ -311,7 +311,7 @@ time. But you still can get good information in this page below".</p>
       <?php } ?>
 
     </div><!-- END container-related-article -->
-    <div class="xdr-adds-container mt-auto">
+    <div class="xdr-adds-container">
       <img class="rounded" src="https://dummyimage.com/300x600/914E05/ffffff.jpg&amp;text=adds+here" alt="">
     </div>
 

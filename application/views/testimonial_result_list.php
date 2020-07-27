@@ -53,7 +53,7 @@ See stories/testimonies/reliefs linked to this ailment
 </p>
 <img src="https://dummyimage.com/730x100/914E05/ffffff.jpg&text=adds+here" alt="">
 
-<ul class="list-unstyled testimonial-discussion-group">
+<ul class="list-unstyled testimonial-discussion-group testimonial_design">
   <?php foreach ($testimonial_details as $key => $testimonial_detail) {
     $post_count =$this->db->get_where('testimony', array('user_iduser' => $testimonial_detail['user_iduser']))->num_rows();
     ?>
@@ -197,7 +197,8 @@ See stories/testimonies/reliefs linked to this ailment
           </a>
         </li>
       </ul>
-
+   <div class="testimonial_main_comment_<?php echo $testimonial_detail['idtestimony'];?>">
+   </div>
       <!-- testing comments-->
     <div class="nestedcommentwrapper_<?php echo $testimonial_detail['idtestimony']?>">
     <div class="nestedcomment_<?php echo $testimonial_detail['idtestimony']?>">
@@ -270,7 +271,7 @@ See stories/testimonies/reliefs linked to this ailment
           <?php } ?>
 
         </div><!-- END container-related-article -->
-        <div class="xdr-adds-container mt-auto">
+        <div class="xdr-adds-container">
           <img class="rounded" src="https://dummyimage.com/300x600/914E05/ffffff.jpg&amp;text=adds+here" alt="">
         </div>
 

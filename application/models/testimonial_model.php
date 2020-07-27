@@ -203,8 +203,8 @@ class Testimonial_model extends CI_Model
 
    public function get_blog_comments($testimony_id) {
         $query = $this->db->query('SELECT bc.idcomment, bc.testimony_idtestimony, bc.comment_idcomment, bc.comment, 
-                    bc.datePosted FROM comment bc, testimony b
-                    WHERE bc.testimony_idtestimony=b.idtestimony AND 
+                    bc.datePosted, us.screenName FROM comment bc, testimony b ,user us
+                    WHERE bc.testimony_idtestimony=b.idtestimony AND bc.user_iduser=us.iduser AND 
                         b.idtestimony=' . $testimony_id .
                 ' ORDER BY bc.datePosted DESC');
         if ($query->num_rows() > 0) {
@@ -251,13 +251,14 @@ class Testimonial_model extends CI_Model
                 // HTML for comment item containing childrens (open)
                 $html[] = sprintf(
                         '%1$s<li id="li_comment_%2$s">' .
-                        '%1$s%1$s<div class="testimonial-discussion comment_div_%2$s"><div><span class="comment_date">%3$s</span></div>' .
-                        '%1$s%1$s<div style="margin-top:4px;">%4$s</div>' .
+                        '%1$s%1$s<div class="testimonial-discussion comment_div_%2$s"><div class="row"><div class="col-sm-6"><span class="comment_date">Username : <strong> %6$s </strong></span></div>' .  '%1$s%1$s<div class="col-sm-6" >%4$s</div></div>' .
+                        '%1$s%1$s<div style="margin-top:4px;">%3$s</div>' .
                         '%1$s%1$s<a class="btn btn-success btn-circle text-uppercase" href="javascript:void(0);" onclick="reply_to_comment(%5$s,%2$s)"><span class="glyphicon glyphicon-send"></span> Reply</a></div><br>', $tab, // %1$s = tabulation
                         $option['value']->idcomment, //%2$s id
                         $option['value']->comment, // %4$s = comment
                         $option['value']->datePosted, // %3$s = comment created_date
-                        $option['value']->testimony_idtestimony // %5$s = testimony_id
+                        $option['value']->testimony_idtestimony, // %5$s = testimony_id
+                        $option['value']->screenName // %5$s = testimony_id
                 );
                 //$check_status = "";
                 $html[] = $tab . "\t" . '<ul class="comment">';
@@ -268,14 +269,15 @@ class Testimonial_model extends CI_Model
                 // HTML for comment item with no children (aka "leaf") 
                 $html[] = sprintf(
                         '%1$s<li id="li_comment_%2$s">' .
-                        '%1$s%1$s<div class="testimonial-discussion comment_div_%2$s"><div><span class="comment_date">%3$s</span></div>' .
-                        '%1$s%1$s<div style="margin-top:4px;">%4$s</div>' .
+                        '%1$s%1$s<div class="testimonial-discussion comment_div_%2$s"><div class="row"><div class="col-sm-6"><span class="comment_date">Username : <strong> %6$s </strong></span></div>' .  '%1$s%1$s<div class="col-sm-6" >%4$s</div></div>' .
+                        '%1$s%1$s<div style="margin-top:4px;">%3$s</div>' .
                         '%1$s%1$s<a class="btn btn-success btn-circle text-uppercase" href="javascript:void(0);" onclick="reply_to_comment(%5$s,%2$s)"><span class="glyphicon glyphicon-send"></span> Reply</a></div><br>' .
                         '%1$s</li>', str_repeat("\t", ( count($parent_stack) + 1 ) * 2 - 1), // %1$s = tabulation
                         $option['value']->idcomment, //%2$s id
                         $option['value']->comment, // %4$s = comment
                         $option['value']->datePosted, // %3$s = comment created_date
-                        $option['value']->testimony_idtestimony // %5$s = testimony_id
+                        $option['value']->testimony_idtestimony, // %5$s = testimony_id
+                        $option['value']->screenName // %5$s = testimony_id
                 );
             }
         }
@@ -283,5 +285,40 @@ class Testimonial_model extends CI_Model
         // HTML wrapper for the comment (close)
         $html[] = '</ul>';
         return implode("\r\n", $html);
+    }
+
+    public function get_editors(){
+        $this->db->select('*');
+        $this->db->where("role", 1);
+        $this->db->order_by("idEditor", "desc");
+        $fetched_records = $this->db->get('editor');
+        $results = $fetched_records->result();
+        return $results;  
+    }
+
+    public function get_user_name($user_id){
+         $this->db->select('*');
+        $this->db->where("iduser", $user_id);
+        $fetched_records = $this->db->get('user');
+        $results = $fetched_records->result();
+        return $results;  
+    }
+
+    public function get_comment_user_name($comment_id){
+        $this->db->select('*');
+        $this->db->where("idcomment", $comment_id);
+        $this->db->join('user', 'user.iduser = comment.user_iduser','LEFT');
+        $fetched_records = $this->db->get('comment');
+        $results = $fetched_records->result();
+        return $results; 
+    }
+
+    public function get_testimony_user($testimony_id){
+        $this->db->select('*');
+        $this->db->join('user', 'user.iduser = testimony.user_iduser','LEFT');
+        $this->db->where('idtestimony',$testimony_id);
+        $fetched_records = $this->db->get($this->table);
+        $results = $fetched_records->result_array();
+        return $results;     
     }
 }

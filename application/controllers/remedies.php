@@ -40,7 +40,8 @@ public function __construct()
 		$config["per_page"] = 20;
 		$config["uri_segment"] = 2;
 		$config['display_pages'] = FALSE;
-		$config['use_page_numbers'] = TRUE;
+		$config['first_link'] = false;
+		$config['last_link'] = false;
 		$start = $config["per_page"] * (0-1);
 		$config['full_tag_open'] = "<ul class='pagination pagination-primary align-items-center justify-content-between'>";
 		$config['full_tag_close'] = '</ul>';
