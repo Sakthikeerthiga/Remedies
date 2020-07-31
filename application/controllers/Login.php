@@ -20,7 +20,12 @@ class Login extends CI_Controller {
 			if(!empty($this->session->userdata('logged_user'))){
 				redirect($_SERVER['HTTP_REFERER']);
 			}else{
-				$this->session->set_userdata('page_url',$_SERVER['HTTP_REFERER']);  
+				// if($_SERVER['HTTP_REFERER'] != 'https://best-remedies.com/beta/login'){
+				// $this->session->set_userdata('page_url',$_SERVER['HTTP_REFERER']);
+				// }  
+				if($_SERVER['HTTP_REFERER'] != 'http://localhost/Remedies/login'){
+				 $this->session->set_userdata('page_url',$_SERVER['HTTP_REFERER']);
+				}  
 				$this->load->view('login');
 			}
 		}else{
@@ -40,6 +45,7 @@ class Login extends CI_Controller {
 			'email'=>$this->input->post('email'),
 			'password'=>sha1($this->input->post('password')),
 			'dateReg'=> date("Y-m-d h:i"),
+			'status'=> 1
 		);
 		$insertUser = $this->Login_model->insert_user($data);
 		$from    =  "info@best-remedies.com";

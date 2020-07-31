@@ -54,6 +54,7 @@ $route['404_override'] = '';
 
 $route['about-us'] ='welcome/about_us';
 $route['sicksearch'] = 'sickness/search';
+$route['article_search'] = 'article/article_search';
 $route['remedysearch'] = 'remedies/search';
 $route['article-detail/(:any)'] ='article/detail_page/$1';
 $route['sickness-articles/(:any)/(:any)'] ='article/sickness_related_article/$1/$2';
@@ -98,5 +99,6 @@ $route['privacy-policy'] = 'welcome/privacypolicy';
 $route['disclaimer'] = 'welcome/disclaimer';
 $route['contact-us'] = 'welcome/contact_us';
 $route['search_state'] = 'login/search_state';
+$route['update_comment'] = 'testimonial/update_comment';
 
 

@@ -231,4 +231,19 @@ class Article_model extends CI_Model
             $results = $this->db->get()->result();
             return $results;
     }
+    
+        // header menu search
+    public function ajax_article_search($searchTerm="")
+    {
+        $this->db->select('*');
+        $this->db->where("seo_title like '%".$searchTerm."%' ");
+        $fetched_records = $this->db->get($this->table);
+        $results = $fetched_records->result_array();
+
+        $data = array();
+        foreach($results as $result){
+            $data[] = array("id"=>$result['idarticle'], "text"=>$result['seo_title'],"link"=>$result['articleUrl']);
+        }
+        return $data;
+    }
 }

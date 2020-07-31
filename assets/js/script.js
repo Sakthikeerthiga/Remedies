@@ -1,5 +1,7 @@
 var searchRequest = null;
+// var base_url = 'https://best-remedies.com/beta/';
 var base_url = 'http://localhost/Remedies/';
+
 
 // Ajax post  
 $(document).ready(function(){  
@@ -223,6 +225,39 @@ $(function () {
             $("#listsearch").html('');
         }
     });
+    
+    /*article_search search*/
+    $("#article_search").keyup(function () {
+        var that = this,
+        value = $(this).val();
+
+        if (value.length >= minlength ) {
+            if (searchRequest != null) 
+                searchRequest.abort();
+            searchRequest = $.ajax({
+                type: "GET",
+                url: base_url+'article_search',
+                data: {
+                    'search_keyword' : value
+                },
+                dataType: "text",
+                success: function(msg){
+                    var html = '';
+                    var dataObj = jQuery.parseJSON(msg);
+                    if(dataObj.length > 0){
+                        $(dataObj).each(function(i,val){
+                            html += '<a href="'+base_url+'article-detail/'+val.link+'"><li data-id="'+val.id+'">'+val.text+'</li></a>';
+                        });
+                    }else{
+                        html += '<li>No Related Data Found</li>';
+                    }
+                    $("#listsearch").html(html);
+                }
+            });
+        }else{
+            $("#listsearch").html('');
+        }
+    });
 
 
     $(document).on("click",".sicknesslist",function() {
@@ -302,6 +337,7 @@ function add_comment(testimony_id){
     if(user_id != ''){
       var html = ' <div class="reply_comment_div_'+comment_id+'"><div class="form-group"> <span id="close_comment" onclick="close_comment_reply('+comment_id+')">x</span></div><div class="form-group"><label for="email" class="col-sm-2 control-label">Comment</label><div class="row"><div class="new-reply col-sm-9"><textarea class="form-control" rows="3"  id="new_comment_'+comment_id+'"></textarea></div><div class="col-sm-3" style="margin:auto"><a class="btn btn-success btn-circle text-uppercase" href="javascript:void(0);" onclick="submitReplyComment('+testimony_id+','+comment_id+')">Submit</a></div></div></div></div>';
       $(".comment_div_"+comment_id).after(html);
+      $("#new_comment_"+comment_id).focus();
     }else{
       var testimonial_login = confirm("Please Login/Sign up");
       if (testimonial_login == true) {
@@ -328,9 +364,7 @@ function add_comment(testimony_id){
       url: base_url+'add_reply_comment',
       type: 'post',
       data: {user_iduser:user_id,testimony_idtestimony:testimony_id,comment:comment,idcomment:comment_id,location_url:location_url},
-      beforeSend: function(){
-        $("#loader").show();
-      },
+      
       success: function(response){
         var url = window.location.href;
         $('.nestedcommentwrapper_'+testimony_id).load(url + ' .nestedcomment_'+testimony_id); 
@@ -357,4 +391,29 @@ function add_comment(testimony_id){
     } else {
         return false;
     }
+  }
+  
+  function editComment(id,testimony_id){
+    var comment = $(".comment_section_"+id).text();
+    $("#comment").val(comment);
+    $("#comment_id").val(id);
+    $("#testimony_id").val(testimony_id);
+    $("#myModal").modal('show');
+  }
+
+  function update_edit() {
+      var form = $( "#update_comment" ).serializeArray();
+
+      $.ajax({
+            url: base_url+'update_comment',
+            type: "POST",
+            data:form,
+            success:function(data) {
+                    $("#myModal").modal('hide');
+                    var url = window.location.href;
+                    $('.nestedcommentwrapper_'+data).load(url + ' .nestedcomment_'+data); 
+                
+            }
+        
+      });
   }

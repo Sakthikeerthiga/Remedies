@@ -47,7 +47,7 @@ public function index()
    public function about_us()
 	{
 		$data['about_us']= $this->Editor_model->get_writers();
-
+		$data['content'] = $this->Editor_model->get_about_content();
 		$this->load->view('about_us',$data);
 	}
 

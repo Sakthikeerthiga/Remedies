@@ -3,7 +3,112 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!-- header menu -->
 <?php  $this->load->view('includes/header_menu.php');?>
+<?php
+$dataPoints = array();
+foreach($remedy_chart as $remedychart) {
+  array_push($dataPoints, array("y"=> $remedychart['testimony_count'],"label"=>$remedychart['remedy_name']));
+}
 
+
+$dataPoints1 = array();
+foreach($relief_chart as $reliefchart) {
+  array_push($dataPoints1, array("y"=> $reliefchart['relief_count'],"label"=>$reliefchart['relief_name']));
+}
+
+?>
+
+
+
+
+<script>
+
+  window.onload = function() {
+
+    CanvasJS.addColorSet("greenShades",
+[//colorSet Array
+
+"#2B60DE",
+"#B161ED",
+"#ED61B5",
+"#ED616F",
+"#ED6B61",
+"#ED8261",
+"#EDDF61",
+"#FFFD7F",
+"#ACFF80",
+"#66B93A"          
+]);
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+      colorSet: "greenShades",
+      animationEnabled: true,
+      exportEnabled: true,
+theme: "light1", // "light1", "light2", "dark1", "dark2"
+title:{
+  text: "Remedies for this sickness",
+  fontColor: "#66B93A",
+  fontFamily: "tahoma",
+  fontSize: 30
+},
+axisY: {
+  title: "Testimonial Count",
+  labelFontColor: "#3ABA8D",
+  titleFontColor: "#3ABA8D"
+
+},
+axisX:{
+  labelFontColor: "#151B8D",
+},
+data: [{
+  type: "bar",
+  yValueFormatString: "",
+  indexLabel: "{y}",
+  indexLabelPlacement: "inside",
+  indexLabelFontWeight: "bolder",
+  indexLabelFontColor: "white",
+  dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+}]
+});
+    chart.render();
+
+
+
+
+    var chart = new CanvasJS.Chart("chartContainer1", {
+      animationEnabled: true,
+      exportEnabled: true,
+theme: "light1", // "light1", "light2", "dark1", "dark2"
+title:{
+  text: "Relief for this sickness",
+  fontColor: "#66B93A",
+  fontFamily: "tahoma",
+
+},
+axisY: {
+  title: "User's vote Count",
+  labelFontColor: "#3ABA8D",
+  titleFontColor: "#3ABA8D"
+
+},
+axisX:{
+  labelFontColor: "#151B8D",
+},
+data: [{
+  type: "bar",
+  yValueFormatString: "",
+  indexLabel: "{y}",
+  indexLabelPlacement: "inside",
+  indexLabelFontWeight: "bolder",
+  indexLabelFontColor: "white",
+  dataPoints: <?php echo json_encode($dataPoints1, JSON_NUMERIC_CHECK); ?>
+}]
+});
+    chart.render();
+
+
+  }
+
+</script>
 <!-- breadcrumb section -->
 <div class="container">
   <nav aria-label="breadcrumb">
@@ -41,9 +146,18 @@ RESULT BY TESTIMONIES
 </h4> -->
 </div>
 <div class="col-lg-8 article-details">
+<!-- barchart -->
+<?php if(!empty($remedy_chart) || !empty($relief_chart) ){ ?>
+  <div id="chartContainer" style="height: 370px; width: 100%;"></div><br>
+  <div id="chartContainer1" style="height: 370px; width: 100%;"></div>
 
-  <img src="https://dummyimage.com/745x365/3c7800/ffffff.jpg&text=Image+Here" alt="">
-  <img src="https://dummyimage.com/745x365/3c7800/ffffff.jpg&text=Image+Here" alt="">
+<?php }else{ ?>
+  <p class="info_mark">"We are still gathering data on this item and will display at a later
+time. But you still can get good information in this page below".</p>
+<?php } ?>
+
+<br>
+
   <p class="font-italic mt-4 mb-5">
 <!--  <a href="#">
 <u>
@@ -67,7 +181,7 @@ See stories/testimonies/reliefs linked to this ailment
           <div class="row no-gutters">
             <div class="col-6 small">
               <strong>Username:</strong>
-              <?php echo $testimonial_detail['firstName'] .' '.$testimonial_detail['lastName'] ;?>
+              <?php echo $testimonial_detail['screenName'];?>
               <br>
               <strong>Status:</strong>
               <?php if($testimonial_detail['status'] == 1){?>
@@ -102,7 +216,7 @@ See stories/testimonies/reliefs linked to this ailment
           </div>
         </div>
         <?php if($testimonial_detail['user_iduser'] == $this->session->userdata('logged_user')['user_id']){ ?>
-        <div style="float: right;"> <a href="<?php echo base_url().'edit-testimony/'.$testimonial_detail['user_iduser']  ?>"><img src="<?php echo base_url();?>assets/img/edit.svg" height="25" class="mr-1 mb-0" alt=""></a></div>
+        <div style="float: right;"> <a href="<?php echo base_url().'edit-testimony/'.$testimonial_detail['idtestimony']  ?>"><img src="<?php echo base_url();?>assets/img/edit.svg" height="25" class="mr-1 mb-0" alt=""></a></div>
       <?php } ?>
         <div class="testimonial-discussion__body">
           <?php echo $testimonial_detail['story'];?>
@@ -283,5 +397,28 @@ See stories/testimonies/reliefs linked to this ailment
 </div>
 </section>
 
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+       <!--  <h4 class="modal-title">Modal Header</h4> -->
+      </div>
+      <div class="modal-body">
+        <form action="post" id="update_comment">
+        <textarea class="form-control" name="comment" id="comment"></textarea>
+        <input type="hidden" name="comment_id" id="comment_id" value="">
+        <input type="hidden" name="testimony_id" id="testimony_id" value="">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" onclick="update_edit();">Update</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 <!-- footer menu -->
 <?php  $this->load->view('includes/footer_menu.php');?>

@@ -172,9 +172,10 @@ class Testimonial extends CI_Controller {
 				'scientificName'=>$this->input->post('sickness_idsickness')
 			);
 			$sickness_idsickness = $this->Testimonial_model->insert_sickness($data);
+			$page_name =  strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-',$sickness_name)));
 
 			$data_meta = array( 
-				'pageName' => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-',$sickness_name))),
+				'pageName' => $page_name,
 				'title' => $sickness_name); 
 			$this->db->insert('metatags', $data_meta); 
 
@@ -184,17 +185,18 @@ class Testimonial extends CI_Controller {
 				$from    =  "info@best-remedies.com";
 				$to      =  $editor->email;
 				$subject = 'Notification For New sickness'; 
-				$data = array('name' => $editor->firstName.' '.$editor->surname,'subject' => 'Notification For New sickness','message' => '
+				$mail_data = array('name' => $editor->firstName.' '.$editor->surname,'subject' => 'Notification For New sickness','message' => '
 					<html> 
 					<head> 
 					<title>One new sickness was added by user</title> 
 					</head> 
 					<body> 
-					<h1>Sickness Name : '.base_url().'condition/'.$this->input->post('sickness_idsickness').' </h1> 
+					<h1>Sickness Name :'.$sickness_name.' </h1>
+					<p> Sickness URL : '.base_url().'condition/'.$page_name.' </p> 
 					<br>
 					</body> 
 					</html>');
-				$this->htmlmail($from,$to,$subject,$data);
+				$this->htmlmail($from,$to,$subject,$mail_data);
 			}
 
 		}
@@ -220,17 +222,18 @@ class Testimonial extends CI_Controller {
 				$from    =  "info@best-remedies.com";
 				$to      =  $editor->email;
 				$subject = 'Notification For New Remedy'; 
-				$data = array('name' => $editor->firstName.' '.$editor->surname,'subject' => 'Notification For New Remedy','message' => '
+				$mail_data = array('name' => $editor->firstName.' '.$editor->surname,'subject' => 'Notification For New Remedy','message' => '
 					<html> 
 					<head> 
 					<title>One new remedy was added by user</title> 
 					</head> 
 					<body> 
-					<h1>Sickness Name : '.base_url().'condition/'.$remedy_name.' </h1> 
+					<h1>Remedy Name : '.$remedy_name.' </hl>
+					<p> Remedy URL : '.base_url().'remedy-testimony/'.strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-',$remedy_name))).' </p> 
 					<br>
 					</body> 
 					</html>');
-				$this->htmlmail($from,$to,$subject,$data);
+				$this->htmlmail($from,$to,$subject,$mail_data);
 			}
 
 		}
@@ -267,7 +270,7 @@ class Testimonial extends CI_Controller {
 				'screenName'=> $this->input->post('screenName'),
 				'email'=> $this->input->post('email'),
 				'password'=>sha1($this->input->post('password')),
-				'status' => 2
+				'status' => 1
 			);
 			$insertUser = $this->Login_model->insert_user($userdata);
 // mail functionality
@@ -275,7 +278,7 @@ class Testimonial extends CI_Controller {
 			$from    =  "info@best-remedies.com";
 			$to      =  $this->input->post('email');
 			$subject = 'Thank you for joining with us'; 
-			$data = array('name' => $this->input->post('screenName'),'subject' => 'Please find your login details below','message' => '
+			$mail_data = array('name' => $this->input->post('screenName'),'subject' => 'Please find your login details below','message' => '
 				<html> 
 				<head> 
 				<title>Welcome to Best-Remedies</title> 
@@ -297,7 +300,7 @@ class Testimonial extends CI_Controller {
 				that the source of the data is indeed credible. We are sure that you are….just one small click and we should be good!</p>
 				</body> 
 				</html>');
-			$this->htmlmail($from,$to,$subject,$data);
+			$this->htmlmail($from,$to,$subject,$mail_data);
 
 
 			if($insertUser){
@@ -320,19 +323,107 @@ class Testimonial extends CI_Controller {
 
 		}
 		$insertNewPost = $this->Testimonial_model->insert_testimonial_new_post($data);
+		
+		if($insertNewPost){
+           $get_user_email = $this->db->get_where('user', array('iduser' => $insertUser))->row()->email;
+           $userName = $this->db->get_where('user', array('iduser' => $insertUser))->row()->screenName;
+
+		    $query = $this->db->get('admin');
+			$ret = $query->row();
+			$get_admin_email = $ret->email;
+            // administeredBy
+            if($this->input->post('administeredBy') == 1){
+                $administeredBy = 'Self';
+            }elseif($this->input->post('administeredBy') == 2){
+                $administeredBy = 'Medical Doctor';
+            }else{
+                $administeredBy = 'Other';
+            }
+
+            // administeredTo
+            if($this->input->post('administeredTo') == 1){
+                $administeredTo = 'Self';
+            }elseif($this->input->post('administeredTo') == 2){
+                $administeredTo = 'Patient';
+            }else{
+                $administeredTo = 'Other';
+            }
+                  // experience
+            if($this->input->post('overallExperience') == 1){
+                $overallExperience = 'Positive';
+            }elseif($this->input->post('overallExperience') == 2){
+                $overallExperience = 'Negative';
+            }else{
+                $overallExperience = 'No Effect';
+            }
+            
+           //dosage 
+            $dosage_unit =  $this->db->get_where('dosageunit', array('iddosageUnit' => $this->input->post('dosage')))->row()->unitName;
+            $relief_name =  $this->db->get_where('relieftype', array('idrelief' => $this->input->post('relief_idrelief')))->row()->type;
+            $remedy_name =  $this->db->get_where('remedy', array('idremedy' => $remedy_idremedy))->row()->name;
+            $sickeness_name =  $this->db->get_where('sickness', array('idsickness' => $sickness_idsickness ))->row()->commonName;
+
+
+			$from    =  "info@best-remedies.com";
+			$to      =  $get_user_email;
+			$cc      =  $get_admin_email;
+			$subject = 'Thank you for submitting your stories!! '; 
+			$data = array('name' => $userName,'subject' => 'Thank you for submitting your story with us ','message' => '
+				<html> 
+				<head> 
+				<title>Welcome to Best-Remedies</title> 
+				</head> 
+				<body> 
+				<h1>Thank you for submitting your stories!!</h1> 
+				<table style="text-align:left;width: 100%;"> 
+				<tr> 
+				<td style="width:100px;">Sickness:</th><td style="text-align:left;">'.$sickeness_name.'</td> 
+				</tr> 
+				<tr > 
+				<td style="width:100px;">Remedy:</th><td style="text-align:left;">'.$remedy_name.'</td> 
+				</tr> 
+				<tr > 
+				<td style="width:100px;">Relief:</th><td style="text-align:left;">'.$relief_name.'</td> 
+				</tr> 
+				<tr > 
+				<td style="width:100px;">dosage:</th><td style="text-align:left;">'.$dosage_unit.'</td> 
+				</tr> 
+				<tr > 
+				<td style="width:100px;">administeredTo:</th><td style="text-align:left;">'.$administeredTo.'</td> 
+				</tr> 
+				<tr > 
+				<td style="width:100px;">administeredBy:</th><td style="text-align:left;">'.$administeredBy.'</td> 
+				</tr> 
+				<tr > 
+				<td style="width:100px;">overallExperience:</th><td style="text-align:left;">'.$overallExperience.'</td>
+				</tr> 
+				<td style="width:100px;">warnings:</th><td style="text-align:left;">'.$this->input->post('warnings').'</td> 
+				</tr> 
+				<td style="width:100px;">story:</th><td style="text-align:left;">'.$this->input->post('story').'</td> 
+				</tr> 
+				</table> 
+				<p>Thank you a million times for taking the time to share you testimony! </p>
+				</body> 
+				</html>');
+			$this->htmlmail($from,$to,$subject,$data,$cc);
+		}
+		
 		$sicknessid = $sickness_idsickness;
 		$sickness_name = $this->db->get_where('sickness', array('idsickness' => $sickness_idsickness))->row()->commonName; 
 		$sickness_slug = $this->db->get_where('metatags', array('title' => $sickness_name))->row()->pageName;
+
 		if( $this->input->post('overallExperience') == 1){
 			$update = $this->db->query("UPDATE trendingsearches SET positiveTestimonies = positiveTestimonies + 1 WHERE sickness_idsickness = $sicknessid");
 		}
-		if($this->email->send())
+		
+		
+	    if($insertUser)
 		{
 			$this->session->set_flashdata('testimonial_add_msg', 'Your story has been added successfully.Please check your email for login credential');
 			redirect('condition/'.$sickness_slug);
 		}else{
 
-			$this->session->set_flashdata('testimonial_add_msg', 'Your story has been added successfully.There was the problem in Mail sending.');
+			$this->session->set_flashdata('testimonial_add_msg', 'Your story has been added successfully.');
 			redirect('condition/'.$sickness_slug);
 		}
 
@@ -351,19 +442,19 @@ class Testimonial extends CI_Controller {
 			//mail function
 			$from    =  "info@best-remedies.com";
 			$to      =  $get_testimony_user_id[0]->email;
-			$subject = 'Notification For New Remedy'; 
-			$data = array('name' => $get_testimony_user_id[0]->firstName.' '.$get_testimony_user_id[0]->lastName,'subject' => strtoupper($logged_user_name).'replied to your Post','message' => '
+			$subject = 'you have received a comment to your post '; 
+			$mail_data = array('name' => $get_testimony_user_id[0]->firstName.' '.$get_testimony_user_id[0]->lastName.'&nbsp;','subject' => ' You have reply to your comment','message' => '
 			<html> 
 			<head> 
 			<title>You have reply to your Post</title> 
 			</head> 
 			<body> 
-			<h1>'.strtoupper($logged_user_name).'replied to your Post</h1> 
-			<p><button type="button" class="btn btn-info">< a href="'.$_POST['location_url'].'" target="_blank">JOIN CONVERSATION</a></button>
+			<h1>'.strtoupper($logged_user_name).' replied to your Post</h1> 
+			<p><a href="'.$_POST['location_url'].'" target="_blank"><button type="button" class="btn btn-primary" style="background-color:#5348f1;padding:10px;border:0px;color:#fff;">JOIN CONVERSATION</button></a></p>
 			<br>
 			</body> 
 			</html>');
-			$this->htmlmail($from,$to,$subject,$data);
+			$this->htmlmail($from,$to,$subject,$mail_data);
 
 		}
 		if($res){  
@@ -386,19 +477,19 @@ class Testimonial extends CI_Controller {
 		//mail function
 		$from    =  "info@best-remedies.com";
 		$to      =  $reply_user[0]->email;
-		$subject = 'Notification For New Remedy'; 
-		$data = array('name' => $reply_user[0]->firstName.' '.$reply_user[0]->lastName,'subject' => strtoupper($logged_user_name).'replied to your comment','message' => '
+		$subject = 'you have received a comment to your post'; 
+		$mail_data = array('name' => $reply_user[0]->firstName.' '.$reply_user[0]->lastName.'&nbsp;','subject' => 'You have reply to your comment','message' => '
 		<html> 
 		<head> 
 		<title>You have reply to your comment</title> 
 		</head> 
 		<body> 
-		<h1>'.strtoupper($logged_user_name).'replied to your comment</h1> 
-		<p><button type="button" class="btn btn-info">< a href="'.$_POST['location_url'].'" target="_blank">JOIN CONVERSATION</a></button>
+		<h1>'.strtoupper($logged_user_name).' replied to your comment</h1> 
+	   	<p><a href="'.$_POST['location_url'].'" target="_blank"><button type="button" class="btn btn-primary" style="background-color:#5348f1;padding:10px;border:0px;color:#fff;">JOIN CONVERSATION</button></a></p>
 		<br>
 		</body> 
 		</html>');
-		$this->htmlmail($from,$to,$subject,$data);
+		$this->htmlmail($from,$to,$subject,$mail_data);
 
 		}
 		$data['testimony_idtestimony']=htmlspecialchars($_POST['testimony_idtestimony']); 
@@ -421,6 +512,15 @@ class Testimonial extends CI_Controller {
 		$this->load->model('Email_model');
 		$mail = $this->Email_model->send_mail($from,$to,$subject,$msg);
 	}
+	
+	 public function update_comment()
+	 {
+	 	$data = array('comment'=>$this->input->post('comment'));
+	 	$this->db->where('idcomment', $this->input->post('comment_id'));
+		$this->db->update('comment',$data);
+		echo $this->input->post('testimony_id');
+
+	 } 
 
 
 }

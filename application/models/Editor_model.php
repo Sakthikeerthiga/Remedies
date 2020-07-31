@@ -26,4 +26,11 @@ class Editor_model extends CI_Model
         $results = $fetched_records->result_array();
         return $results;     
      }
+     
+    public function get_about_content(){
+        $this->db->select('*');
+        $fetched_records = $this->db->get('aboutus');
+        $results = $fetched_records->result();
+        return $results;     
+     }
 }

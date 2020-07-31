@@ -199,6 +199,16 @@ class Article extends CI_Controller {
 		$data['article_list']= $this->Article_model->article_list_detail($config["per_page"], $page);
 		$this->load->view('article_list', $data);
 	}
+	
+	// Remedy Listing page search functionality
+	public function article_search()
+	{
+		$searchTerm = $this->input->get('search_keyword');
+
+		$response = $this->Article_model->ajax_article_search($searchTerm);
+
+		echo json_encode($response);
+	}
 
 	public function rateArticle()
 	{

@@ -113,6 +113,7 @@ class Admin extends CI_Controller {
 
 	}
 
+
 // public function questionCategory() { $output = $this->grocery_crud->render();
 
 // $this->_category_output($output);
@@ -160,6 +161,24 @@ public function homePage() {
 	}
 }
 
+public function adminTable() {
+	if(!empty($this->session->userdata('admin_login')['is_admin'])){
+
+		$crud = new grocery_CRUD();
+		$crud->field_type('idadmin', 'hidden');
+		$crud->set_table('admin');
+		$crud->required_fields('name','surname','username','email','password');
+		$crud->change_field_type('password', 'password');
+		$crud->callback_before_insert(array($this,'encrypt_pw'));
+		$crud->callback_before_update(array($this,'encrypt_pw'));
+		$output = $crud->render();
+		$this->_example_output($output);
+	}else{
+		redirect('/Admin');
+	}
+}
+
+
 /*public function dosageUnit() { $output = $this->grocery_crud->render();
 
 $this->_category_output($output);
@@ -187,6 +206,21 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	}else{
 			redirect('/Admin');
 	}
+}
+
+public function aboutUs() { 
+		if(!empty($this->session->userdata('admin_login')['is_admin'])){
+			$crud = new grocery_CRUD();
+
+			$crud->set_table('aboutus');
+			$crud->set_subject('About Us');
+		    $crud->field_type('idaboutUs', 'hidden');
+			$crud->required_fields('bodyText');
+			$output = $crud->render();
+			$this->_example_output($output);
+		}else{
+			redirect('/Admin');
+		}
 }
 
 public function remedy() {
@@ -274,9 +308,9 @@ if(!empty($this->session->userdata('admin_login')['is_admin'])){
 	$crud = new grocery_CRUD();
 	$crud->set_table('article');
 	$crud->set_subject('Articles');
-	$crud->set_relation('editor_idEditor','editor','surname');
-	$crud->set_relation('reviewerId','editor','surname');
-	$crud->set_relation('authorId','editor','surname');
+	$crud->set_relation('editor_idEditor','editor','{firstName} {surname}');
+	$crud->set_relation('reviewerId','editor','{firstName} {surname}');
+	$crud->set_relation('authorId','editor','{firstName} {surname}');
 	$crud->set_field_upload('thumbnailImage','assets/uploads/article');
 	$crud->display_as('reviewerId','Reviewer');
 	$crud->display_as('authorId','Author');

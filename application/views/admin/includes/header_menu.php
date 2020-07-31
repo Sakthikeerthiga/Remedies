@@ -47,6 +47,10 @@
               <div class="sb-nav-link-icon"><i class="fa fa-user"></i></div>
               Users
             </a>
+             <a class="nav-link <?php echo (current_url() == base_url().'Admin/adminTable' || current_url() == base_url().'Admin/adminTable/add' || current_url() == base_url().'Admin/adminTable/edit/'.$url_id || current_url() == base_url().'Admin/adminTable/read/'.$url_id || current_url() == base_url().'Admin/adminTable/clone/'.$url_id ) ? 'active': '' ?>" href="<?php echo site_url('Admin/adminTable')?>">
+              <div class="sb-nav-link-icon"><i class="fa fa-user-plus"></i></div>
+              Admin
+            </a>
             
             <a class="nav-link  <?php echo (current_url() == base_url().'Admin/questionCategory' || current_url() == base_url().'Admin/questionCategory/add' || current_url() == base_url().'Admin/questionCategory/edit/'.$url_id  || current_url() == base_url().'Admin/questionCategory/read/'.$url_id || current_url() == base_url().'Admin/questionCategory/clone/'.$url_id  ||  current_url() == base_url().'Admin/questions'  ||  current_url() == base_url().'Admin/questions/add'  ||  current_url() == base_url().'Admin/questions/edit/'.$url_id   ||  current_url() == base_url().'Admin/questions/read/'.$url_id ||  current_url() == base_url().'Admin/questions/clone/'.$url_id) ? '': 'collapsed' ?> " href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
               <div class="sb-nav-link-icon"><i class="fas fa-question-circle"></i></div>
@@ -61,7 +65,11 @@
                 <a class="nav-link <?php echo ( current_url() == base_url().'Admin/questions'  ||  current_url() == base_url().'Admin/questions/add'  ||  current_url() == base_url().'Admin/questions/edit/'.$url_id   ||  current_url() == base_url().'Admin/questions/read/'.$url_id ||  current_url() == base_url().'Admin/questions/clone/'.$url_id) ? 'active': '' ?> " href="<?php echo site_url('Admin/questions')?>">Questions</a>
               </nav>
             </div>
-
+            
+            <a class="nav-link  <?php echo (current_url() == base_url().'Admin/aboutUs' || current_url() == base_url().'Admin/aboutUs/add' || current_url() == base_url().'Admin/aboutUs/edit/'.$url_id || current_url() == base_url().'Admin/aboutUs/read/'.$url_id || current_url() == base_url().'Admin/aboutUs/clone/'.$url_id ) ? 'active': '' ?>"  href="<?php echo site_url('Admin/aboutUs')?>">
+              <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+              About us Page
+            </a>
 
             <a class="nav-link  <?php echo (current_url() == base_url().'Admin/homePage' || current_url() == base_url().'Admin/homePage/add' || current_url() == base_url().'Admin/homePage/edit/'.$url_id || current_url() == base_url().'Admin/homePage/read/'.$url_id || current_url() == base_url().'Admin/homePage/clone/'.$url_id ) ? 'active': '' ?>"  href="<?php echo site_url('Admin/homePage')?>">
               <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>

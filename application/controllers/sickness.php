@@ -41,6 +41,7 @@ class Sickness extends CI_Controller {
 		$Testimoniescnt = $this->db->get_where('testimony', array('sickness_idsickness' => $sickness_id))->num_rows();
 		$homePage_id = $this->db->get('homepage')->row()->idhomePage;
 		$slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-',$trendTitle)));
+		$update_image = $this->db->query("UPDATE trendingsearches SET trendPic = '".$trendPic."' WHERE sickness_idsickness = $sickness_id");
 if($checkexists == 0){ //Insert new sickness to trendingsearches table
 
 	$data = array(

@@ -76,7 +76,7 @@ b.text-secondary.article_part{
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable{background-color: rgb(61 120 0) !important;}
 
 .img-responsive {
-    width: auto;
+    width: 251px;
     height: 200px;
 }
 .testimonial_design{max-height: 900px;
